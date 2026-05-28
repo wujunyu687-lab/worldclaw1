@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
   <meta charset="utf-8">
-  <meta name="description" content="WorldClaw: a local research control plane for world-model training, evaluation, diagnosis, and closed-loop repair.">
-  <meta name="keywords" content="World Models, ACWM, Evaluation, Training Loop, Robotics, Research Infrastructure">
+  <meta name="description" content="WorldClaw: a local research control plane for world-model training, evaluation, diagnosis, patch planning, and experiment memory.">
+  <meta name="keywords" content="World Models, ACWM, Evaluation, Research Infrastructure, Control Plane">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>WorldClaw Project Page</title>
 
@@ -25,9 +25,11 @@
       --accent: #2563eb;
       --accent-soft: rgba(37, 99, 235, 0.14);
       --accent-gradient: linear-gradient(90deg, #ef4444 0%, #2563eb 55%, #8b5cf6 100%);
-      --teal: #0f766e;
-      --lime: #4d7c0f;
-      --amber: #b45309;
+      --success-soft: #e8f7ec;
+      --success-ink: #1f7a3d;
+      --warm-soft: #fff3e6;
+      --warm-ink: #c65d0e;
+      --muted-soft: #eef3ff;
     }
 
     html {
@@ -35,7 +37,7 @@
     }
 
     body {
-      font-family: 'Noto Sans', sans-serif;
+      font-family: "Noto Sans", sans-serif;
       background:
         radial-gradient(circle at top left, rgba(37, 99, 235, 0.08), transparent 28%),
         linear-gradient(180deg, #f8fbff 0%, var(--page-bg) 100%);
@@ -129,31 +131,22 @@
       color: var(--accent);
     }
 
-    .title-color {
-      background: var(--accent-gradient);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      font-weight: 800;
-    }
-
-    .subtitle-small {
-      font-size: 1.18rem !important;
-      margin-top: 12px !important;
-      color: #475569;
-      line-height: 1.7;
-      max-width: 980px;
-      margin-left: auto;
-      margin-right: auto;
-    }
-
     .publication-title {
-      max-width: 1120px;
+      max-width: 1080px;
       margin: 0 auto;
-      font-family: 'Google Sans', 'Noto Sans', sans-serif;
-      font-size: clamp(2.2rem, 3.8vw, 3.5rem) !important;
+      font-family: "Google Sans", "Noto Sans", sans-serif;
+      font-size: clamp(2.15rem, 3.7vw, 3.4rem) !important;
       line-height: 1.08;
       letter-spacing: -0.045em;
       text-wrap: balance;
+    }
+
+    .title-color {
+      background: var(--accent-gradient);
+      -webkit-background-clip: text;
+      background-clip: text;
+      -webkit-text-fill-color: transparent;
+      font-weight: 800;
     }
 
     .title-line-break {
@@ -161,17 +154,31 @@
       height: 0.12em;
     }
 
+    .publication-subtitle {
+      max-width: 900px;
+      margin: 18px auto 0;
+      color: var(--text-soft);
+      font-size: 1.05rem;
+      line-height: 1.72;
+    }
+
     .publication-authors {
-      display: flex;
-      justify-content: center;
-      gap: 0.4rem;
-      flex-wrap: wrap;
+      margin-top: 18px;
       color: #334155;
     }
 
-    .author-block a {
-      color: inherit;
-      text-decoration: none;
+    .author-block {
+      display: inline-block;
+      margin: 0 8px;
+    }
+
+    .hero {
+      position: relative;
+    }
+
+    .hero-body {
+      padding-top: 2.4rem;
+      padding-bottom: 1.2rem;
     }
 
     .publication-links {
@@ -179,6 +186,7 @@
       justify-content: center;
       gap: 20px;
       flex-wrap: wrap;
+      margin-top: 12px;
     }
 
     .button-gap {
@@ -197,27 +205,28 @@
       filter: saturate(1.05);
     }
 
-    .button-repo {
-      background: #0f172a !important;
-      color: #ffffff !important;
+    .button-arxiv {
+      background: #fde8e8 !important;
+      color: #b42318 !important;
+      border-color: rgba(180, 35, 24, 0.14) !important;
     }
 
-    .button-intro {
+    .button-paper {
       background: #e8f1ff !important;
       color: #1d4ed8 !important;
       border-color: rgba(29, 78, 216, 0.14) !important;
     }
 
-    .button-loop {
+    .button-policy {
       background: #e8f7ec !important;
       color: #1f7a3d !important;
       border-color: rgba(31, 122, 61, 0.14) !important;
     }
 
-    .button-layout {
-      background: #fff3e8 !important;
-      color: #b45309 !important;
-      border-color: rgba(180, 83, 9, 0.14) !important;
+    .button-note {
+      background: #fff3e6 !important;
+      color: #c65d0e !important;
+      border-color: rgba(198, 93, 14, 0.14) !important;
     }
 
     .section {
@@ -235,7 +244,7 @@
 
     .section-heading .title {
       margin-bottom: 0;
-      font-family: 'Google Sans', 'Noto Sans', sans-serif;
+      font-family: "Google Sans", "Noto Sans", sans-serif;
       font-size: clamp(1.85rem, 2.3vw, 2.35rem);
       line-height: 1.1;
       letter-spacing: -0.04em;
@@ -265,7 +274,7 @@
     }
 
     .overview-panel::before {
-      content: '';
+      content: "";
       position: absolute;
       inset: 0;
       background:
@@ -279,21 +288,28 @@
       z-index: 1;
     }
 
-    .contributions-intro {
-      max-width: 920px;
+    .contributions-intro,
+    .section-copy {
+      max-width: 980px;
       margin: 0 auto 26px;
       color: var(--text-soft);
       font-size: 1.02rem;
       line-height: 1.75;
     }
 
-    .contributions-grid {
+    .contributions-grid,
+    .capability-grid,
+    .artifact-grid,
+    .note-grid {
       display: grid;
       grid-template-columns: repeat(3, minmax(0, 1fr));
       gap: 18px;
     }
 
-    .contribution-card {
+    .contribution-card,
+    .artifact-card,
+    .capability-card,
+    .note-card {
       height: 100%;
       padding: 24px 22px 22px;
       border-radius: 24px;
@@ -305,12 +321,12 @@
     }
 
     .contribution-card:hover,
+    .artifact-card:hover,
+    .capability-card:hover,
+    .note-card:hover,
     .feature-media:hover,
-    .flow-card:hover,
-    .summary-card:hover,
-    .tool-card:hover,
-    .code-shell:hover,
-    .citation-box:hover {
+    .gray-box-container:hover,
+    .code-panel:hover {
       transform: translateY(-4px);
       box-shadow: var(--surface-shadow-hover);
       border-color: rgba(37, 99, 235, 0.18);
@@ -331,16 +347,22 @@
       letter-spacing: 0.08em;
     }
 
-    .contribution-card h3 {
+    .contribution-card h3,
+    .artifact-card h3,
+    .capability-card h3,
+    .note-card h3 {
       margin-bottom: 10px;
-      font-family: 'Google Sans', 'Noto Sans', sans-serif;
+      font-family: "Google Sans", "Noto Sans", sans-serif;
       font-size: 1.12rem;
       font-weight: 700;
       line-height: 1.3;
       color: var(--text-strong);
     }
 
-    .contribution-card p {
+    .contribution-card p,
+    .artifact-card p,
+    .capability-card p,
+    .note-card p {
       margin: 0;
       color: var(--text-soft);
       font-size: 0.96rem;
@@ -351,241 +373,244 @@
       display: inline-flex;
       align-items: center;
       gap: 10px;
-      margin-top: 22px;
-      color: var(--accent);
-      font-weight: 700;
-      letter-spacing: 0.03em;
-      text-decoration: none;
+      margin-top: 24px;
+      padding: 12px 16px;
+      border-radius: 999px;
+      color: var(--text-soft);
+      background: rgba(255, 255, 255, 0.66);
+      border: 1px solid rgba(148, 163, 184, 0.16);
+      box-shadow: 0 10px 28px rgba(15, 23, 42, 0.06);
     }
 
     .hero-scroll-arrow {
-      width: 0.75rem;
-      height: 0.75rem;
-      border-left: 2px solid currentColor;
-      border-bottom: 2px solid currentColor;
-      transform: rotate(-45deg);
-      animation: bounce 1.6s infinite;
+      width: 12px;
+      height: 12px;
+      border-right: 2px solid var(--accent);
+      border-bottom: 2px solid var(--accent);
+      transform: rotate(45deg);
+      animation: nudge 1.5s ease-in-out infinite;
     }
 
-    @keyframes bounce {
-      0%, 100% { transform: translateY(0) rotate(-45deg); }
-      50% { transform: translateY(5px) rotate(-45deg); }
+    @keyframes nudge {
+      0%, 100% { transform: rotate(45deg) translate(0, 0); }
+      50% { transform: rotate(45deg) translate(2px, 2px); }
     }
 
-    .gray-box-container {
+    .feature-media,
+    .gray-box-container,
+    .code-panel {
       background: rgba(255, 255, 255, 0.72);
       border: 1px solid var(--surface-border);
       border-radius: 28px;
       padding: 32px;
       box-shadow: var(--surface-shadow);
       backdrop-filter: blur(14px);
+      transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
     }
 
     .feature-media {
-      background: linear-gradient(180deg, rgba(255, 255, 255, 0.95) 0%, rgba(246, 249, 255, 0.95) 100%);
-      border-radius: 28px;
-      border: 1px solid rgba(148, 163, 184, 0.18);
-      box-shadow: 0 16px 38px rgba(15, 23, 42, 0.08);
-      padding: 26px;
-      transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
+      overflow: hidden;
     }
 
-    .feature-media img {
-      width: 100%;
-      border-radius: 18px;
-      display: block;
-    }
-
-    .pipeline-shell {
+    .pipeline-board {
       display: grid;
       grid-template-columns: repeat(5, minmax(0, 1fr));
-      gap: 18px;
-      align-items: center;
+      gap: 14px;
+      align-items: stretch;
     }
 
-    .flow-card {
+    .pipeline-step {
       position: relative;
-      height: 100%;
-      padding: 22px 18px;
+      padding: 20px 18px;
       border-radius: 22px;
-      border: 1px solid rgba(148, 163, 184, 0.16);
-      background: rgba(255, 255, 255, 0.92);
-      box-shadow: 0 10px 30px rgba(15, 23, 42, 0.06);
-      transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
+      background: var(--surface-strong);
+      border: 1px solid rgba(148, 163, 184, 0.18);
+      box-shadow: 0 12px 30px rgba(15, 23, 42, 0.08);
     }
 
-    .flow-step-tag {
+    .pipeline-step::after {
+      content: "→";
+      position: absolute;
+      right: -12px;
+      top: 50%;
+      transform: translateY(-50%);
+      color: #93a5c5;
+      font-size: 1.5rem;
+      font-weight: 700;
+    }
+
+    .pipeline-step:last-child::after {
+      display: none;
+    }
+
+    .pipeline-step .step-chip {
       display: inline-flex;
       align-items: center;
       justify-content: center;
-      width: 2rem;
-      height: 2rem;
+      min-width: 2.3rem;
+      height: 2.3rem;
+      margin-bottom: 12px;
       border-radius: 999px;
       background: rgba(37, 99, 235, 0.1);
       color: var(--accent);
-      font-size: 0.78rem;
+      font-size: 0.8rem;
       font-weight: 800;
-      margin-bottom: 12px;
     }
 
-    .flow-card h4 {
+    .pipeline-step h4 {
+      margin: 0 0 10px;
+      font-family: "Google Sans", "Noto Sans", sans-serif;
+      font-size: 1.04rem;
+      color: var(--text-strong);
+    }
+
+    .pipeline-step p {
+      margin: 0;
+      color: var(--text-soft);
+      font-size: 0.93rem;
+      line-height: 1.68;
+    }
+
+    .workflow-shell {
+      display: grid;
+      grid-template-columns: 1.2fr 0.8fr;
+      gap: 22px;
+      align-items: start;
+    }
+
+    .workflow-stack {
+      display: grid;
+      gap: 14px;
+    }
+
+    .workflow-row {
+      display: flex;
+      align-items: stretch;
+      gap: 14px;
+    }
+
+    .workflow-label {
+      min-width: 128px;
+      padding: 16px 14px;
+      border-radius: 18px;
+      background: rgba(37, 99, 235, 0.08);
+      color: var(--accent);
+      font-size: 0.92rem;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+    }
+
+    .workflow-content {
+      flex: 1;
+      padding: 16px 18px;
+      border-radius: 18px;
+      background: var(--surface-strong);
+      border: 1px solid rgba(148, 163, 184, 0.16);
+      box-shadow: 0 10px 26px rgba(15, 23, 42, 0.06);
+    }
+
+    .workflow-content strong {
+      display: block;
+      margin-bottom: 6px;
+      color: var(--text-strong);
+      font-size: 0.98rem;
+    }
+
+    .workflow-content span {
+      color: var(--text-soft);
+      font-size: 0.93rem;
+      line-height: 1.7;
+    }
+
+    .stat-panel {
+      display: grid;
+      gap: 14px;
+    }
+
+    .stat-card {
+      padding: 20px 18px;
+      border-radius: 22px;
+      background: var(--surface-strong);
+      border: 1px solid rgba(148, 163, 184, 0.16);
+      box-shadow: 0 12px 28px rgba(15, 23, 42, 0.08);
+    }
+
+    .stat-card strong {
+      display: block;
+      margin-bottom: 4px;
+      font-family: "Google Sans", "Noto Sans", sans-serif;
+      font-size: 2rem;
+      line-height: 1;
+      color: var(--text-strong);
+    }
+
+    .stat-card span {
+      color: var(--text-soft);
+      font-size: 0.92rem;
+      line-height: 1.55;
+    }
+
+    .artifact-card code,
+    .inline-code,
+    .tree,
+    .code-block {
+      font-family: "SFMono-Regular", Consolas, "Liberation Mono", Menlo, monospace;
+    }
+
+    .artifact-card code {
+      display: inline-block;
       margin-bottom: 10px;
-      font-family: 'Google Sans', 'Noto Sans', sans-serif;
+      padding: 4px 8px;
+      border-radius: 999px;
+      background: rgba(37, 99, 235, 0.08);
+      color: var(--accent);
+      font-size: 0.84rem;
+    }
+
+    .repo-layout {
+      display: grid;
+      grid-template-columns: 0.92fr 1.08fr;
+      gap: 20px;
+    }
+
+    .tree {
+      margin: 0;
+      padding: 22px;
+      border-radius: 24px;
+      background: #0f172a;
+      color: #e2e8f0;
+      font-size: 0.89rem;
+      line-height: 1.78;
+      overflow-x: auto;
+    }
+
+    .layout-notes {
+      display: grid;
+      gap: 14px;
+    }
+
+    .layout-note {
+      padding: 18px 20px;
+      border-radius: 20px;
+      background: rgba(255, 255, 255, 0.88);
+      border: 1px solid rgba(148, 163, 184, 0.16);
+      box-shadow: 0 12px 26px rgba(15, 23, 42, 0.06);
+    }
+
+    .layout-note h4 {
+      margin: 0 0 8px;
+      font-family: "Google Sans", "Noto Sans", sans-serif;
       font-size: 1rem;
       color: var(--text-strong);
     }
 
-    .flow-card p {
+    .layout-note p {
       margin: 0;
       color: var(--text-soft);
-      font-size: 0.94rem;
-      line-height: 1.7;
-    }
-
-    .flow-arrow {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      color: #60a5fa;
-      font-size: 1.5rem;
-      animation: flow-bounce 1.5s infinite ease-in-out;
-    }
-
-    @keyframes flow-bounce {
-      0%, 100% {
-        transform: translateX(-4px);
-        color: #93c5fd;
-      }
-      50% {
-        transform: translateX(4px);
-        color: #2563eb;
-      }
-    }
-
-    .summary-grid {
-      display: grid;
-      grid-template-columns: repeat(3, minmax(0, 1fr));
-      gap: 18px;
-    }
-
-    .summary-card,
-    .tool-card {
-      padding: 24px 22px;
-      border-radius: 24px;
-      border: 1px solid rgba(148, 163, 184, 0.18);
-      background: rgba(255, 255, 255, 0.86);
-      box-shadow: 0 14px 36px rgba(15, 23, 42, 0.08);
-      transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
-    }
-
-    .summary-card h4,
-    .tool-card h4 {
-      margin-bottom: 10px;
-      font-family: 'Google Sans', 'Noto Sans', sans-serif;
-      font-size: 1.1rem;
-      color: var(--text-strong);
-    }
-
-    .summary-card p,
-    .tool-card p {
-      margin: 0;
-      color: var(--text-soft);
-      line-height: 1.72;
-      font-size: 0.95rem;
-    }
-
-    .summary-tag-row {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 8px;
-      margin-top: 12px;
-    }
-
-    .summary-tag {
-      border-radius: 999px;
-      padding: 6px 12px;
-      background: rgba(37, 99, 235, 0.08);
-      color: #1d4ed8;
-      font-size: 0.78rem;
-      font-weight: 700;
-    }
-
-    .tool-grid {
-      display: grid;
-      grid-template-columns: repeat(3, minmax(0, 1fr));
-      gap: 18px;
-      margin-top: 20px;
-    }
-
-    .tool-card.worldarena .summary-tag { background: rgba(14, 165, 233, 0.1); color: #0369a1; }
-    .tool-card.acwm .summary-tag { background: rgba(37, 99, 235, 0.1); color: #1d4ed8; }
-    .tool-card.loop .summary-tag { background: rgba(16, 185, 129, 0.1); color: #047857; }
-    .tool-card.memory .summary-tag { background: rgba(168, 85, 247, 0.1); color: #7e22ce; }
-    .tool-card.provider .summary-tag { background: rgba(245, 158, 11, 0.12); color: #b45309; }
-    .tool-card.paper .summary-tag { background: rgba(244, 63, 94, 0.12); color: #be123c; }
-
-    .two-column-grid {
-      display: grid;
-      grid-template-columns: 1.1fr 0.9fr;
-      gap: 20px;
-    }
-
-    .tree-shell,
-    .status-shell,
-    .code-shell,
-    .citation-box {
-      background: rgba(255, 255, 255, 0.88);
-      border: 1px solid rgba(148, 163, 184, 0.18);
-      border-radius: 24px;
-      box-shadow: 0 14px 36px rgba(15, 23, 42, 0.08);
-      transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
-    }
-
-    .tree-shell,
-    .status-shell,
-    .citation-box {
-      padding: 24px;
-    }
-
-    .tree-shell pre,
-    .code-shell pre,
-    .citation-box pre {
-      margin: 0;
-      white-space: pre-wrap;
-      word-break: break-word;
-      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
-      font-size: 0.9rem;
-      line-height: 1.75;
-    }
-
-    .status-list {
-      display: grid;
-      gap: 12px;
-    }
-
-    .status-item {
-      display: flex;
-      gap: 12px;
-      align-items: flex-start;
-      padding: 14px 16px;
-      border-radius: 18px;
-      background: rgba(37, 99, 235, 0.05);
-    }
-
-    .status-item i {
-      margin-top: 4px;
-      color: var(--accent);
-    }
-
-    .status-item strong {
-      display: block;
-      margin-bottom: 4px;
-      color: var(--text-strong);
-    }
-
-    .status-item span {
-      color: var(--text-soft);
-      line-height: 1.65;
+      line-height: 1.68;
       font-size: 0.94rem;
     }
 
@@ -595,39 +620,39 @@
       gap: 18px;
     }
 
-    .code-shell {
-      position: relative;
-      overflow: hidden;
-      padding: 22px 22px 18px;
+    .code-panel {
+      padding: 24px;
     }
 
-    .code-shell h4,
-    .tree-shell h4,
-    .status-shell h4,
-    .citation-box h4 {
-      margin-bottom: 12px;
-      font-family: 'Google Sans', 'Noto Sans', sans-serif;
-      color: var(--text-strong);
-      font-size: 1.08rem;
+    .code-panel h3 {
+      margin-top: 0;
+      margin-bottom: 10px;
+      font-family: "Google Sans", "Noto Sans", sans-serif;
+      font-size: 1.12rem;
     }
 
-    .code-shell p,
-    .tree-shell p,
-    .status-shell p,
-    .citation-box p {
+    .code-panel p {
       color: var(--text-soft);
-      line-height: 1.7;
       font-size: 0.95rem;
+      line-height: 1.7;
       margin-bottom: 14px;
     }
 
-    .code-block {
+    .code-shell {
       position: relative;
-      overflow-x: auto;
-      border-radius: 18px;
+      padding: 16px;
+      border-radius: 20px;
       background: #0f172a;
       color: #e2e8f0;
-      padding: 16px 16px 14px;
+      overflow-x: auto;
+    }
+
+    .code-shell pre {
+      margin: 0;
+      font-size: 0.86rem;
+      line-height: 1.75;
+      white-space: pre-wrap;
+      word-break: break-word;
     }
 
     .copy-button {
@@ -636,87 +661,124 @@
       right: 12px;
       border: 0;
       border-radius: 999px;
-      background: rgba(255, 255, 255, 0.12);
+      padding: 6px 10px;
+      background: rgba(255, 255, 255, 0.1);
       color: #ffffff;
-      padding: 6px 11px;
       font-size: 0.72rem;
-      font-weight: 700;
       cursor: pointer;
     }
 
-    .copy-button:hover {
-      background: rgba(255, 255, 255, 0.22);
+    .status-strip {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 18px;
+      margin-top: 18px;
     }
 
-    .code-block pre {
-      padding-top: 6px;
-      color: #e2e8f0;
+    .status-box {
+      padding: 20px 18px;
+      border-radius: 22px;
+      border: 1px solid rgba(148, 163, 184, 0.16);
+      background: rgba(255, 255, 255, 0.86);
+      box-shadow: 0 12px 28px rgba(15, 23, 42, 0.08);
     }
 
-    .citation-box {
-      text-align: left;
+    .status-box.success {
+      background: linear-gradient(180deg, rgba(232, 247, 236, 0.95), rgba(255, 255, 255, 0.95));
+    }
+
+    .status-box.warn {
+      background: linear-gradient(180deg, rgba(255, 243, 230, 0.95), rgba(255, 255, 255, 0.95));
+    }
+
+    .status-box.info {
+      background: linear-gradient(180deg, rgba(232, 241, 255, 0.95), rgba(255, 255, 255, 0.95));
+    }
+
+    .status-box h4 {
+      margin: 0 0 8px;
+      font-size: 1rem;
+      font-family: "Google Sans", "Noto Sans", sans-serif;
+    }
+
+    .status-box p {
+      margin: 0;
+      color: var(--text-soft);
+      font-size: 0.94rem;
+      line-height: 1.7;
     }
 
     .footer-note {
-      color: #64748b;
-      font-size: 0.92rem;
+      text-align: center;
+      color: var(--text-soft);
+      font-size: 0.94rem;
       line-height: 1.7;
-      max-width: 920px;
-      margin: 0 auto;
+      margin-top: 14px;
     }
 
-    @media screen and (max-width: 1215px) {
-      .contributions-grid,
-      .summary-grid,
-      .tool-grid,
-      .code-grid {
+    @media screen and (max-width: 1180px) {
+      .pipeline-board,
+      .code-grid,
+      .status-strip {
         grid-template-columns: repeat(2, minmax(0, 1fr));
       }
 
-      .pipeline-shell {
-        grid-template-columns: repeat(2, minmax(0, 1fr));
-      }
-
-      .flow-arrow {
-        display: none;
-      }
-
-      .two-column-grid {
-        grid-template-columns: 1fr;
+      .pipeline-step:last-child {
+        grid-column: 1 / -1;
       }
     }
 
-    @media screen and (max-width: 768px) {
+    @media screen and (max-width: 960px) {
       body {
         padding-top: 104px;
       }
 
-      .publication-title {
-        font-size: clamp(2rem, 8vw, 2.6rem) !important;
+      .contributions-grid,
+      .capability-grid,
+      .artifact-grid,
+      .note-grid,
+      .status-strip,
+      .pipeline-board,
+      .code-grid,
+      .repo-layout,
+      .workflow-shell {
+        grid-template-columns: 1fr;
       }
 
-      .overview-panel {
-        padding: 28px 22px;
+      .pipeline-step::after {
+        display: none;
       }
 
-      .gray-box-container {
-        padding: 22px;
+      .workflow-row {
+        flex-direction: column;
       }
 
+      .workflow-label {
+        min-width: 0;
+        justify-content: flex-start;
+      }
+    }
+
+    @media screen and (max-width: 768px) {
       .container.is-max-desktop {
         max-width: calc(100vw - 28px);
       }
 
-      .contributions-grid,
-      .summary-grid,
-      .tool-grid,
-      .code-grid,
-      .pipeline-shell {
-        grid-template-columns: 1fr;
+      .overview-panel,
+      .feature-media,
+      .gray-box-container,
+      .code-panel {
+        padding: 24px;
+        border-radius: 24px;
       }
 
       .section-nav-link {
-        font-size: 0.8rem;
+        font-size: 0.78rem;
+        padding: 10px 12px;
+      }
+
+      .publication-title {
+        font-size: clamp(2rem, 9vw, 2.55rem) !important;
       }
     }
   </style>
@@ -727,14 +789,14 @@
     <div class="scroll-progress-track">
       <div class="scroll-progress-bar" id="scroll-progress-bar"></div>
     </div>
-    <nav class="section-nav" aria-label="Page sections">
+    <nav class="section-nav" aria-label="Page navigation">
       <a class="section-nav-link is-active" href="#overview-section" data-target="overview-section"><span class="section-nav-index">01</span><span>Overview</span></a>
       <a class="section-nav-link" href="#pipeline-section" data-target="pipeline-section"><span class="section-nav-index">02</span><span>Pipeline</span></a>
       <a class="section-nav-link" href="#capability-section" data-target="capability-section"><span class="section-nav-index">03</span><span>Capabilities</span></a>
       <a class="section-nav-link" href="#evaluation-section" data-target="evaluation-section"><span class="section-nav-index">04</span><span>Evaluation</span></a>
-      <a class="section-nav-link" href="#repo-section" data-target="repo-section"><span class="section-nav-index">05</span><span>Repository</span></a>
-      <a class="section-nav-link" href="#commands-section" data-target="commands-section"><span class="section-nav-index">06</span><span>Quick Start</span></a>
-      <a class="section-nav-link" href="#notes-section" data-target="notes-section"><span class="section-nav-index">07</span><span>Notes</span></a>
+      <a class="section-nav-link" href="#repository-section" data-target="repository-section"><span class="section-nav-index">05</span><span>Repository</span></a>
+      <a class="section-nav-link" href="#start-section" data-target="start-section"><span class="section-nav-index">06</span><span>Quick Start</span></a>
+      <a class="section-nav-link" href="#status-section" data-target="status-section"><span class="section-nav-index">07</span><span>Status</span></a>
     </nav>
   </div>
 
@@ -750,48 +812,51 @@
             </h1>
 
             <div class="is-size-5 publication-authors">
-              <span class="author-block">wujunyu687-lab,</span>
-              <span class="author-block">world-model infrastructure,</span>
-              <span class="author-block">ACWM-first diagnosis</span>
+              <span class="author-block">wujunyu687-lab</span>
+              <span class="author-block">World Models / ACWM / Evaluation Infrastructure</span>
             </div>
 
-            <div class="is-size-6 has-text-centered" style="margin-top: 15px; margin-bottom: 18px;">
-              <span class="author-block"><strong>Project page adapted in the visual language of SCENE2DEMO</strong></span>
-            </div>
-
-            <p class="subtitle-small">
-              WorldClaw is not a paper-only demo shell. It is a working local control plane that
-              structures target configuration, training orchestration, WorldArena evaluation, ACWM
-              diagnosis, patch planning, loop control, and experiment memory into one reusable workflow.
+            <p class="publication-subtitle">
+              WorldClaw turns training control, ACWM diagnosis, WorldArena evaluation,
+              patch planning, provider adaptation, and experiment memory into one local,
+              scriptable research surface. It is not just a bot shell; it is a control
+              plane for iterating on world-model systems with structured artifacts.
             </p>
 
-            <div class="column has-text-centered" style="margin-top: 16px;">
+            <div class="column has-text-centered">
               <div class="publication-links">
                 <span class="link-block">
-                  <a href="https://github.com/wujunyu687-lab/worldclaw1" target="_blank" class="external-link button is-normal is-rounded button-soft button-repo button-gap">
+                  <a href="https://github.com/wujunyu687-lab/worldclaw1" target="_blank" rel="noreferrer" class="external-link button is-normal is-rounded button-soft button-paper button-gap">
                     <span class="icon"><i class="fab fa-github"></i></span>
                     <span>Page Repo</span>
                   </a>
                 </span>
                 <span class="link-block">
-                  <a href="#pipeline-section" class="external-link button is-normal is-rounded button-soft button-intro button-gap">
+                  <a href="#pipeline-section" class="external-link button is-normal is-rounded button-soft button-arxiv button-gap">
                     <span class="icon"><i class="fas fa-diagram-project"></i></span>
                     <span>Pipeline</span>
                   </a>
                 </span>
                 <span class="link-block">
-                  <a href="#evaluation-section" class="external-link button is-normal is-rounded button-soft button-loop button-gap">
-                    <span class="icon"><i class="fas fa-robot"></i></span>
-                    <span>ACWM + Loop</span>
+                  <a href="#evaluation-section" class="external-link button is-normal is-rounded button-soft button-policy button-gap">
+                    <span class="icon"><i class="fas fa-microscope"></i></span>
+                    <span>Evaluation</span>
                   </a>
                 </span>
                 <span class="link-block">
-                  <a href="#repo-section" class="external-link button is-normal is-rounded button-soft button-layout button-gap">
-                    <span class="icon"><i class="fas fa-folder-tree"></i></span>
-                    <span>Repo Layout</span>
+                  <a href="#start-section" class="external-link button is-normal is-rounded button-soft button-note button-gap">
+                    <span class="icon"><i class="fas fa-terminal"></i></span>
+                    <span>Quick Start</span>
                   </a>
                 </span>
               </div>
+            </div>
+
+            <div class="has-text-centered">
+              <a class="hero-scroll-cue" href="#overview-section" aria-label="Scroll to overview">
+                <span>Scroll</span>
+                <span class="hero-scroll-arrow" aria-hidden="true"></span>
+              </a>
             </div>
           </div>
         </div>
@@ -803,46 +868,43 @@
     <div class="container is-max-desktop">
       <div class="overview-panel">
         <div class="section-heading">
-          <h2 class="title is-3 has-text-centered">What WorldClaw Actually Tries to Do</h2>
+          <h2 class="title is-3 has-text-centered">Our Contributions</h2>
           <span class="section-heading-bar" aria-hidden="true"></span>
         </div>
         <p class="contributions-intro has-text-centered">
-          Instead of leaving world-model research scattered across ad hoc scripts, manual notes, and one-off
-          evaluation exports, WorldClaw makes the train-eval-repair path explicit. It keeps the structure of
-          each iteration visible enough that a human or an agent can inspect, compare, and patch it.
+          WorldClaw is built around one practical question: how do you make
+          world-model research runs auditable, diagnosable, and reusable instead
+          of letting them collapse into isolated scripts and transient shell state?
         </p>
         <div class="contributions-grid">
           <article class="contribution-card">
             <span class="contribution-index">01</span>
-            <h3>Unified Train Control</h3>
+            <h3>Structured Train Control</h3>
             <p>
-              Targets, experiments, stage plans, lineages, bundles, ledgers, and structured summaries all live
-              in one CLI-first layer instead of being spread across project-specific shell glue.
+              Targets, experiments, stage plans, summaries, bundles, and lineage
+              tracking are exposed as deterministic CLI tools rather than scattered
+              notebook or shell glue.
             </p>
           </article>
           <article class="contribution-card">
             <span class="contribution-index">02</span>
             <h3>Diagnosis-First Evaluation</h3>
             <p>
-              WorldArena handles benchmark-oriented evaluation, while ACWM Bench adds structure audits, action
-              sensitivity, domain constraints, long-horizon checks, and patch-plan generation.
+              ACWM Bench and WorldArena sit inside one evaluation surface, with
+              failure modes, metric contracts, oracle status, and patch plans
+              treated as first-class outputs.
             </p>
           </article>
           <article class="contribution-card">
             <span class="contribution-index">03</span>
-            <h3>Closed Research Loop</h3>
+            <h3>Closed-Loop Research Memory</h3>
             <p>
-              A loop controller resolves training outputs into evaluation inputs, reads back failure modes and
-              patch plans, and turns isolated runs into reusable iteration history.
+              Each iteration can flow into loop summaries and experiment memory,
+              so later runs have reusable structure instead of starting blind from
+              scratch every time.
             </p>
           </article>
         </div>
-      </div>
-      <div class="has-text-centered">
-        <a class="hero-scroll-cue" href="#pipeline-section" aria-label="Scroll to pipeline">
-          <span>Scroll</span>
-          <span class="hero-scroll-arrow" aria-hidden="true"></span>
-        </a>
       </div>
     </div>
   </section>
@@ -853,45 +915,50 @@
         <h2 class="title is-3 has-text-centered">WorldClaw Pipeline</h2>
         <span class="section-heading-bar" aria-hidden="true"></span>
       </div>
+      <p class="section-copy has-text-centered">
+        The project has already converged to a visible dataflow:
+        <span class="inline-code">target + experiment -&gt; train/export -&gt; ACWM/WorldArena eval -&gt; diagnosis/patch plan -&gt; loop summary -&gt; memory/report</span>.
+      </p>
       <div class="feature-media">
-        <div class="pipeline-shell">
-          <article class="flow-card">
-            <span class="flow-step-tag">01</span>
-            <h4>Resolve target and experiment</h4>
+        <div class="pipeline-board">
+          <article class="pipeline-step">
+            <span class="step-chip">01</span>
+            <h4>Resolve Config</h4>
             <p>
-              Merge target config, experiment profile, overrides, and runtime bindings into a single concrete plan.
+              Merge target specs, experiment presets, and stage overrides into a
+              concrete train request.
             </p>
           </article>
-          <div class="flow-arrow"><i class="fas fa-chevron-right"></i></div>
-          <article class="flow-card">
-            <span class="flow-step-tag">02</span>
-            <h4>Train or export candidate results</h4>
+          <article class="pipeline-step">
+            <span class="step-chip">02</span>
+            <h4>Train or Replay</h4>
             <p>
-              Execute stage-wise training or replay, then emit structured results and artifact registries.
+              Run staged execution and isolate iteration artifacts, checkpoints,
+              summaries, and export products.
             </p>
           </article>
-          <div class="flow-arrow"><i class="fas fa-chevron-right"></i></div>
-          <article class="flow-card">
-            <span class="flow-step-tag">03</span>
-            <h4>Resolve ACWM-ready contracts</h4>
+          <article class="pipeline-step">
+            <span class="step-chip">03</span>
+            <h4>Export Contracts</h4>
             <p>
-              Build `train-result.json`, `rollout-manifest.json`, `action-manifest.json`, references, and metric bundles.
+              Emit rollout manifests, action manifests, references, and metrics
+              bundles as structured eval inputs.
             </p>
           </article>
-          <div class="flow-arrow"><i class="fas fa-chevron-right"></i></div>
-          <article class="flow-card">
-            <span class="flow-step-tag">04</span>
-            <h4>Run evaluation and diagnosis</h4>
+          <article class="pipeline-step">
+            <span class="step-chip">04</span>
+            <h4>Evaluate and Diagnose</h4>
             <p>
-              Dispatch WorldArena or ACWM, then collect summary, diagnosis, oracles, and patch-plan outputs.
+              Run ACWM or WorldArena checks, resolve missing evidence, and produce
+              summaries plus loop-readable remediation signals.
             </p>
           </article>
-          <div class="flow-arrow"><i class="fas fa-chevron-right"></i></div>
-          <article class="flow-card">
-            <span class="flow-step-tag">05</span>
-            <h4>Feed back into the loop</h4>
+          <article class="pipeline-step">
+            <span class="step-chip">05</span>
+            <h4>Patch and Remember</h4>
             <p>
-              Decide whether to continue, converge, block, or request attention, while preserving loop and memory records.
+              Generate patch plans, loop decisions, and experiment memory records
+              for the next iteration.
             </p>
           </article>
         </div>
@@ -902,101 +969,89 @@
   <section class="section page-section" id="capability-section">
     <div class="container is-max-desktop">
       <div class="section-heading">
-        <h2 class="title is-3 has-text-centered">A Quick Overview of Capability Lines</h2>
+        <h2 class="title is-3 has-text-centered">A Quick Overview of Core Capabilities</h2>
         <span class="section-heading-bar" aria-hidden="true"></span>
       </div>
 
       <div class="gray-box-container">
-        <div class="summary-grid">
-          <article class="summary-card">
-            <h4>Train Control</h4>
-            <p>
-              Target resolution, experiment overlays, stage commands, precheck, bundles, compare, lineage, and summary outputs.
-            </p>
-            <div class="summary-tag-row">
-              <span class="summary-tag">targets</span>
-              <span class="summary-tag">experiments</span>
-              <span class="summary-tag">lineage</span>
+        <div class="workflow-shell">
+          <div class="workflow-stack">
+            <div class="workflow-row">
+              <div class="workflow-label">Train</div>
+              <div class="workflow-content">
+                <strong>targets, experiments, stage execution, summaries, bundles, lineage</strong>
+                <span>The training layer standardizes how local or provider-adapted runs are planned, executed, and archived.</span>
+              </div>
             </div>
-          </article>
-          <article class="summary-card">
-            <h4>Unified Eval Entry</h4>
-            <p>
-              `tools/eval/main.py` dispatches both benchmark-facing WorldArena and diagnosis-first ACWM Bench flows.
-            </p>
-            <div class="summary-tag-row">
-              <span class="summary-tag">main.py</span>
-              <span class="summary-tag">latest-summary</span>
-              <span class="summary-tag">compare</span>
+            <div class="workflow-row">
+              <div class="workflow-label">Eval</div>
+              <div class="workflow-content">
+                <strong>WorldArena entry + ACWM Bench entry</strong>
+                <span>Evaluation is not only a score surface; it also emits precheck, diagnosis, metric contracts, and patch plans.</span>
+              </div>
             </div>
-          </article>
-          <article class="summary-card">
-            <h4>Structured Outputs</h4>
-            <p>
-              Runs are not just logs. They leave machine-readable manifests, reports, patch plans, and memory-ingestable artifacts.
-            </p>
-            <div class="summary-tag-row">
-              <span class="summary-tag">JSON</span>
-              <span class="summary-tag">JSONL</span>
-              <span class="summary-tag">SQLite</span>
+            <div class="workflow-row">
+              <div class="workflow-label">Loop</div>
+              <div class="workflow-content">
+                <strong>plan-acwm, run-acwm, provider preflight, experiment overlays</strong>
+                <span>The loop controller decides whether a run is converged, blocked, needs attention, or should continue.</span>
+              </div>
             </div>
-          </article>
+            <div class="workflow-row">
+              <div class="workflow-label">Memory</div>
+              <div class="workflow-content">
+                <strong>active / archived / quarantined experiment records</strong>
+                <span>Experiment memory is structured and weighted, so the repo can keep useful iterations and forget low-value ones.</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="stat-panel">
+            <div class="stat-card">
+              <strong>5</strong>
+              <span>main workflow lines already surfaced in the current repository layout</span>
+            </div>
+            <div class="stat-card">
+              <strong>7</strong>
+              <span>ACWM Bench suboptions spanning sensitivity, fidelity, stability, policy, and adversarial stress</span>
+            </div>
+            <div class="stat-card">
+              <strong>1+</strong>
+              <span>provider boundary already in place, so adding more backends does not require rewriting the loop core</span>
+            </div>
+          </div>
         </div>
 
-        <div class="tool-grid">
-          <article class="tool-card worldarena">
-            <h4>WorldArena</h4>
-            <p>Benchmark-style evaluation with backend detection, candidate precheck, single-video quick paths, and compare.</p>
-            <div class="summary-tag-row">
-              <span class="summary-tag">video-quality</span>
-              <span class="summary-tag">vlm-judge</span>
-              <span class="summary-tag">jepa-similarity</span>
-            </div>
+        <div class="artifact-grid" style="margin-top: 22px;">
+          <article class="artifact-card">
+            <code>train-request.json</code>
+            <h3>Train Request</h3>
+            <p>Loop-to-train control payload with the exact staged objective for a given iteration.</p>
           </article>
-          <article class="tool-card acwm">
-            <h4>ACWM Bench</h4>
-            <p>Action sensitivity, stability guard, rollout fidelity, domain consistency, policy alignment, and adversarial diagnostics.</p>
-            <div class="summary-tag-row">
-              <span class="summary-tag">action-sensitivity</span>
-              <span class="summary-tag">stability-guard</span>
-              <span class="summary-tag">rollout-fidelity</span>
-            </div>
+          <article class="artifact-card">
+            <code>train-result.json</code>
+            <h3>Train Result</h3>
+            <p>Canonical bridge artifact that resolves training outputs into downstream evaluation inputs.</p>
           </article>
-          <article class="tool-card loop">
-            <h4>Closed Loop Controller</h4>
-            <p>Provider-aware `plan-acwm` and `run-acwm` logic that resolves train outputs into eval inputs and loop decisions.</p>
-            <div class="summary-tag-row">
-              <span class="summary-tag">plan-acwm</span>
-              <span class="summary-tag">run-acwm</span>
-              <span class="summary-tag">patch-plan</span>
-            </div>
+          <article class="artifact-card">
+            <code>rollout-manifest.json</code>
+            <h3>Rollout Contract</h3>
+            <p>Sequence, camera, generated video, reference video, and horizon metadata for ACWM checks.</p>
           </article>
-          <article class="tool-card provider">
-            <h4>Provider Adapters</h4>
-            <p>Repo-specific integration belongs in providers, not in the generic loop core. `ctrl-world` is the first instance.</p>
-            <div class="summary-tag-row">
-              <span class="summary-tag">preflight</span>
-              <span class="summary-tag">runtime overlay</span>
-              <span class="summary-tag">contract export</span>
-            </div>
+          <article class="artifact-card">
+            <code>action-manifest.json</code>
+            <h3>Action Contract</h3>
+            <p>Explicit action binding metadata that lets evaluation reason about control fidelity instead of guessing.</p>
           </article>
-          <article class="tool-card memory">
-            <h4>Experiment Memory</h4>
-            <p>Active, archived, quarantined memory records for runs, metrics, patches, and experiment quality weighting.</p>
-            <div class="summary-tag-row">
-              <span class="summary-tag">ingest</span>
-              <span class="summary-tag">prune</span>
-              <span class="summary-tag">export-active</span>
-            </div>
+          <article class="artifact-card">
+            <code>metrics-bundle.json</code>
+            <h3>Metrics Sidecar</h3>
+            <p>Provider-exported or adapted metrics used by metric-backed ACWM suboptions and lightweight oracles.</p>
           </article>
-          <article class="tool-card paper">
-            <h4>Papersearch + Report</h4>
-            <p>Search, crawl, normalize, merge, and summarize paper evidence so the control plane can stay close to literature updates.</p>
-            <div class="summary-tag-row">
-              <span class="summary-tag">search</span>
-              <span class="summary-tag">crawl</span>
-              <span class="summary-tag">latest.py</span>
-            </div>
+          <article class="artifact-card">
+            <code>patch-plan.json</code>
+            <h3>Patch Plan</h3>
+            <p>Eval-facing remediation output that tells the next training iteration what to fix or regenerate.</p>
           </article>
         </div>
       </div>
@@ -1006,92 +1061,81 @@
   <section class="section page-section" id="evaluation-section">
     <div class="container is-max-desktop">
       <div class="section-heading">
-        <h2 class="title is-3 has-text-centered">What the Evaluation Layer Is Optimizing For</h2>
+        <h2 class="title is-3 has-text-centered">Evaluation and Provider Boundaries</h2>
         <span class="section-heading-bar" aria-hidden="true"></span>
       </div>
+      <p class="section-copy has-text-centered">
+        A core design choice in WorldClaw is to separate benchmark-facing evaluation,
+        native ACWM diagnosis, and repo-specific provider integration. Without this
+        split, every new backend turns into another pile of hard-coded exceptions.
+      </p>
 
-      <div class="gray-box-container">
-        <div class="two-column-grid">
-          <div class="status-shell">
-            <h4>ACWM is not just video scoring</h4>
-            <p>
-              The ACWM path is explicitly built to inspect whether actions bind to generated rollouts, whether long-horizon
-              trajectories stay stable, whether domain rules are violated, and whether evaluation can return actionable repair plans.
-            </p>
-            <div class="status-list">
-              <div class="status-item">
-                <i class="fas fa-link"></i>
-                <div>
-                  <strong>Action-conditioned behavior</strong>
-                  <span>Checks whether changing actions actually changes generated outcomes in meaningful ways.</span>
-                </div>
-              </div>
-              <div class="status-item">
-                <i class="fas fa-wave-square"></i>
-                <div>
-                  <strong>Long-horizon stability</strong>
-                  <span>Tracks rollout drift, visual decay, and structural horizon compliance before expensive experiments compound errors.</span>
-                </div>
-              </div>
-              <div class="status-item">
-                <i class="fas fa-shield-halved"></i>
-                <div>
-                  <strong>Domain constraints and oracles</strong>
-                  <span>Uses domain profiles and lightweight oracle checks for robotics, driving, game, and custom settings.</span>
-                </div>
-              </div>
-            </div>
-          </div>
+      <div class="capability-grid">
+        <article class="capability-card">
+          <span class="contribution-index">WA</span>
+          <h3>WorldArena</h3>
+          <p>
+            External or score-oriented evaluation entry with suboptions such as
+            <span class="inline-code">video-quality</span>, <span class="inline-code">vlm-judge</span>,
+            <span class="inline-code">jepa-similarity</span>, and
+            <span class="inline-code">embodied-task</span>.
+          </p>
+        </article>
+        <article class="capability-card">
+          <span class="contribution-index">AC</span>
+          <h3>ACWM Bench</h3>
+          <p>
+            Native diagnosis entry for <span class="inline-code">action-sensitivity</span>,
+            <span class="inline-code">rollout-fidelity</span>, <span class="inline-code">stability-guard</span>,
+            <span class="inline-code">policy-alignment</span>, and more.
+          </p>
+        </article>
+        <article class="capability-card">
+          <span class="contribution-index">PA</span>
+          <h3>Provider Adapter</h3>
+          <p>
+            Repo-specific knowledge lives in provider adapters, while the loop core
+            stays generic and only consumes structured train/eval contracts.
+          </p>
+        </article>
+      </div>
 
-          <div class="status-shell">
-            <h4>Closed-loop artifacts</h4>
-            <p>
-              The eval layer leaves more than a pass/fail. It creates specific artifacts that the next iteration can consume directly.
-            </p>
-            <div class="status-list">
-              <div class="status-item">
-                <i class="fas fa-file-waveform"></i>
-                <div>
-                  <strong>`summary.json`</strong>
-                  <span>The unified summary object for train, eval, and loop reporting.</span>
-                </div>
-              </div>
-              <div class="status-item">
-                <i class="fas fa-stethoscope"></i>
-                <div>
-                  <strong>`diagnosis.json`</strong>
-                  <span>Failure modes, violated constraints, evidence, and fix suggestions.</span>
-                </div>
-              </div>
-              <div class="status-item">
-                <i class="fas fa-screwdriver-wrench"></i>
-                <div>
-                  <strong>`patch-plan.json`</strong>
-                  <span>Machine-readable repair instructions for the next iteration or for capability-gap remediation.</span>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
+      <div class="note-grid" style="margin-top: 18px;">
+        <article class="note-card">
+          <h3>Why provider adapters matter</h3>
+          <p>
+            The loop core should not know how one particular world-model repo stores
+            weights, datasets, or rollout traces. That knowledge belongs in the
+            provider boundary.
+          </p>
+        </article>
+        <article class="note-card">
+          <h3>Why metrics adapters matter</h3>
+          <p>
+            Provider adapters solve repository integration. Metrics adapters solve
+            how heterogeneous rollout or score outputs are normalized into ACWM space.
+          </p>
+        </article>
+        <article class="note-card">
+          <h3>Current practical gap</h3>
+          <p>
+            Structure-complete exports already exist, but some metric-rich ACWM sidecars
+            still need deeper backend integration before every diagnosis can be fully scored.
+          </p>
+        </article>
       </div>
     </div>
   </section>
 
-  <section class="section page-section" id="repo-section">
+  <section class="section page-section" id="repository-section">
     <div class="container is-max-desktop">
       <div class="section-heading">
         <h2 class="title is-3 has-text-centered">Repository Layout</h2>
         <span class="section-heading-bar" aria-hidden="true"></span>
       </div>
 
-      <div class="gray-box-container">
-        <div class="two-column-grid">
-          <div class="tree-shell">
-            <h4>Current repo center of gravity</h4>
-            <p>
-              The repository now revolves around a deterministic core rather than platform-first multi-bot UI assumptions.
-            </p>
-            <pre>worldclaw/
+      <div class="repo-layout">
+        <pre class="tree">worldclaw/
   skills/
     train/
     eval-worldarena/
@@ -1112,130 +1156,122 @@
   doc/
   runtime/
   metabot/</pre>
-          </div>
 
-          <div class="status-shell">
-            <h4>Interpretation of the layers</h4>
-            <p>
-              The important distinction is that `metabot/` remains available, but the default research path now lives in
-              `skills + tools + configs + runs + tests`.
-            </p>
-            <div class="status-list">
-              <div class="status-item">
-                <i class="fas fa-book"></i>
-                <div>
-                  <strong>`skills/`</strong>
-                  <span>Workflow protocols that tell an agent where to start and how to classify failure modes.</span>
-                </div>
-              </div>
-              <div class="status-item">
-                <i class="fas fa-terminal"></i>
-                <div>
-                  <strong>`tools/`</strong>
-                  <span>Actual execution entry points, kept scriptable and testable instead of buried in notebooks.</span>
-                </div>
-              </div>
-              <div class="status-item">
-                <i class="fas fa-chart-line"></i>
-                <div>
-                  <strong>`runs/` + `memory/`</strong>
-                  <span>Persistent outputs that allow comparison, reporting, pruning, and historical learning.</span>
-                </div>
-              </div>
-            </div>
+        <div class="layout-notes">
+          <div class="layout-note">
+            <h4>skills/</h4>
+            <p>Workflow protocols that give each task family a stable first move.</p>
+          </div>
+          <div class="layout-note">
+            <h4>tools/</h4>
+            <p>Deterministic execution surfaces for train, eval, loop, paper search, report, and memory.</p>
+          </div>
+          <div class="layout-note">
+            <h4>configs/ + runs/</h4>
+            <p>Config expresses intent, runs preserve evidence. That split is what makes the system reusable.</p>
+          </div>
+          <div class="layout-note">
+            <h4>tests/</h4>
+            <p>Regression coverage keeps the control plane from turning into undocumented shell state again.</p>
           </div>
         </div>
       </div>
     </div>
   </section>
 
-  <section class="section page-section" id="commands-section">
+  <section class="section page-section" id="start-section">
     <div class="container is-max-desktop">
       <div class="section-heading">
-        <h2 class="title is-3 has-text-centered">Quick Start Commands</h2>
+        <h2 class="title is-3 has-text-centered">Quick Start</h2>
         <span class="section-heading-bar" aria-hidden="true"></span>
       </div>
+      <p class="section-copy has-text-centered">
+        The point of this repository is not a single polished demo. The point is that
+        train, eval, and loop surfaces can be entered directly and inspected with
+        stable commands.
+      </p>
 
-      <div class="gray-box-container">
-        <div class="code-grid">
-          <article class="code-shell">
-            <h4>Lightweight setup</h4>
-            <p>Start from the CLI-first control plane, not the heaviest training stack.</p>
-            <div class="code-block">
-              <button class="copy-button" data-copy-target="code-install">Copy</button>
-              <pre id="code-install">python -m pip install -r requirements-lite.txt</pre>
-            </div>
-          </article>
+      <div class="code-grid">
+        <article class="code-panel">
+          <h3>Install the lightweight stack</h3>
+          <p>Start with the control-plane dependencies before pulling in heavier training runtimes.</p>
+          <div class="code-shell">
+            <button class="copy-button" data-copy-target="code-install">copy</button>
+            <pre id="code-install">python -m pip install -r requirements-lite.txt</pre>
+          </div>
+        </article>
 
-          <article class="code-shell">
-            <h4>Inspect train and eval entries</h4>
-            <p>List the eval surfaces and resolve a concrete target/experiment pair.</p>
-            <div class="code-block">
-              <button class="copy-button" data-copy-target="code-entry">Copy</button>
-              <pre id="code-entry">python tools/eval/main.py list-entries
+        <article class="code-panel">
+          <h3>Inspect train and eval entries</h3>
+          <p>List supported evaluation entries and resolve a provider-adapted train run.</p>
+          <div class="code-shell">
+            <button class="copy-button" data-copy-target="code-entries">copy</button>
+            <pre id="code-entries">python tools/eval/main.py list-entries
 python tools/eval/main.py acwm list-suboptions
-python tools/train/run.py resolve-run ctrl-world --experiment-id smoke-train-eval --json</pre>
-            </div>
-          </article>
+python tools/train/run.py resolve-run ctrl-world \
+  --experiment-id smoke-train-eval --json</pre>
+          </div>
+        </article>
 
-          <article class="code-shell">
-            <h4>Plan a provider-aware loop</h4>
-            <p>Plan one ACWM loop iteration without executing full training.</p>
-            <div class="code-block">
-              <button class="copy-button" data-copy-target="code-loop">Copy</button>
-              <pre id="code-loop">python tools/loop/run.py plan-acwm \
+        <article class="code-panel">
+          <h3>Plan a closed ACWM loop</h3>
+          <p>Use the loop controller instead of manually stitching training and evaluation together.</p>
+          <div class="code-shell">
+            <button class="copy-button" data-copy-target="code-loop">copy</button>
+            <pre id="code-loop">python tools/loop/run.py plan-acwm \
   ctrl-world \
   smoke-train-eval \
   action-sensitivity \
   --provider-id ctrl-world \
   --preflight-profile smoke \
   --json</pre>
-            </div>
-          </article>
-        </div>
+          </div>
+        </article>
       </div>
     </div>
   </section>
 
-  <section class="section page-section" id="notes-section">
+  <section class="section page-section" id="status-section">
     <div class="container is-max-desktop">
       <div class="section-heading">
-        <h2 class="title is-3 has-text-centered">Notes on Current Project Status</h2>
+        <h2 class="title is-3 has-text-centered">Current Status</h2>
         <span class="section-heading-bar" aria-hidden="true"></span>
       </div>
 
-      <div class="citation-box">
-        <h4>Practical reality of the current checkout</h4>
-        <p>
-          WorldClaw already has a coherent research-infrastructure shape, but some real integrations are still intentionally
-          between smoke-grade and fully metric-complete operation. In particular, richer ACWM sidecars remain one of the most
-          important next steps for closing the loop on real provider backends.
-        </p>
-        <pre>Current strengths:
-- provider-aware closed-loop scaffolding
-- train/eval contract resolution
-- ACWM diagnosis and patch-plan path
-- experiment memory foundation
-
-Current pressure points:
-- metric-rich ACWM exports for real backends
-- more provider adapters beyond ctrl-world
-- making memory a default end-of-loop sink
-- tightening repo-private source and public project-page separation</pre>
+      <div class="status-strip">
+        <article class="status-box success">
+          <h4>What already works</h4>
+          <p>
+            The train/eval/loop surface is real, the ACWM entry is wired, provider
+            preflight exists, and pages build/deploy for this project page is now active.
+          </p>
+        </article>
+        <article class="status-box info">
+          <h4>What the page is trying to show</h4>
+          <p>
+            This is not a marketing splash page. It is an academic-style project
+            page for research infrastructure: local, inspectable, and artifact-driven.
+          </p>
+        </article>
+        <article class="status-box warn">
+          <h4>What still needs depth</h4>
+          <p>
+            Metric-rich sidecars for all ACWM paths and more provider integrations
+            are still the natural next steps for the control plane.
+          </p>
+        </article>
       </div>
 
-      <div class="has-text-centered" style="margin-top: 1.6rem;">
-        <p class="footer-note">
-          This page intentionally follows the visual grammar of an academic project page rather than a product landing page:
-          centered hero, section navigation, contribution cards, structured figure sections, and soft white research panels.
-        </p>
-      </div>
+      <p class="footer-note">
+        WorldClaw project page. Styled in an academic single-page format and adapted to
+        the repository's actual structure rather than a paper-only benchmark story.
+      </p>
     </div>
   </section>
 
   <script>
     function updateScrollProgress() {
-      const progressBar = document.getElementById('scroll-progress-bar');
+      const progressBar = document.getElementById("scroll-progress-bar");
       if (!progressBar) return;
       const maxScroll = document.documentElement.scrollHeight - window.innerHeight;
       const scrolled = maxScroll > 0 ? (window.scrollY / maxScroll) * 100 : 0;
@@ -1243,8 +1279,8 @@ Current pressure points:
     }
 
     function updateActiveSection() {
-      const sections = Array.from(document.querySelectorAll('.page-section[id]'));
-      const navLinks = Array.from(document.querySelectorAll('.section-nav-link'));
+      const sections = Array.from(document.querySelectorAll(".page-section[id]"));
+      const navLinks = Array.from(document.querySelectorAll(".section-nav-link"));
       if (!sections.length || !navLinks.length) return;
 
       const navOffset = 150;
@@ -1258,40 +1294,39 @@ Current pressure points:
 
       navLinks.forEach((link) => {
         const isActive = link.dataset.target === activeId;
-        link.classList.toggle('is-active', isActive);
+        link.classList.toggle("is-active", isActive);
       });
     }
 
     function setupSectionNav() {
-      document.querySelectorAll('.section-nav-link').forEach((link) => {
-        link.addEventListener('click', (event) => {
+      document.querySelectorAll(".section-nav-link").forEach((link) => {
+        link.addEventListener("click", (event) => {
           const targetId = link.dataset.target;
           const target = document.getElementById(targetId);
           if (!target) return;
           event.preventDefault();
-          target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+          target.scrollIntoView({ behavior: "smooth", block: "start" });
         });
       });
     }
 
     function setupCopyButtons() {
-      document.querySelectorAll('.copy-button').forEach((button) => {
-        button.addEventListener('click', async () => {
-          const targetId = button.getAttribute('data-copy-target');
+      document.querySelectorAll(".copy-button").forEach((button) => {
+        button.addEventListener("click", async () => {
+          const targetId = button.getAttribute("data-copy-target");
           const target = document.getElementById(targetId);
           if (!target) return;
-
           try {
             await navigator.clipboard.writeText(target.textContent.trim());
             const prev = button.textContent;
-            button.textContent = 'Copied';
-            setTimeout(() => {
+            button.textContent = "copied";
+            window.setTimeout(() => {
               button.textContent = prev;
             }, 1200);
           } catch (error) {
-            button.textContent = 'Failed';
-            setTimeout(() => {
-              button.textContent = 'Copy';
+            button.textContent = "failed";
+            window.setTimeout(() => {
+              button.textContent = "copy";
             }, 1200);
           }
         });
@@ -1303,14 +1338,13 @@ Current pressure points:
       updateActiveSection();
     }
 
-    document.addEventListener('DOMContentLoaded', () => {
+    document.addEventListener("DOMContentLoaded", () => {
       setupSectionNav();
       setupCopyButtons();
       syncPageChrome();
-      window.addEventListener('scroll', syncPageChrome, { passive: true });
-      window.addEventListener('resize', syncPageChrome);
+      window.addEventListener("scroll", syncPageChrome, { passive: true });
+      window.addEventListener("resize", syncPageChrome);
     });
   </script>
-
 </body>
 </html>
