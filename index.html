@@ -912,9 +912,9 @@
             </div>
 
             <p class="publication-subtitle">
-              WorldClaw unifies training control, ACWM diagnosis, WorldArena evaluation,
-              provider adaptation, patch planning, and experiment memory into a single
-              artifact-driven workflow for world-model research.
+              WorldClaw brings training, ACWM evaluation, provider adaptation,
+              patch planning, and experiment records into one workflow for
+              world-model research.
             </p>
 
             <div class="column has-text-centered">
@@ -962,13 +962,13 @@
     <div class="container is-max-desktop">
       <div class="overview-panel">
         <div class="section-heading">
-          <h2 class="title is-3 has-text-centered">Our Contributions</h2>
+          <h2 class="title is-3 has-text-centered">Overview</h2>
           <span class="section-heading-bar" aria-hidden="true"></span>
         </div>
         <p class="contributions-intro has-text-centered">
-          WorldClaw is built around one practical question: how do you make
-          world-model research runs auditable, diagnosable, and reusable instead
-          of letting them collapse into isolated scripts and transient shell state?
+          WorldClaw is designed to make world-model runs easier to inspect,
+          compare, and reuse, instead of leaving them scattered across ad hoc
+          scripts and shell logs.
         </p>
         <div class="contributions-grid">
           <article class="contribution-card">
@@ -1010,7 +1010,7 @@
         <span class="section-heading-bar" aria-hidden="true"></span>
       </div>
       <p class="section-copy has-text-centered">
-        The project has already converged to a visible dataflow:
+        The current workflow is:
         <span class="inline-code">target + experiment -&gt; train/export -&gt; ACWM/WorldArena eval -&gt; diagnosis/patch plan -&gt; loop summary -&gt; memory/report</span>.
       </p>
       <div class="feature-media">
@@ -1070,10 +1070,9 @@
           </figure>
           <div class="architecture-caption">
             <div class="architecture-caption-copy">
-              <strong>Actual architecture diagram used for the project.</strong>
-              The figure makes the repo's control-plane boundary explicit: provider-facing training stays separate from
-              evaluation, contract export, and iterative patch generation, so new world-model backends can be attached
-              without rewriting the loop core.
+              <strong>Architecture diagram.</strong>
+              The control-plane boundary is explicit: provider-facing training stays separate from evaluation,
+              contract export, and loop decisions, so new backends can be attached without rewriting the core flow.
             </div>
             <a class="architecture-action" href="assets/figures/worldclaw-architecture.png" target="_blank" rel="noopener">
               <span>Open full resolution</span>
@@ -1184,9 +1183,9 @@
         <span class="section-heading-bar" aria-hidden="true"></span>
       </div>
       <p class="section-copy has-text-centered">
-        A core design choice in WorldClaw is to separate benchmark-facing evaluation,
-        native ACWM diagnosis, and repo-specific provider integration. Without this
-        split, every new backend turns into another pile of hard-coded exceptions.
+        WorldClaw keeps benchmark evaluation, ACWM diagnosis, and repo-specific
+        provider integration separate. That split keeps new backends from turning
+        into another layer of hard-coded exceptions.
       </p>
 
       <div class="capability-grid">
