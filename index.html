@@ -912,9 +912,9 @@
             </div>
 
             <p class="publication-subtitle">
-              WorldClaw brings training, ACWM evaluation, provider adaptation,
-              patch planning, and experiment records into one workflow for
-              world-model research.
+              WorldClaw is a repository for running train, eval, and closed-loop
+              workflows around world-model projects, with targets, manifests,
+              summaries, and patch plans kept in one place.
             </p>
 
             <div class="column has-text-centered">
@@ -962,40 +962,36 @@
     <div class="container is-max-desktop">
       <div class="overview-panel">
         <div class="section-heading">
-          <h2 class="title is-3 has-text-centered">Overview</h2>
+          <h2 class="title is-3 has-text-centered">Current Scope</h2>
           <span class="section-heading-bar" aria-hidden="true"></span>
         </div>
         <p class="contributions-intro has-text-centered">
-          WorldClaw is designed to make world-model runs easier to inspect,
-          compare, and reuse, instead of leaving them scattered across ad hoc
-          scripts and shell logs.
+          The current repository is centered on a small set of stable surfaces:
+          `tools/train`, `tools/eval`, `tools/loop`, `configs`, and `runs`.
         </p>
         <div class="contributions-grid">
           <article class="contribution-card">
             <span class="contribution-index">01</span>
-            <h3>Structured Train Control</h3>
+            <h3>Train Surface</h3>
             <p>
-              Targets, experiments, stage plans, summaries, bundles, and lineage
-              tracking are exposed as deterministic CLI tools rather than scattered
-              notebook or shell glue.
+              Training is organized around targets, experiments, staged execution,
+              summaries, bundles, and lineage files under `runs/train/`.
             </p>
           </article>
           <article class="contribution-card">
             <span class="contribution-index">02</span>
-            <h3>Diagnosis-First Evaluation</h3>
+            <h3>Eval Surface</h3>
             <p>
-              ACWM Bench and WorldArena sit inside one evaluation surface, with
-              failure modes, metric contracts, oracle status, and patch plans
-              treated as first-class outputs.
+              Evaluation is split between `WorldArena` and `ACWM Bench`, with
+              summaries, reports, and patch plans written under `runs/eval/`.
             </p>
           </article>
           <article class="contribution-card">
             <span class="contribution-index">03</span>
-            <h3>Closed-Loop Research Memory</h3>
+            <h3>Loop Surface</h3>
             <p>
-              Each iteration can flow into loop summaries and experiment memory,
-              so later runs have reusable structure instead of starting blind from
-              scratch every time.
+              The loop layer connects train and eval through preflight, overlay
+              experiments, `train-request.json`, `train-result.json`, and loop summaries.
             </p>
           </article>
         </div>
@@ -1010,49 +1006,44 @@
         <span class="section-heading-bar" aria-hidden="true"></span>
       </div>
       <p class="section-copy has-text-centered">
-        The current workflow is:
+        The workflow on this snapshot is:
         <span class="inline-code">target + experiment -&gt; train/export -&gt; ACWM/WorldArena eval -&gt; diagnosis/patch plan -&gt; loop summary -&gt; memory/report</span>.
       </p>
       <div class="feature-media">
         <div class="pipeline-board">
           <article class="pipeline-step">
             <span class="step-chip">01</span>
-            <h4>Resolve Config</h4>
+            <h4>Resolve Target</h4>
             <p>
-              Merge target specs, experiment presets, and stage overrides into a
-              concrete train request.
+              Resolve one target and one experiment into a concrete staged run.
             </p>
           </article>
           <article class="pipeline-step">
             <span class="step-chip">02</span>
             <h4>Train or Replay</h4>
             <p>
-              Run staged execution and isolate iteration artifacts, checkpoints,
-              summaries, and export products.
+              Run training or replay and write checkpoints, logs, and summaries.
             </p>
           </article>
           <article class="pipeline-step">
             <span class="step-chip">03</span>
             <h4>Export Contracts</h4>
             <p>
-              Emit rollout manifests, action manifests, references, and metrics
-              bundles as structured eval inputs.
+              Export rollout, action, reference, and metrics files for evaluation.
             </p>
           </article>
           <article class="pipeline-step">
             <span class="step-chip">04</span>
-            <h4>Evaluate and Diagnose</h4>
+            <h4>Run Eval</h4>
             <p>
-              Run ACWM or WorldArena checks, resolve missing evidence, and produce
-              summaries plus loop-readable remediation signals.
+              Run ACWM or WorldArena and write summary, report, and patch-plan outputs.
             </p>
           </article>
           <article class="pipeline-step">
             <span class="step-chip">05</span>
-            <h4>Patch and Remember</h4>
+            <h4>Write Next-Step State</h4>
             <p>
-              Generate patch plans, loop decisions, and experiment memory records
-              for the next iteration.
+              Record the loop decision and the inputs needed for the next iteration.
             </p>
           </article>
         </div>
@@ -1071,8 +1062,9 @@
           <div class="architecture-caption">
             <div class="architecture-caption-copy">
               <strong>Architecture diagram.</strong>
-              The control-plane boundary is explicit: provider-facing training stays separate from evaluation,
-              contract export, and loop decisions, so new backends can be attached without rewriting the core flow.
+              The training side, evaluation side, contract files, and loop controller
+              are separated explicitly, so provider-specific code does not have to leak
+              into the generic loop core.
             </div>
             <a class="architecture-action" href="assets/figures/worldclaw-architecture.png" target="_blank" rel="noopener">
               <span>Open full resolution</span>
@@ -1087,7 +1079,7 @@
   <section class="section page-section" id="capability-section">
     <div class="container is-max-desktop">
       <div class="section-heading">
-        <h2 class="title is-3 has-text-centered">A Quick Overview of Core Capabilities</h2>
+        <h2 class="title is-3 has-text-centered">Repository Surfaces</h2>
         <span class="section-heading-bar" aria-hidden="true"></span>
       </div>
 
@@ -1098,28 +1090,28 @@
               <div class="workflow-label">Train</div>
               <div class="workflow-content">
                 <strong>targets, experiments, stage execution, summaries, bundles, lineage</strong>
-                <span>The training layer standardizes how local or provider-adapted runs are planned, executed, and archived.</span>
+                <span>Training commands live under `tools/train/`, with configuration in `configs/train/` and outputs in `runs/train/`.</span>
               </div>
             </div>
             <div class="workflow-row">
               <div class="workflow-label">Eval</div>
               <div class="workflow-content">
                 <strong>WorldArena entry + ACWM Bench entry</strong>
-                <span>Evaluation is not only a score surface; it also emits precheck, diagnosis, metric contracts, and patch plans.</span>
+                <span>Evaluation commands live under `tools/eval/`, with run artifacts written to `runs/eval/`.</span>
               </div>
             </div>
             <div class="workflow-row">
               <div class="workflow-label">Loop</div>
               <div class="workflow-content">
                 <strong>plan-acwm, run-acwm, provider preflight, experiment overlays</strong>
-                <span>The loop controller decides whether a run is converged, blocked, needs attention, or should continue.</span>
+                <span>The loop controller connects train and eval without hard-coding one specific backend.</span>
               </div>
             </div>
             <div class="workflow-row">
               <div class="workflow-label">Memory</div>
               <div class="workflow-content">
                 <strong>active / archived / quarantined experiment records</strong>
-                <span>Experiment memory is structured and weighted, so the repo can keep useful iterations and forget low-value ones.</span>
+                <span>Reporting and memory layers read structured outputs instead of reconstructing state from shell history.</span>
               </div>
             </div>
           </div>
@@ -1183,9 +1175,8 @@
         <span class="section-heading-bar" aria-hidden="true"></span>
       </div>
       <p class="section-copy has-text-centered">
-        WorldClaw keeps benchmark evaluation, ACWM diagnosis, and repo-specific
-        provider integration separate. That split keeps new backends from turning
-        into another layer of hard-coded exceptions.
+        Benchmark-facing evaluation, ACWM-specific checks, and repo-specific
+        provider code are kept separate. That is the main boundary in the project.
       </p>
 
       <div class="capability-grid">
@@ -1304,9 +1295,7 @@
         <span class="section-heading-bar" aria-hidden="true"></span>
       </div>
       <p class="section-copy has-text-centered">
-        The point of this repository is not a single polished demo. The point is that
-        train, eval, and loop surfaces can be entered directly and inspected with
-        stable commands.
+        Start from the commands below. They match the current repository layout.
       </p>
 
       <div class="code-grid">
@@ -1352,37 +1341,37 @@ python tools/train/run.py resolve-run ctrl-world \
   <section class="section page-section" id="status-section">
     <div class="container is-max-desktop">
       <div class="section-heading">
-        <h2 class="title is-3 has-text-centered">Current Status</h2>
+        <h2 class="title is-3 has-text-centered">Verified Locally</h2>
         <span class="section-heading-bar" aria-hidden="true"></span>
       </div>
 
       <div class="status-strip">
         <article class="status-box success">
-          <h4>What already works</h4>
+          <h4>Latest ACWM eval</h4>
           <p>
-            The train, eval, and loop surfaces are already wired together, with
-            ACWM evaluation, provider preflight, and structured artifacts in place.
+            `20260528T081046Z-acwm-bench-stability-guard` completed locally, with
+            headline metric `horizon_compliance = 1.0`.
           </p>
         </article>
         <article class="status-box info">
-          <h4>Presentation Focus</h4>
+          <h4>What is stable</h4>
           <p>
-            This page is meant to read like a research project overview rather than
-            a product landing page: technical, inspectable, and centered on workflow structure.
+            The repository already has working train, eval, provider-preflight,
+            and loop entry points with structured outputs.
           </p>
         </article>
         <article class="status-box warn">
-          <h4>What still needs depth</h4>
+          <h4>What is incomplete</h4>
           <p>
-            Metric-rich sidecars for all ACWM paths and more provider integrations
-            are still the natural next steps for the control plane.
+            Metric-rich ACWM sidecars are still missing for some paths, and more
+            provider adapters still need to be added.
           </p>
         </article>
       </div>
 
       <p class="footer-note">
-        An academic-style project page aligned with the repository's actual
-        train, eval, and closed-loop structure.
+        This page is based on the repository as it exists now, not on a separate
+        paper-only benchmark narrative.
       </p>
     </div>
   </section>
