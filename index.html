@@ -428,6 +428,11 @@
       box-shadow: 0 14px 36px rgba(15, 23, 42, 0.07);
     }
 
+    .concept-figure-shell {
+      max-width: 1120px;
+      margin: 0 auto;
+    }
+
     .figure-eyebrow {
       display: inline-flex;
       align-items: center;
@@ -886,12 +891,13 @@
     </div>
     <nav class="section-nav" aria-label="Page navigation">
       <a class="section-nav-link is-active" href="#overview-section" data-target="overview-section"><span class="section-nav-index">01</span><span>Overview</span></a>
-      <a class="section-nav-link" href="#pipeline-section" data-target="pipeline-section"><span class="section-nav-index">02</span><span>Pipeline</span></a>
-      <a class="section-nav-link" href="#capability-section" data-target="capability-section"><span class="section-nav-index">03</span><span>Capabilities</span></a>
-      <a class="section-nav-link" href="#evaluation-section" data-target="evaluation-section"><span class="section-nav-index">04</span><span>Evaluation</span></a>
-      <a class="section-nav-link" href="#repository-section" data-target="repository-section"><span class="section-nav-index">05</span><span>Repository</span></a>
-      <a class="section-nav-link" href="#start-section" data-target="start-section"><span class="section-nav-index">06</span><span>Quick Start</span></a>
-      <a class="section-nav-link" href="#status-section" data-target="status-section"><span class="section-nav-index">07</span><span>Status</span></a>
+      <a class="section-nav-link" href="#concept-section" data-target="concept-section"><span class="section-nav-index">02</span><span>Sketch</span></a>
+      <a class="section-nav-link" href="#pipeline-section" data-target="pipeline-section"><span class="section-nav-index">03</span><span>Pipeline</span></a>
+      <a class="section-nav-link" href="#capability-section" data-target="capability-section"><span class="section-nav-index">04</span><span>Capabilities</span></a>
+      <a class="section-nav-link" href="#evaluation-section" data-target="evaluation-section"><span class="section-nav-index">05</span><span>Evaluation</span></a>
+      <a class="section-nav-link" href="#repository-section" data-target="repository-section"><span class="section-nav-index">06</span><span>Repository</span></a>
+      <a class="section-nav-link" href="#start-section" data-target="start-section"><span class="section-nav-index">07</span><span>Quick Start</span></a>
+      <a class="section-nav-link" href="#status-section" data-target="status-section"><span class="section-nav-index">08</span><span>Status</span></a>
     </nav>
   </div>
 
@@ -994,6 +1000,47 @@
               experiments, `train-request.json`, `train-result.json`, and loop summaries.
             </p>
           </article>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section page-section" id="concept-section">
+    <div class="container is-max-desktop">
+      <div class="section-heading">
+        <h2 class="title is-3 has-text-centered">Closed-Loop Sketch</h2>
+        <span class="section-heading-bar" aria-hidden="true"></span>
+      </div>
+      <p class="section-copy has-text-centered">
+        This figure comes from the earlier project notes. It shows the first
+        closed-loop view of WorldClaw around research, training, evaluation,
+        and memory.
+      </p>
+      <div class="feature-media">
+        <div class="pipeline-figure-shell concept-figure-shell">
+          <span class="figure-eyebrow">Early System Sketch</span>
+          <figure class="architecture-figure">
+            <a class="architecture-link" href="assets/figures/worldclaw-concept-sketch.png" target="_blank" rel="noopener">
+              <img
+                src="assets/figures/worldclaw-concept-sketch.png"
+                alt="Early WorldClaw sketch showing a closed loop across Research_Bot, Train_Bot, Eval_Bot, Metamemory, and a model-side branch."
+                loading="lazy"
+              >
+            </a>
+          </figure>
+          <div class="architecture-caption">
+            <div class="architecture-caption-copy">
+              <strong>Early design sketch.</strong>
+              This image predates the current repository layout. It records the
+              initial loop of `Research_Bot -&gt; Train_Bot -&gt; Eval_Bot`, with
+              `Metamemory` carrying state across iterations. The model-side blocks
+              on the right belong to the same sketch, not a direct map of today's code.
+            </div>
+            <a class="architecture-action" href="assets/figures/worldclaw-concept-sketch.png" target="_blank" rel="noopener">
+              <span>Open full resolution</span>
+              <i class="fas fa-up-right-from-square" aria-hidden="true"></i>
+            </a>
+          </div>
         </div>
       </div>
     </div>
