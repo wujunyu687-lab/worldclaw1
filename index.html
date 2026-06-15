@@ -439,6 +439,29 @@
       height: auto;
     }
 
+    .trend-video {
+      display: block;
+      width: 100%;
+      height: auto;
+      background: #0f172a;
+    }
+
+    .trend-video-shell {
+      margin: 16px 0 18px;
+      overflow: hidden;
+      border-radius: 20px;
+      border: 1px solid rgba(15, 23, 42, 0.12);
+      background: #0f172a;
+      box-shadow: 0 14px 34px rgba(15, 23, 42, 0.1);
+    }
+
+    .trend-video-note {
+      margin: 0 0 10px;
+      color: var(--text-soft);
+      font-size: 0.92rem;
+      line-height: 1.6;
+    }
+
     .architecture-caption {
       display: flex;
       align-items: flex-start;
@@ -971,6 +994,25 @@
 
       <div class="pipeline-figure-shell improvement-figure-shell">
         <span class="figure-eyebrow">Plan 2 Trends</span>
+        <p class="trend-video-note">
+          Qualitative replay above the trend chart: `comparison_with_baseline_right.mp4` with baseline on the right.
+        </p>
+        <figure class="architecture-figure">
+          <div class="trend-video-shell">
+            <video
+              class="trend-video"
+              controls
+              muted
+              loop
+              playsinline
+              preload="metadata"
+              poster="assets/videos/plan2_13024_rep_oracle_with_baseline_right_poster.jpg"
+            >
+              <source src="assets/videos/plan2_13024_rep_oracle_with_baseline_right.mp4" type="video/mp4">
+              Your browser does not support the video tag.
+            </video>
+          </div>
+        </figure>
         <figure class="architecture-figure">
           <a class="architecture-link" href="assets/figures/worldclaw-plan2-cosmos3-psnr-ssim-trend.png" target="_blank" rel="noopener">
             <img
