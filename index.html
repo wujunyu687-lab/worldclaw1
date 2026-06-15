@@ -428,6 +428,76 @@
       line-height: 1.62;
     }
 
+    .worldarena-panel {
+      margin-top: 22px;
+      padding: 24px;
+      border-radius: 28px;
+      border: 1px solid rgba(148, 163, 184, 0.22);
+      background: rgba(255, 255, 255, 0.8);
+      box-shadow: var(--surface-shadow);
+    }
+
+    .worldarena-intro {
+      margin: 8px 0 24px;
+      color: var(--text-soft);
+      font-size: 1rem;
+      line-height: 1.72;
+    }
+
+    .worldarena-card-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 16px;
+      margin-bottom: 24px;
+    }
+
+    .worldarena-card {
+      padding: 18px 20px;
+      border-radius: 20px;
+      border: 1px solid rgba(148, 163, 184, 0.2);
+      background: rgba(255, 255, 255, 0.82);
+      box-shadow: 0 12px 30px rgba(15, 23, 42, 0.06);
+    }
+
+    .worldarena-card-kicker {
+      display: block;
+      margin-bottom: 10px;
+      color: var(--accent);
+      font-size: 0.78rem;
+      font-weight: 800;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
+    .worldarena-card strong {
+      display: block;
+      margin-bottom: 8px;
+      color: var(--text-strong);
+      font-size: 1rem;
+      line-height: 1.35;
+    }
+
+    .worldarena-card p {
+      margin: 0;
+      color: var(--text-soft);
+      font-size: 0.92rem;
+      line-height: 1.62;
+    }
+
+    .worldarena-table-shell {
+      overflow: hidden;
+      border-radius: 20px;
+      border: 1px solid rgba(15, 23, 42, 0.12);
+      background: #ffffff;
+      box-shadow: 0 14px 34px rgba(15, 23, 42, 0.08);
+    }
+
+    .worldarena-table-shell img {
+      display: block;
+      width: 100%;
+      height: auto;
+    }
+
     .hero-scroll-cue {
       display: inline-flex;
       align-items: center;
@@ -704,7 +774,8 @@
       .contributions-grid,
       .capability-grid,
       .note-grid,
-      .skill-example-grid {
+      .skill-example-grid,
+      .worldarena-card-grid {
         grid-template-columns: 1fr;
       }
 
@@ -1224,6 +1295,62 @@
             range as the COSMOS3 baseline.
           </div>
           <a class="architecture-action" href="assets/figures/worldclaw-plan2-cosmos3-metrics-table.png" target="_blank" rel="noopener">
+            <span>Open full resolution</span>
+            <i class="fas fa-up-right-from-square" aria-hidden="true"></i>
+          </a>
+        </div>
+      </div>
+
+      <div class="worldarena-panel">
+        <span class="figure-eyebrow">WorldArena Metrics</span>
+        <p class="worldarena-intro">
+          WorldArena-style scoring gives a broader view of the Plan 2 rollout than
+          PSNR and SSIM alone. The table compares COSMOS3 with REP on semantic,
+          geometric, aesthetic, background, dynamics, flow, smoothness, and subject
+          consistency metrics.
+        </p>
+        <div class="worldarena-card-grid">
+          <article class="worldarena-card">
+            <span class="worldarena-card-kicker">6 / 8 Leads</span>
+            <strong>REP leads on most WorldArena entries.</strong>
+            <p>
+              REP is higher on semantic alignment, depth accuracy, aesthetic quality,
+              dynamic degree, flow score, and motion smoothness.
+            </p>
+          </article>
+          <article class="worldarena-card">
+            <span class="worldarena-card-kicker">Depth + Motion</span>
+            <strong>The largest gains are in geometry and temporal behavior.</strong>
+            <p>
+              Depth accuracy increases from 95.35 to 97.05, and motion smoothness
+              increases from 78.93 to 81.31.
+            </p>
+          </article>
+          <article class="worldarena-card">
+            <span class="worldarena-card-kicker">Remaining Gap</span>
+            <strong>COSMOS3 still keeps stronger identity and background consistency.</strong>
+            <p>
+              Background consistency and subject consistency remain lower for REP,
+              which marks the next failure mode for WorldClaw to target.
+            </p>
+          </article>
+        </div>
+        <figure class="architecture-figure">
+          <a class="architecture-link worldarena-table-shell" href="assets/figures/worldarena-cosmos3-rep-metrics.png" target="_blank" rel="noopener">
+            <img
+              src="assets/figures/worldarena-cosmos3-rep-metrics.png"
+              alt="WorldArena metrics table comparing COSMOS3 and REP across semantic alignment, depth accuracy, aesthetic quality, background consistency, dynamic degree, flow score, motion smoothness, and subject consistency."
+              loading="lazy"
+            >
+          </a>
+        </figure>
+        <div class="architecture-caption">
+          <div class="architecture-caption-copy">
+            <strong>WorldArena-style evaluation.</strong>
+            Scores are reported on a 0-100 scale where higher is better. Bold entries
+            in the table indicate the stronger result for each metric.
+          </div>
+          <a class="architecture-action" href="assets/figures/worldarena-cosmos3-rep-metrics.png" target="_blank" rel="noopener">
             <span>Open full resolution</span>
             <i class="fas fa-up-right-from-square" aria-hidden="true"></i>
           </a>
