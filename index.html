@@ -679,7 +679,8 @@
     <nav class="section-nav" aria-label="Page navigation">
       <a class="section-nav-link is-active" href="#overview-section" data-target="overview-section"><span class="section-nav-index">01</span><span>Overview</span></a>
       <a class="section-nav-link" href="#pipeline-section" data-target="pipeline-section"><span class="section-nav-index">02</span><span>Pipeline</span></a>
-      <a class="section-nav-link" href="#evaluation-section" data-target="evaluation-section"><span class="section-nav-index">03</span><span>Evaluation</span></a>
+      <a class="section-nav-link" href="#active-learning-section" data-target="active-learning-section"><span class="section-nav-index">03</span><span>Active Learning</span></a>
+      <a class="section-nav-link" href="#evaluation-section" data-target="evaluation-section"><span class="section-nav-index">04</span><span>Evaluation</span></a>
     </nav>
   </div>
 
@@ -803,6 +804,46 @@
               on the right belong to the same sketch, not a direct map of today's code.
             </div>
             <a class="architecture-action" href="assets/figures/worldclaw-concept-sketch.png" target="_blank" rel="noopener">
+              <span>Open full resolution</span>
+              <i class="fas fa-up-right-from-square" aria-hidden="true"></i>
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section page-section" id="active-learning-section">
+    <div class="container is-max-desktop">
+      <div class="section-heading">
+        <h2 class="title is-3 has-text-centered">WorldClaw Active Learning</h2>
+        <span class="section-heading-bar" aria-hidden="true"></span>
+      </div>
+      <p class="section-copy has-text-centered">
+        This flowchart shows how WorldClaw closes the active-learning loop:
+        identify uncertain or failing cases, select the next data or replay target,
+        retrain or adapt the model, and feed the new evidence back into evaluation.
+      </p>
+      <div class="feature-media">
+        <div class="pipeline-figure-shell concept-figure-shell">
+          <span class="figure-eyebrow">Active Learning Flow</span>
+          <figure class="architecture-figure">
+            <a class="architecture-link" href="assets/figures/worldclaw-active-learning-flow.png" target="_blank" rel="noopener">
+              <img
+                src="assets/figures/worldclaw-active-learning-flow.png"
+                alt="WorldClaw active learning flowchart showing selection, training, evaluation, and feedback stages."
+                loading="lazy"
+              >
+            </a>
+          </figure>
+          <div class="architecture-caption">
+            <div class="architecture-caption-copy">
+              <strong>Active-learning workflow.</strong>
+              The loop turns evaluation evidence into the next intervention target,
+              so WorldClaw can prioritize cases that most directly expose model
+              weakness instead of sampling new trials blindly.
+            </div>
+            <a class="architecture-action" href="assets/figures/worldclaw-active-learning-flow.png" target="_blank" rel="noopener">
               <span>Open full resolution</span>
               <i class="fas fa-up-right-from-square" aria-hidden="true"></i>
             </a>
