@@ -280,12 +280,12 @@
     }
 
     .contributions-grid,
-    .capability-grid,
-    .note-grid {
-      display: grid;
-      grid-template-columns: repeat(3, minmax(0, 1fr));
-      gap: 18px;
-    }
+      .capability-grid,
+      .note-grid {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 18px;
+      }
 
     .contribution-card,
     .capability-card,
@@ -343,6 +343,10 @@
       color: var(--text-soft);
       font-size: 0.96rem;
       line-height: 1.72;
+    }
+
+    .note-grid .note-card:only-child {
+      grid-column: 1 / -1;
     }
 
     .hero-scroll-cue {
@@ -788,12 +792,12 @@
   <section class="section page-section" id="evaluation-section">
     <div class="container is-max-desktop">
       <div class="section-heading">
-        <h2 class="title is-3 has-text-centered">Evaluation and Provider Boundaries</h2>
+        <h2 class="title is-3 has-text-centered">Evaluation</h2>
         <span class="section-heading-bar" aria-hidden="true"></span>
       </div>
       <p class="section-copy has-text-centered">
-        Benchmark-facing evaluation, ACWM-specific checks, and repo-specific
-        provider code are kept separate. That is the main boundary in the project.
+        Evaluation combines benchmark-facing checks with qualitative replay
+        comparisons against GT and CtrlWorld baselines.
       </p>
 
       <div class="capability-grid">
@@ -814,14 +818,6 @@
             Native diagnosis entry for <span class="inline-code">action-sensitivity</span>,
             <span class="inline-code">rollout-fidelity</span>, <span class="inline-code">stability-guard</span>,
             <span class="inline-code">policy-alignment</span>, and more.
-          </p>
-        </article>
-        <article class="capability-card">
-          <span class="contribution-index">PA</span>
-          <h3>Provider Adapter</h3>
-          <p>
-            Repo-specific knowledge lives in provider adapters, while the loop core
-            stays generic and only consumes structured train/eval contracts.
           </p>
         </article>
       </div>
@@ -949,21 +945,6 @@
       </div>
 
       <div class="note-grid" style="margin-top: 18px;">
-        <article class="note-card">
-          <h3>Why provider adapters matter</h3>
-          <p>
-            The loop core should not know how one particular world-model repo stores
-            weights, datasets, or rollout traces. That knowledge belongs in the
-            provider boundary.
-          </p>
-        </article>
-        <article class="note-card">
-          <h3>Why metrics adapters matter</h3>
-          <p>
-            Provider adapters solve repository integration. Metrics adapters solve
-            how heterogeneous rollout or score outputs are normalized into ACWM space.
-          </p>
-        </article>
         <article class="note-card">
           <h3>Current practical gap</h3>
           <p>
