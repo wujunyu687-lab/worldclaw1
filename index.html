@@ -392,13 +392,6 @@
       overflow: hidden;
     }
 
-    .pipeline-board {
-      display: grid;
-      grid-template-columns: repeat(5, minmax(0, 1fr));
-      gap: 14px;
-      align-items: stretch;
-    }
-
     .pipeline-figure-shell {
       margin-top: 22px;
       padding: 18px 18px 16px;
@@ -592,58 +585,6 @@
       font-size: 0.95rem;
     }
 
-    .pipeline-step {
-      position: relative;
-      padding: 20px 18px;
-      border-radius: 22px;
-      background: var(--surface-strong);
-      border: 1px solid rgba(148, 163, 184, 0.18);
-      box-shadow: 0 12px 30px rgba(15, 23, 42, 0.08);
-    }
-
-    .pipeline-step::after {
-      content: "→";
-      position: absolute;
-      right: -12px;
-      top: 50%;
-      transform: translateY(-50%);
-      color: #93a5c5;
-      font-size: 1.5rem;
-      font-weight: 700;
-    }
-
-    .pipeline-step:last-child::after {
-      display: none;
-    }
-
-    .pipeline-step .step-chip {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      min-width: 2.3rem;
-      height: 2.3rem;
-      margin-bottom: 12px;
-      border-radius: 999px;
-      background: rgba(37, 99, 235, 0.1);
-      color: var(--accent);
-      font-size: 0.8rem;
-      font-weight: 800;
-    }
-
-    .pipeline-step h4 {
-      margin: 0 0 10px;
-      font-family: "Google Sans", "Noto Sans", sans-serif;
-      font-size: 1.04rem;
-      color: var(--text-strong);
-    }
-
-    .pipeline-step p {
-      margin: 0;
-      color: var(--text-soft);
-      font-size: 0.93rem;
-      line-height: 1.68;
-    }
-
     .workflow-shell {
       display: grid;
       grid-template-columns: 1.2fr 0.8fr;
@@ -742,16 +683,6 @@
       font-size: 0.84rem;
     }
 
-    @media screen and (max-width: 1180px) {
-      .pipeline-board {
-        grid-template-columns: repeat(2, minmax(0, 1fr));
-      }
-
-      .pipeline-step:last-child {
-        grid-column: 1 / -1;
-      }
-    }
-
     @media screen and (max-width: 960px) {
       body {
         padding-top: 104px;
@@ -761,13 +692,8 @@
       .capability-grid,
       .artifact-grid,
       .note-grid,
-      .pipeline-board,
       .workflow-shell {
         grid-template-columns: 1fr;
-      }
-
-      .pipeline-step::after {
-        display: none;
       }
 
       .workflow-row {
@@ -828,10 +754,9 @@
     </div>
     <nav class="section-nav" aria-label="Page navigation">
       <a class="section-nav-link is-active" href="#overview-section" data-target="overview-section"><span class="section-nav-index">01</span><span>Overview</span></a>
-      <a class="section-nav-link" href="#concept-section" data-target="concept-section"><span class="section-nav-index">02</span><span>Sketch</span></a>
-      <a class="section-nav-link" href="#pipeline-section" data-target="pipeline-section"><span class="section-nav-index">03</span><span>Pipeline</span></a>
-      <a class="section-nav-link" href="#capability-section" data-target="capability-section"><span class="section-nav-index">04</span><span>Capabilities</span></a>
-      <a class="section-nav-link" href="#evaluation-section" data-target="evaluation-section"><span class="section-nav-index">05</span><span>Evaluation</span></a>
+      <a class="section-nav-link" href="#pipeline-section" data-target="pipeline-section"><span class="section-nav-index">02</span><span>Pipeline</span></a>
+      <a class="section-nav-link" href="#capability-section" data-target="capability-section"><span class="section-nav-index">03</span><span>Capabilities</span></a>
+      <a class="section-nav-link" href="#evaluation-section" data-target="evaluation-section"><span class="section-nav-index">04</span><span>Evaluation</span></a>
     </nav>
   </div>
 
@@ -922,10 +847,10 @@
     </div>
   </section>
 
-  <section class="section page-section" id="concept-section">
+  <section class="section page-section" id="pipeline-section">
     <div class="container is-max-desktop">
       <div class="section-heading">
-        <h2 class="title is-3 has-text-centered">Closed-Loop Sketch</h2>
+        <h2 class="title is-3 has-text-centered">WorldClaw Pipeline</h2>
         <span class="section-heading-bar" aria-hidden="true"></span>
       </div>
       <p class="section-copy has-text-centered">
@@ -954,83 +879,6 @@
               on the right belong to the same sketch, not a direct map of today's code.
             </div>
             <a class="architecture-action" href="assets/figures/worldclaw-concept-sketch.png" target="_blank" rel="noopener">
-              <span>Open full resolution</span>
-              <i class="fas fa-up-right-from-square" aria-hidden="true"></i>
-            </a>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <section class="section page-section" id="pipeline-section">
-    <div class="container is-max-desktop">
-      <div class="section-heading">
-        <h2 class="title is-3 has-text-centered">WorldClaw Pipeline</h2>
-        <span class="section-heading-bar" aria-hidden="true"></span>
-      </div>
-      <p class="section-copy has-text-centered">
-        The workflow on this snapshot is:
-        <span class="inline-code">target + experiment -&gt; train/export -&gt; ACWM/WorldArena eval -&gt; diagnosis/patch plan -&gt; loop summary -&gt; memory/report</span>.
-      </p>
-      <div class="feature-media">
-        <div class="pipeline-board">
-          <article class="pipeline-step">
-            <span class="step-chip">01</span>
-            <h4>Resolve Target</h4>
-            <p>
-              Resolve one target and one experiment into a concrete staged run.
-            </p>
-          </article>
-          <article class="pipeline-step">
-            <span class="step-chip">02</span>
-            <h4>Train or Replay</h4>
-            <p>
-              Run training or replay and write checkpoints, logs, and summaries.
-            </p>
-          </article>
-          <article class="pipeline-step">
-            <span class="step-chip">03</span>
-            <h4>Export Contracts</h4>
-            <p>
-              Export rollout, action, reference, and metrics files for evaluation.
-            </p>
-          </article>
-          <article class="pipeline-step">
-            <span class="step-chip">04</span>
-            <h4>Run Eval</h4>
-            <p>
-              Run ACWM or WorldArena and write summary, report, and patch-plan outputs.
-            </p>
-          </article>
-          <article class="pipeline-step">
-            <span class="step-chip">05</span>
-            <h4>Write Next-Step State</h4>
-            <p>
-              Record the loop decision and the inputs needed for the next iteration.
-            </p>
-          </article>
-        </div>
-
-        <div class="pipeline-figure-shell">
-          <span class="figure-eyebrow">Framework Overview</span>
-          <figure class="architecture-figure">
-            <a class="architecture-link" href="assets/figures/worldclaw-architecture.png" target="_blank" rel="noopener">
-              <img
-                src="assets/figures/worldclaw-architecture.png"
-                alt="WorldClaw architecture diagram showing the control plane, training pipeline, evaluation layer, contract-based data flow, and closed-loop optimization controller."
-                loading="lazy"
-              >
-            </a>
-          </figure>
-          <div class="architecture-caption">
-            <div class="architecture-caption-copy">
-              <strong>Architecture diagram.</strong>
-              The training side, evaluation side, contract files, and loop controller
-              are separated explicitly, so provider-specific code does not have to leak
-              into the generic loop core.
-            </div>
-            <a class="architecture-action" href="assets/figures/worldclaw-architecture.png" target="_blank" rel="noopener">
               <span>Open full resolution</span>
               <i class="fas fa-up-right-from-square" aria-hidden="true"></i>
             </a>
