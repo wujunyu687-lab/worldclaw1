@@ -701,36 +701,37 @@
     <div class="container is-max-desktop">
       <div class="overview-panel">
         <div class="section-heading">
-          <h2 class="title is-3 has-text-centered">Current Scope</h2>
+          <h2 class="title is-3 has-text-centered">Motivation and Innovation</h2>
           <span class="section-heading-bar" aria-hidden="true"></span>
         </div>
         <p class="contributions-intro has-text-centered">
-          The current repository is centered on a small set of stable surfaces:
-          `tools/train`, `tools/eval`, `tools/loop`, `configs`, and `runs`.
+          World-model research still spends too much effort on manual experiment
+          stitching: choosing a target, running training, collecting rollouts,
+          judging failures, and deciding what to try next.
         </p>
         <div class="contributions-grid">
           <article class="contribution-card">
             <span class="contribution-index">01</span>
-            <h3>Train Surface</h3>
+            <h3>Closed-Loop Research</h3>
             <p>
-              Training is organized around targets, experiments, staged execution,
-              summaries, bundles, and lineage files under `runs/train/`.
+              WorldClaw treats research, training, and evaluation as one feedback
+              loop instead of three separate scripts that have to be coordinated by hand.
             </p>
           </article>
           <article class="contribution-card">
             <span class="contribution-index">02</span>
-            <h3>Eval Surface</h3>
+            <h3>Failure-Driven Iteration</h3>
             <p>
-              Evaluation is split between `WorldArena` and `ACWM Bench`, with
-              summaries, reports, and patch plans written under `runs/eval/`.
+              Evaluation is not just a final score. It produces diagnosis and patch
+              plans that can drive the next training or replay attempt.
             </p>
           </article>
           <article class="contribution-card">
             <span class="contribution-index">03</span>
-            <h3>Loop Surface</h3>
+            <h3>Experiment Memory</h3>
             <p>
-              The loop layer connects train and eval through preflight, overlay
-              experiments, `train-request.json`, `train-result.json`, and loop summaries.
+              Structured records preserve targets, outputs, failures, and decisions,
+              so later iterations can reuse evidence instead of reconstructing context.
             </p>
           </article>
         </div>
