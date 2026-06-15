@@ -325,8 +325,7 @@
     .capability-card:hover,
     .note-card:hover,
     .feature-media:hover,
-    .gray-box-container:hover,
-    .code-panel:hover {
+    .gray-box-container:hover {
       transform: translateY(-4px);
       box-shadow: var(--surface-shadow-hover);
       border-color: rgba(37, 99, 235, 0.18);
@@ -397,8 +396,7 @@
     }
 
     .feature-media,
-    .gray-box-container,
-    .code-panel {
+    .gray-box-container {
       background: rgba(255, 255, 255, 0.72);
       border: 1px solid var(--surface-border);
       border-radius: 28px;
@@ -734,7 +732,6 @@
 
     .artifact-card code,
     .inline-code,
-    .tree,
     .code-block {
       font-family: "SFMono-Regular", Consolas, "Liberation Mono", Menlo, monospace;
     }
@@ -749,156 +746,8 @@
       font-size: 0.84rem;
     }
 
-    .repo-layout {
-      display: grid;
-      grid-template-columns: 0.92fr 1.08fr;
-      gap: 20px;
-    }
-
-    .tree {
-      margin: 0;
-      padding: 22px;
-      border-radius: 24px;
-      background: #0f172a;
-      color: #e2e8f0;
-      font-size: 0.89rem;
-      line-height: 1.78;
-      overflow-x: auto;
-    }
-
-    .layout-notes {
-      display: grid;
-      gap: 14px;
-    }
-
-    .layout-note {
-      padding: 18px 20px;
-      border-radius: 20px;
-      background: rgba(255, 255, 255, 0.88);
-      border: 1px solid rgba(148, 163, 184, 0.16);
-      box-shadow: 0 12px 26px rgba(15, 23, 42, 0.06);
-    }
-
-    .layout-note h4 {
-      margin: 0 0 8px;
-      font-family: "Google Sans", "Noto Sans", sans-serif;
-      font-size: 1rem;
-      color: var(--text-strong);
-    }
-
-    .layout-note p {
-      margin: 0;
-      color: var(--text-soft);
-      line-height: 1.68;
-      font-size: 0.94rem;
-    }
-
-    .code-grid {
-      display: grid;
-      grid-template-columns: repeat(3, minmax(0, 1fr));
-      gap: 18px;
-    }
-
-    .code-panel {
-      padding: 24px;
-    }
-
-    .code-panel h3 {
-      margin-top: 0;
-      margin-bottom: 10px;
-      font-family: "Google Sans", "Noto Sans", sans-serif;
-      font-size: 1.12rem;
-    }
-
-    .code-panel p {
-      color: var(--text-soft);
-      font-size: 0.95rem;
-      line-height: 1.7;
-      margin-bottom: 14px;
-    }
-
-    .code-shell {
-      position: relative;
-      padding: 16px;
-      border-radius: 20px;
-      background: #0f172a;
-      color: #e2e8f0;
-      overflow-x: auto;
-    }
-
-    .code-shell pre {
-      margin: 0;
-      font-size: 0.86rem;
-      line-height: 1.75;
-      white-space: pre-wrap;
-      word-break: break-word;
-    }
-
-    .copy-button {
-      position: absolute;
-      top: 12px;
-      right: 12px;
-      border: 0;
-      border-radius: 999px;
-      padding: 6px 10px;
-      background: rgba(255, 255, 255, 0.1);
-      color: #ffffff;
-      font-size: 0.72rem;
-      cursor: pointer;
-    }
-
-    .status-strip {
-      display: grid;
-      grid-template-columns: repeat(3, minmax(0, 1fr));
-      gap: 18px;
-      margin-top: 18px;
-    }
-
-    .status-box {
-      padding: 20px 18px;
-      border-radius: 22px;
-      border: 1px solid rgba(148, 163, 184, 0.16);
-      background: rgba(255, 255, 255, 0.86);
-      box-shadow: 0 12px 28px rgba(15, 23, 42, 0.08);
-    }
-
-    .status-box.success {
-      background: linear-gradient(180deg, rgba(232, 247, 236, 0.95), rgba(255, 255, 255, 0.95));
-    }
-
-    .status-box.warn {
-      background: linear-gradient(180deg, rgba(255, 243, 230, 0.95), rgba(255, 255, 255, 0.95));
-    }
-
-    .status-box.info {
-      background: linear-gradient(180deg, rgba(232, 241, 255, 0.95), rgba(255, 255, 255, 0.95));
-    }
-
-    .status-box h4 {
-      margin: 0 0 8px;
-      font-size: 1rem;
-      font-family: "Google Sans", "Noto Sans", sans-serif;
-    }
-
-    .status-box p {
-      margin: 0;
-      color: var(--text-soft);
-      font-size: 0.94rem;
-      line-height: 1.7;
-    }
-
-    .footer-note {
-      text-align: center;
-      color: var(--text-soft);
-      font-size: 0.94rem;
-      line-height: 1.7;
-      margin-top: 14px;
-    }
-
     @media screen and (max-width: 1180px) {
-      .pipeline-board,
-      .code-grid,
-      .status-strip {
+      .pipeline-board {
         grid-template-columns: repeat(2, minmax(0, 1fr));
       }
 
@@ -916,10 +765,7 @@
       .capability-grid,
       .artifact-grid,
       .note-grid,
-      .status-strip,
       .pipeline-board,
-      .code-grid,
-      .repo-layout,
       .workflow-shell {
         grid-template-columns: 1fr;
       }
@@ -958,8 +804,7 @@
 
       .overview-panel,
       .feature-media,
-      .gray-box-container,
-      .code-panel {
+      .gray-box-container {
         padding: 24px;
         border-radius: 24px;
       }
@@ -987,9 +832,6 @@
       <a class="section-nav-link" href="#pipeline-section" data-target="pipeline-section"><span class="section-nav-index">03</span><span>Pipeline</span></a>
       <a class="section-nav-link" href="#capability-section" data-target="capability-section"><span class="section-nav-index">04</span><span>Capabilities</span></a>
       <a class="section-nav-link" href="#evaluation-section" data-target="evaluation-section"><span class="section-nav-index">05</span><span>Evaluation</span></a>
-      <a class="section-nav-link" href="#repository-section" data-target="repository-section"><span class="section-nav-index">06</span><span>Repository</span></a>
-      <a class="section-nav-link" href="#start-section" data-target="start-section"><span class="section-nav-index">07</span><span>Quick Start</span></a>
-      <a class="section-nav-link" href="#status-section" data-target="status-section"><span class="section-nav-index">08</span><span>Status</span></a>
     </nav>
   </div>
 
@@ -1033,12 +875,6 @@
                   <a href="#evaluation-section" class="external-link button is-normal is-rounded button-soft button-policy button-gap">
                     <span class="icon"><i class="fas fa-microscope"></i></span>
                     <span>Evaluation</span>
-                  </a>
-                </span>
-                <span class="link-block">
-                  <a href="#start-section" class="external-link button is-normal is-rounded button-soft button-note button-gap">
-                    <span class="icon"><i class="fas fa-terminal"></i></span>
-                    <span>Quick Start</span>
                   </a>
                 </span>
               </div>
@@ -1416,146 +1252,6 @@
     </div>
   </section>
 
-  <section class="section page-section" id="repository-section">
-    <div class="container is-max-desktop">
-      <div class="section-heading">
-        <h2 class="title is-3 has-text-centered">Repository Layout</h2>
-        <span class="section-heading-bar" aria-hidden="true"></span>
-      </div>
-
-      <div class="repo-layout">
-        <pre class="tree">worldclaw/
-  skills/
-    train/
-    eval-worldarena/
-    eval-acwm/
-    papersearch/
-    report/
-  tools/
-    train/
-    eval/
-    loop/
-    providers/
-    papersearch/
-    report/
-    memory/
-  configs/train/
-  runs/
-  tests/
-  doc/
-  runtime/
-  metabot/</pre>
-
-        <div class="layout-notes">
-          <div class="layout-note">
-            <h4>skills/</h4>
-            <p>Workflow protocols that give each task family a stable first move.</p>
-          </div>
-          <div class="layout-note">
-            <h4>tools/</h4>
-            <p>Deterministic execution surfaces for train, eval, loop, paper search, report, and memory.</p>
-          </div>
-          <div class="layout-note">
-            <h4>configs/ + runs/</h4>
-            <p>Config expresses intent, runs preserve evidence. That split is what makes the system reusable.</p>
-          </div>
-          <div class="layout-note">
-            <h4>tests/</h4>
-            <p>Regression coverage keeps the control plane from turning into undocumented shell state again.</p>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <section class="section page-section" id="start-section">
-    <div class="container is-max-desktop">
-      <div class="section-heading">
-        <h2 class="title is-3 has-text-centered">Quick Start</h2>
-        <span class="section-heading-bar" aria-hidden="true"></span>
-      </div>
-      <p class="section-copy has-text-centered">
-        Start from the commands below. They match the current repository layout.
-      </p>
-
-      <div class="code-grid">
-        <article class="code-panel">
-          <h3>Install the lightweight stack</h3>
-          <p>Start with the control-plane dependencies before pulling in heavier training runtimes.</p>
-          <div class="code-shell">
-            <button class="copy-button" data-copy-target="code-install">copy</button>
-            <pre id="code-install">python -m pip install -r requirements-lite.txt</pre>
-          </div>
-        </article>
-
-        <article class="code-panel">
-          <h3>Inspect train and eval entries</h3>
-          <p>List supported evaluation entries and resolve a provider-adapted train run.</p>
-          <div class="code-shell">
-            <button class="copy-button" data-copy-target="code-entries">copy</button>
-            <pre id="code-entries">python tools/eval/main.py list-entries
-python tools/eval/main.py acwm list-suboptions
-python tools/train/run.py resolve-run ctrl-world \
-  --experiment-id smoke-train-eval --json</pre>
-          </div>
-        </article>
-
-        <article class="code-panel">
-          <h3>Plan a closed ACWM loop</h3>
-          <p>Use the loop controller instead of manually stitching training and evaluation together.</p>
-          <div class="code-shell">
-            <button class="copy-button" data-copy-target="code-loop">copy</button>
-            <pre id="code-loop">python tools/loop/run.py plan-acwm \
-  ctrl-world \
-  smoke-train-eval \
-  action-sensitivity \
-  --provider-id ctrl-world \
-  --preflight-profile smoke \
-  --json</pre>
-          </div>
-        </article>
-      </div>
-    </div>
-  </section>
-
-  <section class="section page-section" id="status-section">
-    <div class="container is-max-desktop">
-      <div class="section-heading">
-        <h2 class="title is-3 has-text-centered">Verified Locally</h2>
-        <span class="section-heading-bar" aria-hidden="true"></span>
-      </div>
-
-      <div class="status-strip">
-        <article class="status-box success">
-          <h4>Latest ACWM eval</h4>
-          <p>
-            `20260528T081046Z-acwm-bench-stability-guard` completed locally, with
-            headline metric `horizon_compliance = 1.0`.
-          </p>
-        </article>
-        <article class="status-box info">
-          <h4>What is stable</h4>
-          <p>
-            The repository already has working train, eval, provider-preflight,
-            and loop entry points with structured outputs.
-          </p>
-        </article>
-        <article class="status-box warn">
-          <h4>What is incomplete</h4>
-          <p>
-            Metric-rich ACWM sidecars are still missing for some paths, and more
-            provider adapters still need to be added.
-          </p>
-        </article>
-      </div>
-
-      <p class="footer-note">
-        This page is based on the repository as it exists now, not on a separate
-        paper-only benchmark narrative.
-      </p>
-    </div>
-  </section>
-
   <script>
     function updateScrollProgress() {
       const progressBar = document.getElementById("scroll-progress-bar");
@@ -1597,29 +1293,6 @@ python tools/train/run.py resolve-run ctrl-world \
       });
     }
 
-    function setupCopyButtons() {
-      document.querySelectorAll(".copy-button").forEach((button) => {
-        button.addEventListener("click", async () => {
-          const targetId = button.getAttribute("data-copy-target");
-          const target = document.getElementById(targetId);
-          if (!target) return;
-          try {
-            await navigator.clipboard.writeText(target.textContent.trim());
-            const prev = button.textContent;
-            button.textContent = "copied";
-            window.setTimeout(() => {
-              button.textContent = prev;
-            }, 1200);
-          } catch (error) {
-            button.textContent = "failed";
-            window.setTimeout(() => {
-              button.textContent = "copy";
-            }, 1200);
-          }
-        });
-      });
-    }
-
     function syncPageChrome() {
       updateScrollProgress();
       updateActiveSection();
@@ -1627,7 +1300,6 @@ python tools/train/run.py resolve-run ctrl-world \
 
     document.addEventListener("DOMContentLoaded", () => {
       setupSectionNav();
-      setupCopyButtons();
       syncPageChrome();
       window.addEventListener("scroll", syncPageChrome, { passive: true });
       window.addEventListener("resize", syncPageChrome);
