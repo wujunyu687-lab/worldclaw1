@@ -281,7 +281,6 @@
 
     .contributions-grid,
     .capability-grid,
-    .artifact-grid,
     .note-grid {
       display: grid;
       grid-template-columns: repeat(3, minmax(0, 1fr));
@@ -289,7 +288,6 @@
     }
 
     .contribution-card,
-    .artifact-card,
     .capability-card,
     .note-card {
       height: 100%;
@@ -303,7 +301,6 @@
     }
 
     .contribution-card:hover,
-    .artifact-card:hover,
     .capability-card:hover,
     .note-card:hover,
     .feature-media:hover,
@@ -329,7 +326,6 @@
     }
 
     .contribution-card h3,
-    .artifact-card h3,
     .capability-card h3,
     .note-card h3 {
       margin-bottom: 10px;
@@ -341,7 +337,6 @@
     }
 
     .contribution-card p,
-    .artifact-card p,
     .capability-card p,
     .note-card p {
       margin: 0;
@@ -585,102 +580,9 @@
       font-size: 0.95rem;
     }
 
-    .workflow-shell {
-      display: grid;
-      grid-template-columns: 1.2fr 0.8fr;
-      gap: 22px;
-      align-items: start;
-    }
-
-    .workflow-stack {
-      display: grid;
-      gap: 14px;
-    }
-
-    .workflow-row {
-      display: flex;
-      align-items: stretch;
-      gap: 14px;
-    }
-
-    .workflow-label {
-      min-width: 128px;
-      padding: 16px 14px;
-      border-radius: 18px;
-      background: rgba(37, 99, 235, 0.08);
-      color: var(--accent);
-      font-size: 0.92rem;
-      font-weight: 700;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      text-align: center;
-    }
-
-    .workflow-content {
-      flex: 1;
-      padding: 16px 18px;
-      border-radius: 18px;
-      background: var(--surface-strong);
-      border: 1px solid rgba(148, 163, 184, 0.16);
-      box-shadow: 0 10px 26px rgba(15, 23, 42, 0.06);
-    }
-
-    .workflow-content strong {
-      display: block;
-      margin-bottom: 6px;
-      color: var(--text-strong);
-      font-size: 0.98rem;
-    }
-
-    .workflow-content span {
-      color: var(--text-soft);
-      font-size: 0.93rem;
-      line-height: 1.7;
-    }
-
-    .stat-panel {
-      display: grid;
-      gap: 14px;
-    }
-
-    .stat-card {
-      padding: 20px 18px;
-      border-radius: 22px;
-      background: var(--surface-strong);
-      border: 1px solid rgba(148, 163, 184, 0.16);
-      box-shadow: 0 12px 28px rgba(15, 23, 42, 0.08);
-    }
-
-    .stat-card strong {
-      display: block;
-      margin-bottom: 4px;
-      font-family: "Google Sans", "Noto Sans", sans-serif;
-      font-size: 2rem;
-      line-height: 1;
-      color: var(--text-strong);
-    }
-
-    .stat-card span {
-      color: var(--text-soft);
-      font-size: 0.92rem;
-      line-height: 1.55;
-    }
-
-    .artifact-card code,
     .inline-code,
     .code-block {
       font-family: "SFMono-Regular", Consolas, "Liberation Mono", Menlo, monospace;
-    }
-
-    .artifact-card code {
-      display: inline-block;
-      margin-bottom: 10px;
-      padding: 4px 8px;
-      border-radius: 999px;
-      background: rgba(37, 99, 235, 0.08);
-      color: var(--accent);
-      font-size: 0.84rem;
     }
 
     @media screen and (max-width: 960px) {
@@ -690,19 +592,9 @@
 
       .contributions-grid,
       .capability-grid,
-      .artifact-grid,
       .note-grid,
-      .workflow-shell {
+      .note-grid {
         grid-template-columns: 1fr;
-      }
-
-      .workflow-row {
-        flex-direction: column;
-      }
-
-      .workflow-label {
-        min-width: 0;
-        justify-content: flex-start;
       }
 
       .architecture-caption {
@@ -755,8 +647,7 @@
     <nav class="section-nav" aria-label="Page navigation">
       <a class="section-nav-link is-active" href="#overview-section" data-target="overview-section"><span class="section-nav-index">01</span><span>Overview</span></a>
       <a class="section-nav-link" href="#pipeline-section" data-target="pipeline-section"><span class="section-nav-index">02</span><span>Pipeline</span></a>
-      <a class="section-nav-link" href="#capability-section" data-target="capability-section"><span class="section-nav-index">03</span><span>Capabilities</span></a>
-      <a class="section-nav-link" href="#evaluation-section" data-target="evaluation-section"><span class="section-nav-index">04</span><span>Evaluation</span></a>
+      <a class="section-nav-link" href="#evaluation-section" data-target="evaluation-section"><span class="section-nav-index">03</span><span>Evaluation</span></a>
     </nav>
   </div>
 
@@ -883,98 +774,6 @@
               <i class="fas fa-up-right-from-square" aria-hidden="true"></i>
             </a>
           </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <section class="section page-section" id="capability-section">
-    <div class="container is-max-desktop">
-      <div class="section-heading">
-        <h2 class="title is-3 has-text-centered">Repository Surfaces</h2>
-        <span class="section-heading-bar" aria-hidden="true"></span>
-      </div>
-
-      <div class="gray-box-container">
-        <div class="workflow-shell">
-          <div class="workflow-stack">
-            <div class="workflow-row">
-              <div class="workflow-label">Train</div>
-              <div class="workflow-content">
-                <strong>targets, experiments, stage execution, summaries, bundles, lineage</strong>
-                <span>Training commands live under `tools/train/`, with configuration in `configs/train/` and outputs in `runs/train/`.</span>
-              </div>
-            </div>
-            <div class="workflow-row">
-              <div class="workflow-label">Eval</div>
-              <div class="workflow-content">
-                <strong>WorldArena entry + ACWM Bench entry</strong>
-                <span>Evaluation commands live under `tools/eval/`, with run artifacts written to `runs/eval/`.</span>
-              </div>
-            </div>
-            <div class="workflow-row">
-              <div class="workflow-label">Loop</div>
-              <div class="workflow-content">
-                <strong>plan-acwm, run-acwm, provider preflight, experiment overlays</strong>
-                <span>The loop controller connects train and eval without hard-coding one specific backend.</span>
-              </div>
-            </div>
-            <div class="workflow-row">
-              <div class="workflow-label">Memory</div>
-              <div class="workflow-content">
-                <strong>active / archived / quarantined experiment records</strong>
-                <span>Reporting and memory layers read structured outputs instead of reconstructing state from shell history.</span>
-              </div>
-            </div>
-          </div>
-
-          <div class="stat-panel">
-            <div class="stat-card">
-              <strong>5</strong>
-              <span>main workflow lines already surfaced in the current repository layout</span>
-            </div>
-            <div class="stat-card">
-              <strong>7</strong>
-              <span>ACWM Bench suboptions spanning sensitivity, fidelity, stability, policy, and adversarial stress</span>
-            </div>
-            <div class="stat-card">
-              <strong>1+</strong>
-              <span>provider boundary already in place, so adding more backends does not require rewriting the loop core</span>
-            </div>
-          </div>
-        </div>
-
-        <div class="artifact-grid" style="margin-top: 22px;">
-          <article class="artifact-card">
-            <code>train-request.json</code>
-            <h3>Train Request</h3>
-            <p>Loop-to-train control payload with the exact staged objective for a given iteration.</p>
-          </article>
-          <article class="artifact-card">
-            <code>train-result.json</code>
-            <h3>Train Result</h3>
-            <p>Canonical bridge artifact that resolves training outputs into downstream evaluation inputs.</p>
-          </article>
-          <article class="artifact-card">
-            <code>rollout-manifest.json</code>
-            <h3>Rollout Contract</h3>
-            <p>Sequence, camera, generated video, reference video, and horizon metadata for ACWM checks.</p>
-          </article>
-          <article class="artifact-card">
-            <code>action-manifest.json</code>
-            <h3>Action Contract</h3>
-            <p>Explicit action binding metadata that lets evaluation reason about control fidelity instead of guessing.</p>
-          </article>
-          <article class="artifact-card">
-            <code>metrics-bundle.json</code>
-            <h3>Metrics Sidecar</h3>
-            <p>Provider-exported or adapted metrics used by metric-backed ACWM suboptions and lightweight oracles.</p>
-          </article>
-          <article class="artifact-card">
-            <code>patch-plan.json</code>
-            <h3>Patch Plan</h3>
-            <p>Eval-facing remediation output that tells the next training iteration what to fix or regenerate.</p>
-          </article>
         </div>
       </div>
     </div>
