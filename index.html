@@ -969,14 +969,52 @@
         </div>
       </div>
 
-      <div class="note-grid" style="margin-top: 18px;">
-        <article class="note-card">
-          <h3>Current practical gap</h3>
-          <p>
-            Structure-complete exports already exist, but some metric-rich ACWM sidecars
-            still need deeper backend integration before every diagnosis can be fully scored.
-          </p>
-        </article>
+      <div class="pipeline-figure-shell improvement-figure-shell">
+        <span class="figure-eyebrow">Plan 2 Trends</span>
+        <figure class="architecture-figure">
+          <a class="architecture-link" href="assets/figures/worldclaw-plan2-cosmos3-psnr-ssim-trend.png" target="_blank" rel="noopener">
+            <img
+              src="assets/figures/worldclaw-plan2-cosmos3-psnr-ssim-trend.png"
+              alt="PSNR and SSIM trends comparing COSMOS3 and the WorldClaw model across time steps."
+              loading="lazy"
+            >
+          </a>
+        </figure>
+        <div class="architecture-caption">
+          <div class="architecture-caption-copy">
+            <strong>Metric trend.</strong>
+            The curves show the current PSNR and SSIM gap across rollout steps.
+            WorldClaw stays above COSMOS3 on both traces after the early drop.
+          </div>
+          <a class="architecture-action" href="assets/figures/worldclaw-plan2-cosmos3-psnr-ssim-trend.png" target="_blank" rel="noopener">
+            <span>Open full resolution</span>
+            <i class="fas fa-up-right-from-square" aria-hidden="true"></i>
+          </a>
+        </div>
+      </div>
+
+      <div class="pipeline-figure-shell improvement-figure-shell">
+        <span class="figure-eyebrow">Plan 2 Metrics</span>
+        <figure class="architecture-figure">
+          <a class="architecture-link" href="assets/figures/worldclaw-plan2-cosmos3-metrics-table.png" target="_blank" rel="noopener">
+            <img
+              src="assets/figures/worldclaw-plan2-cosmos3-metrics-table.png"
+              alt="Metrics table comparing COSMOS3 and REP(ours) on PSNR, SSIM, LPIPS, and FID."
+              loading="lazy"
+            >
+          </a>
+        </figure>
+        <div class="architecture-caption">
+          <div class="architecture-caption-copy">
+            <strong>Summary table.</strong>
+            REP(ours) improves PSNR, SSIM, and LPIPS, while FID stays in the same
+            range as the COSMOS3 baseline.
+          </div>
+          <a class="architecture-action" href="assets/figures/worldclaw-plan2-cosmos3-metrics-table.png" target="_blank" rel="noopener">
+            <span>Open full resolution</span>
+            <i class="fas fa-up-right-from-square" aria-hidden="true"></i>
+          </a>
+        </div>
       </div>
     </div>
   </section>
