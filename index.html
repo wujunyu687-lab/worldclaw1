@@ -514,6 +514,90 @@
       color: #1d4ed8;
     }
 
+    .replay-panel {
+      margin-top: 22px;
+      padding: 20px;
+      border-radius: 24px;
+      border: 1px solid rgba(148, 163, 184, 0.16);
+      background: linear-gradient(180deg, rgba(255, 255, 255, 0.9) 0%, rgba(246, 249, 255, 0.84) 100%);
+      box-shadow: 0 14px 36px rgba(15, 23, 42, 0.07);
+    }
+
+    .replay-header {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 18px;
+      margin-bottom: 16px;
+    }
+
+    .replay-header h3 {
+      margin: 0 0 6px;
+      font-family: "Google Sans", "Noto Sans", sans-serif;
+      font-size: 1.15rem;
+      color: var(--text-strong);
+    }
+
+    .replay-header p {
+      margin: 0;
+      color: var(--text-soft);
+      font-size: 0.95rem;
+      line-height: 1.68;
+    }
+
+    .replay-meta {
+      flex-shrink: 0;
+      padding: 7px 11px;
+      border-radius: 999px;
+      background: rgba(15, 23, 42, 0.06);
+      color: #334155;
+      font-size: 0.78rem;
+      font-weight: 800;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      white-space: nowrap;
+    }
+
+    .replay-video-shell {
+      overflow: hidden;
+      border-radius: 20px;
+      border: 1px solid rgba(15, 23, 42, 0.12);
+      background: #0f172a;
+      box-shadow: 0 14px 34px rgba(15, 23, 42, 0.1);
+    }
+
+    .replay-video {
+      display: block;
+      width: 100%;
+      height: auto;
+      aspect-ratio: 5 / 3;
+      background: #0f172a;
+    }
+
+    .replay-rows {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 10px;
+      margin-top: 14px;
+    }
+
+    .replay-row-label {
+      padding: 12px 14px;
+      border-radius: 16px;
+      background: rgba(255, 255, 255, 0.86);
+      border: 1px solid rgba(148, 163, 184, 0.16);
+      color: var(--text-soft);
+      font-size: 0.9rem;
+      line-height: 1.45;
+    }
+
+    .replay-row-label strong {
+      display: block;
+      margin-bottom: 2px;
+      color: var(--text-strong);
+      font-size: 0.95rem;
+    }
+
     .pipeline-step {
       position: relative;
       padding: 20px 18px;
@@ -856,6 +940,14 @@
       .architecture-caption {
         flex-direction: column;
         align-items: flex-start;
+      }
+
+      .replay-header {
+        flex-direction: column;
+      }
+
+      .replay-rows {
+        grid-template-columns: 1fr;
       }
     }
 
@@ -1254,6 +1346,47 @@
             stays generic and only consumes structured train/eval contracts.
           </p>
         </article>
+      </div>
+
+      <div class="replay-panel">
+        <div class="replay-header">
+          <div>
+            <h3>Qualitative Replay</h3>
+            <p>
+              Three-row replay from the Ctrl-World checkpoint comparison run.
+              The clip is unlabeled in the raw export, so the row order is documented here.
+            </p>
+          </div>
+          <span class="replay-meta">14.75s / 960x576</span>
+        </div>
+        <div class="replay-video-shell">
+          <video
+            class="replay-video"
+            controls
+            muted
+            loop
+            playsinline
+            preload="metadata"
+            poster="assets/videos/gt_worldclaw_ctrlworld_three_rows_seed20260610_poster.jpg"
+          >
+            <source src="assets/videos/gt_worldclaw_ctrlworld_three_rows_seed20260610.mp4" type="video/mp4">
+            Your browser does not support the video tag.
+          </video>
+        </div>
+        <div class="replay-rows" aria-label="Replay row order">
+          <div class="replay-row-label">
+            <strong>Top row</strong>
+            GT reference.
+          </div>
+          <div class="replay-row-label">
+            <strong>Middle row</strong>
+            WorldClaw output.
+          </div>
+          <div class="replay-row-label">
+            <strong>Bottom row</strong>
+            CtrlWorld output.
+          </div>
+        </div>
       </div>
 
       <div class="note-grid" style="margin-top: 18px;">
