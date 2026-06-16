@@ -715,6 +715,21 @@
       box-shadow: 0 14px 34px rgba(15, 23, 42, 0.1);
     }
 
+    .replay-guide {
+      margin: 2px 0 18px;
+      overflow: hidden;
+      border-radius: 18px;
+      border: 1px solid rgba(148, 163, 184, 0.18);
+      background: #ffffff;
+      box-shadow: 0 12px 28px rgba(15, 23, 42, 0.07);
+    }
+
+    .replay-guide img {
+      display: block;
+      width: 100%;
+      height: auto;
+    }
+
     .replay-grid {
       display: grid;
       grid-template-columns: repeat(2, minmax(0, 1fr));
@@ -1123,6 +1138,15 @@
           </div>
           <span class="replay-meta">4 samples / 960x576</span>
         </div>
+        <figure class="replay-guide">
+          <a class="architecture-link" href="assets/figures/qualitative-replay-row-guide.png" target="_blank" rel="noopener">
+            <img
+              src="assets/figures/qualitative-replay-row-guide.png"
+              alt="Qualitative replay row guide explaining the three-row comparison layout."
+              loading="lazy"
+            >
+          </a>
+        </figure>
         <div class="replay-grid">
           <div>
             <h4 class="replay-item-title">Sample 01</h4>
