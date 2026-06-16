@@ -280,12 +280,20 @@
     }
 
     .contributions-grid,
-      .capability-grid,
-      .note-grid {
-        display: grid;
-        grid-template-columns: repeat(2, minmax(0, 1fr));
-        gap: 18px;
-      }
+    .capability-grid,
+    .note-grid {
+      display: grid;
+      gap: 18px;
+    }
+
+    .contributions-grid {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+
+    .capability-grid,
+    .note-grid {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
 
     .contribution-card,
     .capability-card,
