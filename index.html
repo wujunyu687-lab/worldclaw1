@@ -357,6 +357,80 @@
       grid-column: 1 / -1;
     }
 
+    .agent-contrast-panel {
+      padding: 34px;
+      border-radius: 30px;
+      border: 1px solid rgba(148, 163, 184, 0.2);
+      background:
+        radial-gradient(circle at top left, rgba(37, 99, 235, 0.1), transparent 30%),
+        rgba(255, 255, 255, 0.78);
+      box-shadow: var(--surface-shadow);
+    }
+
+    .agent-contrast-intro {
+      max-width: 1040px;
+      margin: 0 auto 22px;
+      color: var(--text-soft);
+      font-size: 1rem;
+      line-height: 1.72;
+      text-align: center;
+    }
+
+    .agent-contrast-list {
+      display: grid;
+      gap: 16px;
+    }
+
+    .agent-contrast-row {
+      display: grid;
+      grid-template-columns: 0.75fr 1.25fr 1.35fr 0.95fr;
+      gap: 12px;
+      align-items: stretch;
+    }
+
+    .agent-contrast-dimension,
+    .agent-contrast-card {
+      padding: 18px;
+      border-radius: 20px;
+      border: 1px solid rgba(148, 163, 184, 0.18);
+      background: rgba(255, 255, 255, 0.84);
+      box-shadow: 0 12px 30px rgba(15, 23, 42, 0.06);
+    }
+
+    .agent-contrast-dimension {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--text-strong);
+      font-family: "Google Sans", "Noto Sans", sans-serif;
+      font-size: 1rem;
+      font-weight: 800;
+      line-height: 1.35;
+      text-align: center;
+    }
+
+    .agent-contrast-label {
+      display: block;
+      margin-bottom: 9px;
+      color: var(--accent);
+      font-size: 0.74rem;
+      font-weight: 800;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
+    .agent-contrast-card p {
+      margin: 0;
+      color: var(--text-soft);
+      font-size: 0.9rem;
+      line-height: 1.62;
+    }
+
+    .agent-contrast-card strong {
+      color: var(--text-strong);
+      font-weight: 800;
+    }
+
     .skill-example-shell {
       max-width: 1120px;
       margin: 22px auto 0;
@@ -823,6 +897,15 @@
         grid-template-columns: 1fr;
       }
 
+      .agent-contrast-row {
+        grid-template-columns: 1fr;
+      }
+
+      .agent-contrast-dimension {
+        justify-content: flex-start;
+        text-align: left;
+      }
+
       .skill-example-header,
       .skill-example-footer {
         flex-direction: column;
@@ -942,6 +1025,107 @@
               Structured records preserve targets, outputs, failures, and decisions,
               so later iterations can reuse evidence instead of reconstructing context.
             </p>
+          </article>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container is-max-desktop">
+      <div class="agent-contrast-panel">
+        <div class="section-heading">
+          <h2 class="title is-3 has-text-centered">From Code Agents to Learning Agents</h2>
+          <span class="section-heading-bar" aria-hidden="true"></span>
+        </div>
+        <p class="agent-contrast-intro">
+          General software agents can edit files, run scripts, and report scores.
+          WorldClaw targets a different control surface: it uses evaluation evidence
+          to intervene in representation geometry, loss design, gradient flow, and
+          data selection.
+        </p>
+        <div class="agent-contrast-list">
+          <article class="agent-contrast-row">
+            <div class="agent-contrast-dimension">Intervention Level</div>
+            <div class="agent-contrast-card">
+              <span class="agent-contrast-label">Existing Agent Example</span>
+              <p>
+                A Devin-style workflow sees that CtrlWorld lacks an action module,
+                opens <strong>models/unet.py</strong>, inserts an ActionEncoder with an LLM,
+                and restarts <strong>python train.py</strong>. The intervention stays at
+                the file-system and code-text layer.
+              </p>
+            </div>
+            <div class="agent-contrast-card">
+              <span class="agent-contrast-label">WorldClaw Example</span>
+              <p>
+                In Plan 1, the diagnosis is that <strong>action gradients are drowned by
+                the visual branch</strong>. The patch adds a LaMo latent motion prior,
+                drift loss, frozen SVD/VAE components, and hierarchical learning rates.
+              </p>
+            </div>
+            <div class="agent-contrast-card">
+              <span class="agent-contrast-label">Core Difference</span>
+              <p>
+                Existing agents act like external programmers. WorldClaw acts like an
+                internal trainer that changes the learning process.
+              </p>
+            </div>
+          </article>
+
+          <article class="agent-contrast-row">
+            <div class="agent-contrast-dimension">Loop Depth</div>
+            <div class="agent-contrast-card">
+              <span class="agent-contrast-label">Existing Agent Example</span>
+              <p>
+                An AutoGPT-style workflow receives "optimize FID", changes the learning
+                rate from <strong>1e-4</strong> to <strong>1e-5</strong>, reruns training,
+                prints a new FID, and stops.
+              </p>
+            </div>
+            <div class="agent-contrast-card">
+              <span class="agent-contrast-label">WorldClaw Example</span>
+              <p>
+                In Plan 2, DINO-REP evaluation finds <strong>Depth up</strong> and
+                <strong>Motion up</strong>, but <strong>Background</strong> and
+                <strong>Subject consistency</strong> down. The next patch targets an
+                appearance branch, REP injection, and replay data with complex backgrounds.
+              </p>
+            </div>
+            <div class="agent-contrast-card">
+              <span class="agent-contrast-label">Core Difference</span>
+              <p>
+                Existing agents run and read a score. WorldClaw runs, diagnoses, attributes,
+                proposes a patch, selects data, and runs again.
+              </p>
+            </div>
+          </article>
+
+          <article class="agent-contrast-row">
+            <div class="agent-contrast-dimension">Diagnosis Granularity</div>
+            <div class="agent-contrast-card">
+              <span class="agent-contrast-label">Existing Agent Example</span>
+              <p>
+                An MLAgentBench-style report may observe <strong>loss = 2.3</strong> and
+                recommend lowering the learning rate. The diagnosis remains at the scalar
+                metric level.
+              </p>
+            </div>
+            <div class="agent-contrast-card">
+              <span class="agent-contrast-label">WorldClaw Example</span>
+              <p>
+                ACWM Bench fixes the initial frame, swaps action A and action B, and
+                measures latent-trajectory separation after the action encoder. Low
+                separation indicates diluted action conditioning in the UNet attention path.
+              </p>
+            </div>
+            <div class="agent-contrast-card">
+              <span class="agent-contrast-label">Core Difference</span>
+              <p>
+                Existing agents diagnose symptoms. WorldClaw diagnoses mechanisms inside
+                the representation and gradient path.
+              </p>
+            </div>
           </article>
         </div>
       </div>
