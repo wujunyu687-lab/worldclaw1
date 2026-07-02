@@ -1689,16 +1689,18 @@
           to a new robot dataset without hand-designing a fresh project page or model
           wrapper. The target dataset is
           <a href="https://flagopen.github.io/RoboCOIN-DataManager/" target="_blank" rel="noopener">RoboCOIN-DataManager</a>.
-          From the dataset structure, robot embodiment, camera viewpoint, and action
-          interface, the agent selects a compatible base model and continues training
+          The robot embodiment is <strong>Agilex Cobot Magic</strong>. From the dataset
+          structure, embodiment metadata, camera viewpoint, and action interface, the
+          agent selects a compatible base model and continues training
           <strong>DreamDojo/Cosmos Predict2 action-conditioned video-to-world</strong>
           from the <strong>AgiBot post-train 2B</strong> weights.
         </p>
         <div class="transfer-facts">
           <div class="transfer-fact">
             <strong>Dataset Adaptation</strong>
-            RoboCOIN introduces a new task distribution, object layout, and camera
-            setup; the agent maps those signals into the training and replay contract.
+            RoboCOIN introduces Agilex Cobot Magic rollouts, a new task distribution,
+            object layout, and camera setup; the agent maps those signals into the
+            training and replay contract.
           </div>
           <div class="transfer-fact">
             <strong>Base Model Choice</strong>
