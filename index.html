@@ -580,6 +580,116 @@
       height: auto;
     }
 
+    .transfer-panel {
+      margin-top: 22px;
+      padding: 24px;
+      border-radius: 28px;
+      border: 1px solid rgba(148, 163, 184, 0.22);
+      background:
+        radial-gradient(circle at top left, rgba(34, 197, 94, 0.1), transparent 32%),
+        rgba(255, 255, 255, 0.8);
+      box-shadow: var(--surface-shadow);
+    }
+
+    .transfer-intro {
+      margin: 8px 0 20px;
+      color: var(--text-soft);
+      font-size: 1rem;
+      line-height: 1.72;
+    }
+
+    .transfer-facts {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 12px;
+      margin-bottom: 20px;
+    }
+
+    .transfer-fact {
+      padding: 16px;
+      border-radius: 18px;
+      border: 1px solid rgba(148, 163, 184, 0.18);
+      background: rgba(255, 255, 255, 0.84);
+      color: var(--text-soft);
+      font-size: 0.9rem;
+      line-height: 1.58;
+      box-shadow: 0 12px 30px rgba(15, 23, 42, 0.06);
+    }
+
+    .transfer-fact strong {
+      display: block;
+      margin-bottom: 6px;
+      color: var(--text-strong);
+      font-size: 0.95rem;
+    }
+
+    .transfer-video-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 16px;
+    }
+
+    .transfer-video-card {
+      padding: 18px;
+      border-radius: 22px;
+      border: 1px solid rgba(148, 163, 184, 0.18);
+      background: rgba(255, 255, 255, 0.84);
+      box-shadow: 0 12px 30px rgba(15, 23, 42, 0.06);
+    }
+
+    .transfer-video-card h3 {
+      margin: 0 0 6px;
+      color: var(--text-strong);
+      font-family: "Google Sans", "Noto Sans", sans-serif;
+      font-size: 1.02rem;
+      font-weight: 800;
+    }
+
+    .transfer-video-card p {
+      margin: 0 0 12px;
+      color: var(--text-soft);
+      font-size: 0.9rem;
+      line-height: 1.58;
+    }
+
+    .transfer-video-shell {
+      overflow: hidden;
+      border-radius: 18px;
+      border: 1px solid rgba(15, 23, 42, 0.12);
+      background: #0f172a;
+      box-shadow: 0 14px 34px rgba(15, 23, 42, 0.09);
+    }
+
+    .transfer-video {
+      display: block;
+      width: 100%;
+      height: auto;
+      background: #0f172a;
+    }
+
+    .transfer-column-legend {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 10px;
+      margin-top: 14px;
+    }
+
+    .transfer-column-legend span {
+      padding: 10px 12px;
+      border-radius: 14px;
+      border: 1px solid rgba(148, 163, 184, 0.16);
+      background: rgba(255, 255, 255, 0.86);
+      color: var(--text-soft);
+      font-size: 0.86rem;
+      line-height: 1.45;
+    }
+
+    .transfer-column-legend strong {
+      display: block;
+      color: var(--text-strong);
+      font-size: 0.9rem;
+    }
+
     .hero-scroll-cue {
       display: inline-flex;
       align-items: center;
@@ -876,7 +986,10 @@
       .capability-grid,
       .note-grid,
       .skill-example-grid,
-      .worldarena-card-grid {
+      .worldarena-card-grid,
+      .transfer-facts,
+      .transfer-video-grid,
+      .transfer-column-legend {
         grid-template-columns: 1fr;
       }
 
@@ -1566,6 +1679,86 @@
             <span>Open full resolution</span>
             <i class="fas fa-up-right-from-square" aria-hidden="true"></i>
           </a>
+        </div>
+      </div>
+
+      <div class="transfer-panel">
+        <span class="figure-eyebrow">Experiment 3 / RoboCOIN Transfer</span>
+        <p class="transfer-intro">
+          This experiment tests whether the agent can adapt a world-model repository
+          to a new robot dataset without hand-designing a fresh project page or model
+          wrapper. The target dataset is
+          <a href="https://flagopen.github.io/RoboCOIN-DataManager/" target="_blank" rel="noopener">RoboCOIN-DataManager</a>.
+          From the dataset structure, robot embodiment, camera viewpoint, and action
+          interface, the agent selects a compatible base model and continues training
+          <strong>DreamDojo/Cosmos Predict2 action-conditioned video-to-world</strong>
+          from the <strong>AgiBot post-train 2B</strong> weights.
+        </p>
+        <div class="transfer-facts">
+          <div class="transfer-fact">
+            <strong>Dataset Adaptation</strong>
+            RoboCOIN introduces a new task distribution, object layout, and camera
+            setup; the agent maps those signals into the training and replay contract.
+          </div>
+          <div class="transfer-fact">
+            <strong>Base Model Choice</strong>
+            The selected structure keeps Cosmos Predict2 video-to-world generation,
+            but adds action conditioning so planned robot actions affect rollout motion.
+          </div>
+          <div class="transfer-fact">
+            <strong>Control Check</strong>
+            Each video includes a no-action-injection prediction. This separates
+            action-conditioned behavior from memorized visual rollout.
+          </div>
+        </div>
+        <div class="transfer-video-grid">
+          <article class="transfer-video-card">
+            <h3>Open the Green Folder</h3>
+            <p>
+              Chinese task name: 打开绿色的文件夹. The rollout compares ground truth,
+              the trained action-conditioned world model, and a no-action prediction.
+            </p>
+            <div class="transfer-video-shell">
+              <video
+                class="transfer-video"
+                controls
+                muted
+                loop
+                playsinline
+                preload="metadata"
+                poster="assets/videos/exp3_robocoin_open_green_folder_poster.jpg"
+              >
+                <source src="assets/videos/exp3_robocoin_open_green_folder_gt_action_zero.mp4" type="video/mp4">
+                Your browser does not support the video tag.
+              </video>
+            </div>
+          </article>
+          <article class="transfer-video-card">
+            <h3>Open the Red Folder</h3>
+            <p>
+              Chinese task name: 打开红色的文件夹. The same three-column comparison is
+              used to verify that action injection changes the predicted trajectory.
+            </p>
+            <div class="transfer-video-shell">
+              <video
+                class="transfer-video"
+                controls
+                muted
+                loop
+                playsinline
+                preload="metadata"
+                poster="assets/videos/exp3_robocoin_open_red_folder_poster.jpg"
+              >
+                <source src="assets/videos/exp3_robocoin_open_red_folder_gt_action_zero.mp4" type="video/mp4">
+                Your browser does not support the video tag.
+              </video>
+            </div>
+          </article>
+        </div>
+        <div class="transfer-column-legend" aria-label="Experiment 3 video column order">
+          <span><strong>Left column</strong>GT reference.</span>
+          <span><strong>Middle column</strong>Action-conditioned world-model prediction.</span>
+          <span><strong>Right column</strong>No-action-injection prediction, used as an overfitting control.</span>
         </div>
       </div>
     </div>
