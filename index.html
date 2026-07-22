@@ -1379,8 +1379,8 @@
         <span class="section-heading-bar" aria-hidden="true"></span>
       </div>
       <p class="section-copy has-text-centered">
-        Evaluation combines benchmark-facing checks with qualitative replay
-        comparisons against GT and CtrlWorld baselines.
+        Evaluation combines benchmark-facing checks, qualitative replay, transfer
+        tests, and policy-rollout comparisons.
       </p>
 
       <div class="capability-grid">
@@ -1783,6 +1783,56 @@
           <span><strong>Left column</strong>GT reference.</span>
           <span><strong>Middle column</strong>Action-conditioned world-model prediction.</span>
           <span><strong>Right column</strong>No-action-injection prediction, used as an overfitting control.</span>
+        </div>
+      </div>
+
+      <div class="transfer-panel">
+        <span class="figure-eyebrow">Experiment 4 / Cosmos3-DROID Policy RL</span>
+        <p class="transfer-intro">
+          This block-stacking overview shows the Cosmos3-DROID policy after RL in
+          RoboLab120. The eight clips are arranged as baseline/RL pairs: columns 1
+          and 3 are the original Cosmos3 policy, and the columns immediately to
+          their right are the RL-updated results.
+        </p>
+        <div class="transfer-facts">
+          <div class="transfer-fact">
+            <strong>Reward</strong>
+            R = 10 * terminal_success + 2 * verified_progress - bounded invalid_action_penalty - bounded trusted_safety_penalty.
+          </div>
+          <div class="transfer-fact">
+            <strong>Signal Source</strong>
+            Terminal success comes from RoboLab, and progress comes only from verified
+            subtask/progress fields.
+          </div>
+          <div class="transfer-fact">
+            <strong>Claim Boundary</strong>
+            Failed trajectories are capped below success; safety events enter the
+            final quality gate; video/VLM checks are audit-only and never enter
+            the training reward.
+          </div>
+        </div>
+        <div class="transfer-video-grid">
+          <article class="transfer-video-card">
+            <h3>Block Stacking: Original vs RL</h3>
+            <p>
+              Four paired rollouts compare the original Cosmos3 behavior with the
+              RL-trained policy under the same RoboLab120 task family.
+            </p>
+            <div class="transfer-video-shell">
+              <video
+                class="transfer-video"
+                controls
+                muted
+                loop
+                playsinline
+                preload="metadata"
+                poster="assets/videos/exp4_cosmos3_droid_policy_rl_blockstack_4seed_overview_poster.jpg"
+              >
+                <source src="assets/videos/exp4_cosmos3_droid_policy_rl_blockstack_4seed_overview.mp4" type="video/mp4">
+                Your browser does not support the video tag.
+              </video>
+            </div>
+          </article>
         </div>
       </div>
     </div>
