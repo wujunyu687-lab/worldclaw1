@@ -629,6 +629,10 @@
       gap: 16px;
     }
 
+    .comparison-video-grid {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
     .transfer-video-card {
       padding: 18px;
       border-radius: 22px;
@@ -989,6 +993,7 @@
       .worldarena-card-grid,
       .transfer-facts,
       .transfer-video-grid,
+      .comparison-video-grid,
       .transfer-column-legend {
         grid-template-columns: 1fr;
       }
@@ -1851,6 +1856,75 @@
                 poster="assets/videos/exp4_cosmos3_droid_policy_rl_blockstack_relayout_generalization_poster.jpg"
               >
                 <source src="assets/videos/exp4_cosmos3_droid_policy_rl_blockstack_relayout_generalization.mp4" type="video/mp4">
+                Your browser does not support the video tag.
+              </video>
+            </div>
+          </article>
+        </div>
+      </div>
+
+      <div class="transfer-panel">
+        <span class="figure-eyebrow">Experiment 5 / FRANKA Real-Robot COSMOS3 Comparison</span>
+        <p class="transfer-intro">
+          Real-robot comparison on a FRANKA stacking task: stack three blocks into
+          one tower. Both clips are shown at 4x speed. The original COSMOS3 rollout
+          is disrupted by the blue bowl and fails to pick the blue block in the late
+          stage, while the improved COSMOS3 completes the full task.
+        </p>
+        <div class="transfer-facts">
+          <div class="transfer-fact">
+            <strong>Task</strong>
+            Stack three blocks into one stable tower on the FRANKA real-robot setup.
+          </div>
+          <div class="transfer-fact">
+            <strong>Original COSMOS3</strong>
+            The later grasp is affected by the blue bowl, and the blue block cannot
+            be lifted reliably.
+          </div>
+          <div class="transfer-fact">
+            <strong>Improved COSMOS3</strong>
+            The improved policy handles the interference and completes the stack.
+          </div>
+        </div>
+        <div class="transfer-video-grid comparison-video-grid">
+          <article class="transfer-video-card">
+            <h3>Original COSMOS3</h3>
+            <p>
+              Baseline rollout: the policy reaches the late-stage interaction, but
+              bowl interference prevents a clean blue-block grasp.
+            </p>
+            <div class="transfer-video-shell">
+              <video
+                class="transfer-video"
+                controls
+                muted
+                loop
+                playsinline
+                preload="metadata"
+                poster="assets/videos/exp5_franka_cosmos3_stack_original_poster.jpg"
+              >
+                <source src="assets/videos/exp5_franka_cosmos3_stack_original.mp4" type="video/mp4">
+                Your browser does not support the video tag.
+              </video>
+            </div>
+          </article>
+          <article class="transfer-video-card">
+            <h3>Improved COSMOS3</h3>
+            <p>
+              Improved rollout: the policy keeps the grasp sequence stable and
+              completes the three-block stacking task.
+            </p>
+            <div class="transfer-video-shell">
+              <video
+                class="transfer-video"
+                controls
+                muted
+                loop
+                playsinline
+                preload="metadata"
+                poster="assets/videos/exp5_franka_cosmos3_stack_improved_poster.jpg"
+              >
+                <source src="assets/videos/exp5_franka_cosmos3_stack_improved.mp4" type="video/mp4">
                 Your browser does not support the video tag.
               </video>
             </div>
