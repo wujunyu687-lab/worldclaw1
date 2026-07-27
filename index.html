@@ -1866,26 +1866,26 @@
       <div class="transfer-panel">
         <span class="figure-eyebrow">Experiment 5 / FRANKA Real-Robot COSMOS3 Comparison</span>
         <p class="transfer-intro">
-          Real-robot FRANKA comparisons on two manipulation tasks. All clips are
+          Real-robot FRANKA comparisons on three manipulation tasks. All clips are
           shown at 4x speed. The stacking task tests interference handling around
-          a blue bowl, and the tablecloth task tests whether the planner can produce
-          a shorter, cleaner folding path.
+          a blue bowl, the tablecloth task tests path quality, and the drawer task
+          tests occlusion-aware grasping from inside a bowl.
         </p>
         <div class="transfer-facts">
           <div class="transfer-fact">
             <strong>Task Set</strong>
-            Stack three blocks into one tower, then fold the white tablecloth on the
-            FRANKA real-robot setup.
+            Stack three blocks, fold the white tablecloth, and move a polyhedron
+            from a bowl into a drawer before closing it.
           </div>
           <div class="transfer-fact">
             <strong>Original COSMOS3</strong>
-            The stacking rollout is affected by the blue bowl, and the cloth-folding
-            rollout takes a much longer, less direct path.
+            The stacking rollout is affected by the blue bowl, the folding rollout
+            takes a longer path, and the drawer task fails under bowl occlusion.
           </div>
           <div class="transfer-fact">
             <strong>Improved COSMOS3</strong>
-            The improved policy completes the stack and shows substantially better
-            path planning on the white-tablecloth task.
+            The improved policy completes the stack, shortens the folding path, and
+            finishes the occluded pick-place-close sequence.
           </div>
         </div>
         <div class="transfer-video-grid comparison-video-grid">
@@ -1970,6 +1970,48 @@
                 poster="assets/videos/exp5_franka_cosmos3_fold_improved_poster.jpg"
               >
                 <source src="assets/videos/exp5_franka_cosmos3_fold_improved.mp4" type="video/mp4">
+                Your browser does not support the video tag.
+              </video>
+            </div>
+          </article>
+          <article class="transfer-video-card">
+            <h3>Bowl-to-Drawer Polyhedron / Original COSMOS3</h3>
+            <p>
+              Baseline rollout: the polyhedron is occluded inside the bowl, and the
+              policy cannot establish a reliable grasp before the drawer step.
+            </p>
+            <div class="transfer-video-shell">
+              <video
+                class="transfer-video"
+                controls
+                muted
+                loop
+                playsinline
+                preload="metadata"
+                poster="assets/videos/exp5_franka_cosmos3_drawer_pick_original_poster.jpg"
+              >
+                <source src="assets/videos/exp5_franka_cosmos3_drawer_pick_original.mp4" type="video/mp4">
+                Your browser does not support the video tag.
+              </video>
+            </div>
+          </article>
+          <article class="transfer-video-card">
+            <h3>Bowl-to-Drawer Polyhedron / Improved COSMOS3</h3>
+            <p>
+              Improved rollout: the policy grasps the occluded object, places it
+              into the drawer, and closes the drawer to complete the task.
+            </p>
+            <div class="transfer-video-shell">
+              <video
+                class="transfer-video"
+                controls
+                muted
+                loop
+                playsinline
+                preload="metadata"
+                poster="assets/videos/exp5_franka_cosmos3_drawer_pick_improved_poster.jpg"
+              >
+                <source src="assets/videos/exp5_franka_cosmos3_drawer_pick_improved.mp4" type="video/mp4">
                 Your browser does not support the video tag.
               </video>
             </div>
