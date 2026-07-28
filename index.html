@@ -1182,6 +1182,212 @@
       color: rgba(71, 85, 105, 0.78);
     }
 
+    .memory-sphere-shell {
+      --sphere-size: 650px;
+      --sphere-radius: 310px;
+      position: absolute;
+      left: 50%;
+      top: 51%;
+      width: var(--sphere-size);
+      height: var(--sphere-size);
+      transform: translate(-50%, -50%);
+      transform-style: preserve-3d;
+      pointer-events: none;
+    }
+
+    .memory-sphere-shadow {
+      position: absolute;
+      left: 50%;
+      top: 82%;
+      width: 560px;
+      height: 100px;
+      border-radius: 50%;
+      background: radial-gradient(ellipse at center, rgba(37, 99, 235, 0.16), transparent 68%);
+      filter: blur(18px);
+      transform: translateX(-50%);
+      pointer-events: none;
+    }
+
+    .memory-sphere {
+      position: absolute;
+      inset: 0;
+      transform-style: preserve-3d;
+      animation: memorySphereSpin 30s linear infinite;
+      will-change: transform;
+      pointer-events: none;
+    }
+
+    .memory-sphere-core {
+      position: absolute;
+      inset: 68px;
+      border-radius: 50%;
+      background:
+        radial-gradient(circle at 33% 28%, rgba(255, 255, 255, 0.95), rgba(255, 255, 255, 0.25) 20%, transparent 34%),
+        radial-gradient(circle at 50% 50%, rgba(125, 211, 252, 0.28), rgba(59, 130, 246, 0.12) 42%, transparent 69%),
+        radial-gradient(circle at 64% 62%, rgba(34, 197, 94, 0.18), transparent 45%);
+      border: 1px solid rgba(14, 165, 233, 0.16);
+      box-shadow:
+        inset 0 0 70px rgba(14, 165, 233, 0.16),
+        inset -28px -20px 70px rgba(37, 99, 235, 0.12),
+        0 0 86px rgba(14, 165, 233, 0.2);
+      transform: translateZ(-28px);
+      pointer-events: none;
+    }
+
+    .memory-sphere-core::before,
+    .memory-sphere-core::after {
+      content: "";
+      position: absolute;
+      inset: 8%;
+      border-radius: 50%;
+      border: 1px solid rgba(37, 99, 235, 0.1);
+      transform: rotateX(68deg) rotateZ(18deg);
+    }
+
+    .memory-sphere-core::after {
+      inset: 20%;
+      border-color: rgba(34, 197, 94, 0.13);
+      transform: rotateY(70deg) rotateZ(-28deg);
+    }
+
+    .memory-sphere-ring {
+      position: absolute;
+      inset: 7%;
+      border-radius: 50%;
+      border: 1.5px solid rgba(37, 99, 235, 0.16);
+      box-shadow: 0 0 28px rgba(37, 99, 235, 0.1);
+      transform-style: preserve-3d;
+      pointer-events: none;
+    }
+
+    .memory-sphere-ring:nth-of-type(2) {
+      transform: rotateX(68deg);
+    }
+
+    .memory-sphere-ring:nth-of-type(3) {
+      transform: rotateY(68deg);
+      border-color: rgba(14, 165, 233, 0.18);
+    }
+
+    .memory-sphere-ring:nth-of-type(4) {
+      transform: rotateX(34deg) rotateY(52deg);
+      border-color: rgba(34, 197, 94, 0.16);
+    }
+
+    .memory-synapse-dot {
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      width: var(--s, 10px);
+      height: var(--s, 10px);
+      border-radius: 999px;
+      background: rgba(14, 165, 233, 0.78);
+      box-shadow:
+        0 0 16px rgba(14, 165, 233, 0.52),
+        0 0 34px rgba(14, 165, 233, 0.24);
+      transform: translate(-50%, -50%) rotateY(var(--ry)) rotateX(var(--rx)) translateZ(var(--sphere-radius));
+      animation: memorySynapseBlink var(--d, 2.8s) ease-in-out infinite;
+      animation-delay: var(--delay, 0s);
+      pointer-events: none;
+    }
+
+    .memory-synapse-dot.is-warm {
+      background: rgba(34, 197, 94, 0.76);
+      box-shadow:
+        0 0 16px rgba(34, 197, 94, 0.48),
+        0 0 34px rgba(34, 197, 94, 0.22);
+    }
+
+    .memory-sphere-node {
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      width: 104px;
+      min-height: 104px;
+      padding: 10px;
+      border: 1px solid rgba(37, 99, 235, 0.2);
+      border-radius: 999px;
+      background:
+        radial-gradient(circle at 34% 25%, rgba(255, 255, 255, 0.96), rgba(255, 255, 255, 0.52) 32%, rgba(239, 246, 255, 0.34) 64%),
+        radial-gradient(circle at center, rgba(14, 165, 233, 0.12), transparent 70%);
+      box-shadow:
+        inset 0 1px 0 rgba(255, 255, 255, 0.72),
+        0 18px 46px rgba(30, 64, 175, 0.16),
+        0 0 34px rgba(14, 165, 233, 0.16);
+      color: var(--text-strong);
+      text-align: center;
+      cursor: pointer;
+      pointer-events: auto;
+      transform:
+        translate(-50%, -50%)
+        rotateY(var(--ry))
+        rotateX(var(--rx))
+        translateZ(var(--sphere-radius))
+        rotateX(var(--irx, 0deg))
+        rotateY(var(--iry, 0deg));
+      transform-style: preserve-3d;
+      transition: border-color 0.2s ease, box-shadow 0.2s ease, filter 0.2s ease;
+      will-change: transform;
+    }
+
+    .memory-sphere-node::after {
+      content: "";
+      position: absolute;
+      inset: 18px;
+      z-index: -1;
+      border-radius: inherit;
+      background: rgba(14, 165, 233, 0.22);
+      filter: blur(18px);
+      transform: translateZ(-38px);
+      opacity: 0.82;
+      pointer-events: none;
+    }
+
+    .memory-sphere-node:hover,
+    .memory-sphere-node.is-active {
+      border-color: rgba(14, 165, 233, 0.52);
+      box-shadow:
+        inset 0 1px 0 rgba(255, 255, 255, 0.84),
+        0 22px 56px rgba(14, 165, 233, 0.22),
+        0 0 44px rgba(14, 165, 233, 0.24);
+      filter: saturate(1.12);
+    }
+
+    .memory-sphere-node-content {
+      display: flex;
+      min-height: 82px;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+      gap: 3px;
+      transform-style: preserve-3d;
+      animation: memorySphereLabelCounter 30s linear infinite;
+      will-change: transform;
+    }
+
+    .memory-sphere-node-date {
+      color: #2563eb;
+      font-size: 0.62rem;
+      font-weight: 900;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
+    .memory-sphere-node-title {
+      color: var(--text-strong);
+      font-family: "Google Sans", "Noto Sans", sans-serif;
+      font-size: 0.88rem;
+      font-weight: 900;
+      line-height: 1.08;
+    }
+
+    .memory-sphere-node-meta {
+      color: rgba(71, 85, 105, 0.72);
+      font-size: 0.62rem;
+      font-weight: 800;
+      line-height: 1.15;
+    }
+
     .memory-doc-section {
       scroll-margin-top: 120px;
       padding-top: 0.5rem;
@@ -1244,9 +1450,27 @@
       100% { transform: rotateZ(-360deg) rotateY(3deg) rotateX(-24deg) translateZ(12px); }
     }
 
+    @keyframes memorySphereSpin {
+      0% { transform: rotateX(-12deg) rotateY(0deg) rotateZ(0deg); }
+      50% { transform: rotateX(10deg) rotateY(180deg) rotateZ(4deg); }
+      100% { transform: rotateX(-12deg) rotateY(360deg) rotateZ(0deg); }
+    }
+
+    @keyframes memorySphereLabelCounter {
+      0% { transform: rotateZ(0deg) rotateY(0deg) rotateX(12deg) translateZ(18px); }
+      50% { transform: rotateZ(-4deg) rotateY(-180deg) rotateX(-10deg) translateZ(18px); }
+      100% { transform: rotateZ(0deg) rotateY(-360deg) rotateX(12deg) translateZ(18px); }
+    }
+
     @keyframes memorySignalFlow {
       from { stroke-dashoffset: 0; }
       to { stroke-dashoffset: -160; }
+    }
+
+    @keyframes memorySynapseBlink {
+      0%, 100% { opacity: 0.24; filter: saturate(0.85); transform: translate(-50%, -50%) rotateY(var(--ry)) rotateX(var(--rx)) translateZ(var(--sphere-radius)) scale(0.82); }
+      35% { opacity: 0.98; filter: saturate(1.3); transform: translate(-50%, -50%) rotateY(var(--ry)) rotateX(var(--rx)) translateZ(var(--sphere-radius)) scale(1.22); }
+      62% { opacity: 0.45; filter: saturate(1); transform: translate(-50%, -50%) rotateY(var(--ry)) rotateX(var(--rx)) translateZ(var(--sphere-radius)) scale(0.96); }
     }
 
     @keyframes memorySynapseFloat {
@@ -1267,10 +1491,13 @@
     @media (prefers-reduced-motion: reduce) {
       .memory-brain-cluster,
       .memory-node-content,
+      .memory-sphere,
+      .memory-sphere-node-content,
       .memory-brain-glow,
       .memory-brain-stage::before,
       .memory-brain-stage::after,
       .memory-neural-field span,
+      .memory-synapse-dot,
       .memory-brain-cluster .memory-link {
         animation: none !important;
       }
@@ -1914,6 +2141,24 @@
         min-height: 126px;
       }
 
+      .memory-sphere-shell {
+        --sphere-size: 560px;
+        --sphere-radius: 266px;
+      }
+
+      .memory-sphere-shadow {
+        width: 460px;
+      }
+
+      .memory-sphere-node {
+        width: 92px;
+        min-height: 92px;
+      }
+
+      .memory-sphere-node-content {
+        min-height: 70px;
+      }
+
       .skill-example-header,
       .skill-example-footer {
         flex-direction: column;
@@ -1957,6 +2202,35 @@
       .memory-brain-stage {
         min-width: 780px;
         min-height: 660px;
+      }
+
+      .memory-sphere-shell {
+        --sphere-size: 500px;
+        --sphere-radius: 236px;
+      }
+
+      .memory-sphere-shadow {
+        width: 390px;
+        height: 78px;
+      }
+
+      .memory-sphere-node {
+        width: 82px;
+        min-height: 82px;
+        padding: 8px;
+      }
+
+      .memory-sphere-node-content {
+        min-height: 62px;
+      }
+
+      .memory-sphere-node-title {
+        font-size: 0.76rem;
+      }
+
+      .memory-sphere-node-meta,
+      .memory-sphere-node-date {
+        font-size: 0.56rem;
       }
 
       .memory-doc-panel {
@@ -2046,71 +2320,79 @@
               <span style="--x: 91%; --y: 62%; --s: 5px; --d: 8.5s; --delay: -6.3s;"></span>
             </div>
 
-            <div class="memory-brain-cluster">
-              <svg class="memory-link-layer" viewBox="0 0 1000 740" preserveAspectRatio="none" aria-hidden="true">
-                <ellipse class="memory-brain-ring" cx="500" cy="370" rx="345" ry="245"></ellipse>
-                <ellipse class="memory-brain-ring" cx="500" cy="370" rx="250" ry="325" transform="rotate(90 500 370)"></ellipse>
-                <path class="memory-link" d="M 500 370 C 390 270, 304 210, 190 155"></path>
-                <path class="memory-link" d="M 500 370 C 500 250, 500 170, 500 104"></path>
-                <path class="memory-link" d="M 500 370 C 612 270, 710 222, 815 165"></path>
-                <path class="memory-link" d="M 500 370 C 380 438, 308 515, 205 590"></path>
-                <path class="memory-link" d="M 500 370 C 626 448, 718 520, 810 590"></path>
-                <path class="memory-link memory-link-hot" d="M 500 370 C 500 482, 500 590, 500 680"></path>
-                <path class="memory-link" d="M 190 155 C 350 58, 660 54, 815 165"></path>
-                <path class="memory-link" d="M 205 590 C 342 700, 662 700, 810 590"></path>
-                <path class="memory-link memory-link-hot" d="M 190 155 C 262 342, 312 472, 205 590"></path>
-                <path class="memory-link" d="M 815 165 C 732 340, 704 470, 810 590"></path>
-              </svg>
+            <div class="memory-sphere-shell">
+              <div class="memory-sphere-shadow" aria-hidden="true"></div>
+              <div class="memory-sphere" aria-label="Rotating neural memory sphere">
+                <div class="memory-sphere-core" aria-hidden="true"></div>
+                <div class="memory-sphere-ring" aria-hidden="true"></div>
+                <div class="memory-sphere-ring" aria-hidden="true"></div>
+                <div class="memory-sphere-ring" aria-hidden="true"></div>
 
-              <button class="memory-node memory-node-core is-active" type="button" data-memory-node="core" style="--x: 50%; --y: 50%;">
-                <span class="memory-node-content">
-                  <span class="memory-node-date">Persistent</span>
-                  <span class="memory-node-title">Evidence-Licensed Memory</span>
-                  <span class="memory-node-meta">Action -> receipt -> claim frontier</span>
-                </span>
-              </button>
-              <button class="memory-node" type="button" data-memory-node="ctrlworld-lamo" style="--x: 19%; --y: 21%;">
-                <span class="memory-node-content">
-                  <span class="memory-node-date">2026-06-15</span>
-                  <span class="memory-node-title">CtrlWorld + LaMo Fusion</span>
-                  <span class="memory-node-meta">Latent motion prior / drift loss</span>
-                </span>
-              </button>
-              <button class="memory-node" type="button" data-memory-node="dino-rep" style="--x: 50%; --y: 14%;">
-                <span class="memory-node-content">
-                  <span class="memory-node-date">2026-06-16</span>
-                  <span class="memory-node-title">COSMOS3 DINO-REP Plan</span>
-                  <span class="memory-node-meta">Depth-motion repair with REP tokens</span>
-                </span>
-              </button>
-              <button class="memory-node" type="button" data-memory-node="robocoin" style="--x: 81%; --y: 22%;">
-                <span class="memory-node-content">
-                  <span class="memory-node-date">2026-07-02</span>
-                  <span class="memory-node-title">RoboCOIN Transfer</span>
-                  <span class="memory-node-meta">Agilex Cobot Magic adaptation</span>
-                </span>
-              </button>
-              <button class="memory-node" type="button" data-memory-node="robolab-rl" style="--x: 21%; --y: 80%;">
-                <span class="memory-node-content">
-                  <span class="memory-node-date">2026-07-22</span>
-                  <span class="memory-node-title">RoboLab120 Policy RL</span>
-                  <span class="memory-node-meta">Reward-bound success contract</span>
-                </span>
-              </button>
-              <button class="memory-node" type="button" data-memory-node="franka-real" style="--x: 81%; --y: 80%;">
-                <span class="memory-node-content">
-                  <span class="memory-node-date">2026-07-27</span>
-                  <span class="memory-node-title">FRANKA Real-Robot Trials</span>
-                  <span class="memory-node-meta">Stack / fold / drawer transfer</span>
-                </span>
-              </button>
-              <button class="memory-node" type="button" data-memory-node="claim-gate" style="--x: 50%; --y: 92%;">
-                <span class="memory-node-content">
-                  <span class="memory-node-date">Gate</span>
-                  <span class="memory-node-title">Frozen Verifier</span>
-                  <span class="memory-node-meta">Evidence before conclusion</span>
-                </span>
-              </button>
+                <span class="memory-synapse-dot" style="--rx: -52deg; --ry: -34deg; --s: 9px; --d: 2.6s; --delay: -0.8s;"></span>
+                <span class="memory-synapse-dot is-warm" style="--rx: -42deg; --ry: 28deg; --s: 7px; --d: 3.1s; --delay: -1.6s;"></span>
+                <span class="memory-synapse-dot" style="--rx: -24deg; --ry: 82deg; --s: 11px; --d: 2.8s; --delay: -2.2s;"></span>
+                <span class="memory-synapse-dot is-warm" style="--rx: -8deg; --ry: -104deg; --s: 6px; --d: 3.6s; --delay: -1.1s;"></span>
+                <span class="memory-synapse-dot" style="--rx: 14deg; --ry: -58deg; --s: 8px; --d: 2.9s; --delay: -2.5s;"></span>
+                <span class="memory-synapse-dot" style="--rx: 22deg; --ry: 48deg; --s: 10px; --d: 3.4s; --delay: -0.4s;"></span>
+                <span class="memory-synapse-dot is-warm" style="--rx: 36deg; --ry: 116deg; --s: 7px; --d: 2.7s; --delay: -1.9s;"></span>
+                <span class="memory-synapse-dot" style="--rx: 48deg; --ry: -12deg; --s: 9px; --d: 3.3s; --delay: -2.7s;"></span>
+                <span class="memory-synapse-dot is-warm" style="--rx: 61deg; --ry: 62deg; --s: 6px; --d: 3.8s; --delay: -0.9s;"></span>
+                <span class="memory-synapse-dot" style="--rx: -61deg; --ry: 132deg; --s: 8px; --d: 3.2s; --delay: -2.1s;"></span>
+                <span class="memory-synapse-dot" style="--rx: 2deg; --ry: 154deg; --s: 11px; --d: 2.5s; --delay: -1.4s;"></span>
+                <span class="memory-synapse-dot is-warm" style="--rx: 58deg; --ry: -142deg; --s: 7px; --d: 3.7s; --delay: -2.8s;"></span>
+                <span class="memory-synapse-dot" style="--rx: -18deg; --ry: 12deg; --s: 5px; --d: 2.4s; --delay: -0.2s;"></span>
+                <span class="memory-synapse-dot is-warm" style="--rx: 31deg; --ry: -178deg; --s: 8px; --d: 3.5s; --delay: -1.7s;"></span>
+
+                <button class="memory-sphere-node is-active" type="button" data-memory-node="core" aria-label="Open Evidence-Licensed Memory documents" style="--rx: -8deg; --ry: 0deg; --irx: 8deg; --iry: 0deg;">
+                  <span class="memory-sphere-node-content">
+                    <span class="memory-sphere-node-date">Core</span>
+                    <span class="memory-sphere-node-title">WorldClaw</span>
+                    <span class="memory-sphere-node-meta">Memory</span>
+                  </span>
+                </button>
+                <button class="memory-sphere-node" type="button" data-memory-node="ctrlworld-lamo" aria-label="Open CtrlWorld LaMo memory documents" style="--rx: -34deg; --ry: -62deg; --irx: 34deg; --iry: 62deg;">
+                  <span class="memory-sphere-node-content">
+                    <span class="memory-sphere-node-date">Jun 15</span>
+                    <span class="memory-sphere-node-title">LaMo</span>
+                    <span class="memory-sphere-node-meta">CtrlWorld</span>
+                  </span>
+                </button>
+                <button class="memory-sphere-node" type="button" data-memory-node="dino-rep" aria-label="Open DINO REP memory documents" style="--rx: -46deg; --ry: 42deg; --irx: 46deg; --iry: -42deg;">
+                  <span class="memory-sphere-node-content">
+                    <span class="memory-sphere-node-date">Jun 16</span>
+                    <span class="memory-sphere-node-title">REP</span>
+                    <span class="memory-sphere-node-meta">COSMOS3</span>
+                  </span>
+                </button>
+                <button class="memory-sphere-node" type="button" data-memory-node="robocoin" aria-label="Open RoboCOIN transfer memory documents" style="--rx: -5deg; --ry: 94deg; --irx: 5deg; --iry: -94deg;">
+                  <span class="memory-sphere-node-content">
+                    <span class="memory-sphere-node-date">Jul 02</span>
+                    <span class="memory-sphere-node-title">RoboCOIN</span>
+                    <span class="memory-sphere-node-meta">Transfer</span>
+                  </span>
+                </button>
+                <button class="memory-sphere-node" type="button" data-memory-node="robolab-rl" aria-label="Open RoboLab RL memory documents" style="--rx: 28deg; --ry: -118deg; --irx: -28deg; --iry: 118deg;">
+                  <span class="memory-sphere-node-content">
+                    <span class="memory-sphere-node-date">Jul 22</span>
+                    <span class="memory-sphere-node-title">RL</span>
+                    <span class="memory-sphere-node-meta">RoboLab</span>
+                  </span>
+                </button>
+                <button class="memory-sphere-node" type="button" data-memory-node="franka-real" aria-label="Open FRANKA real robot memory documents" style="--rx: 32deg; --ry: 118deg; --irx: -32deg; --iry: -118deg;">
+                  <span class="memory-sphere-node-content">
+                    <span class="memory-sphere-node-date">Jul 27</span>
+                    <span class="memory-sphere-node-title">FRANKA</span>
+                    <span class="memory-sphere-node-meta">Real Robot</span>
+                  </span>
+                </button>
+                <button class="memory-sphere-node" type="button" data-memory-node="claim-gate" aria-label="Open claim gate memory documents" style="--rx: 56deg; --ry: -12deg; --irx: -56deg; --iry: 12deg;">
+                  <span class="memory-sphere-node-content">
+                    <span class="memory-sphere-node-date">Gate</span>
+                    <span class="memory-sphere-node-title">Verifier</span>
+                    <span class="memory-sphere-node-meta">Evidence</span>
+                  </span>
+                </button>
+              </div>
             </div>
           </div>
         </div>
