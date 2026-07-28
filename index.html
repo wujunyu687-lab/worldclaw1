@@ -1003,7 +1003,8 @@
 
     .memory-neural-field,
     .memory-brain-cluster,
-    .memory-brain-glow {
+    .memory-brain-glow,
+    .memory-popover-orbit {
       position: absolute;
       inset: 0;
       pointer-events: none;
@@ -1031,7 +1032,7 @@
     }
 
     .memory-brain-cluster {
-      inset: 5% 7% 7%;
+      inset: 12% 18% 11%;
       transform-origin: 50% 50%;
       transform-style: preserve-3d;
       animation: memoryBrainSpin 42s linear infinite;
@@ -1056,6 +1057,41 @@
       border-color: rgba(22, 163, 74, 0.14);
       transform: translateZ(95px) rotateX(66deg) rotateZ(-24deg);
       box-shadow: 0 24px 70px rgba(22, 163, 74, 0.1);
+    }
+
+    .memory-popover-orbit {
+      inset: 5% 4% 4%;
+      border: 1px solid rgba(37, 99, 235, 0.1);
+      border-radius: 50%;
+      background:
+        radial-gradient(ellipse at center, transparent 61%, rgba(14, 165, 233, 0.08) 62%, transparent 64%),
+        radial-gradient(ellipse at center, transparent 72%, rgba(34, 197, 94, 0.07) 73%, transparent 75%);
+      transform: rotateX(58deg) rotateZ(-8deg) translateZ(8px);
+      transform-style: preserve-3d;
+      opacity: 0.86;
+    }
+
+    .memory-popover-orbit::before,
+    .memory-popover-orbit::after {
+      content: "";
+      position: absolute;
+      width: 10px;
+      height: 10px;
+      border-radius: 999px;
+      background: rgba(14, 165, 233, 0.58);
+      box-shadow: 0 0 24px rgba(14, 165, 233, 0.38);
+    }
+
+    .memory-popover-orbit::before {
+      top: 17%;
+      left: 18%;
+    }
+
+    .memory-popover-orbit::after {
+      right: 15%;
+      bottom: 22%;
+      background: rgba(34, 197, 94, 0.52);
+      box-shadow: 0 0 24px rgba(34, 197, 94, 0.32);
     }
 
     .memory-brain-cluster .memory-link-layer {
@@ -1184,68 +1220,75 @@
 
     .memory-graph-popover {
       position: absolute;
-      top: 50%;
-      left: 50%;
+      top: var(--orbit-y, 8%);
+      left: var(--orbit-x, 50%);
+      right: auto;
+      bottom: auto;
       z-index: 9;
-      width: min(470px, calc(100% - 64px));
-      padding: 18px;
-      border-radius: 26px;
+      width: min(360px, calc(100% - 64px));
+      max-height: 310px;
+      overflow: auto;
+      padding: 13px;
+      border-radius: 24px;
       border: 1px solid rgba(37, 99, 235, 0.12);
       background: rgba(255, 255, 255, 0.78);
       color: var(--text-strong);
       box-shadow: 0 28px 80px rgba(30, 64, 175, 0.16);
       backdrop-filter: blur(18px);
-      transform: translate(-50%, -50%);
+      transform: translate(var(--orbit-anchor-x, -50%), var(--orbit-anchor-y, 0)) translateZ(220px);
       transform-style: preserve-3d;
-      transition: top 0.26s ease, right 0.26s ease, bottom 0.26s ease, left 0.26s ease, transform 0.26s ease;
+      transition: top 0.32s ease, left 0.32s ease, transform 0.32s ease;
+      scrollbar-width: thin;
+      scrollbar-color: rgba(37, 99, 235, 0.25) transparent;
+    }
+
+    .memory-graph-popover[data-active-node="core"] {
+      --orbit-x: 94%;
+      --orbit-y: 50%;
+      --orbit-anchor-x: -100%;
+      --orbit-anchor-y: -50%;
     }
 
     .memory-graph-popover[data-active-node="ctrlworld-lamo"] {
-      top: auto;
-      right: 32px;
-      bottom: 32px;
-      left: auto;
-      transform: none;
+      --orbit-x: 93%;
+      --orbit-y: 73%;
+      --orbit-anchor-x: -100%;
+      --orbit-anchor-y: -50%;
     }
 
     .memory-graph-popover[data-active-node="robocoin"] {
-      top: auto;
-      right: auto;
-      bottom: 32px;
-      left: 32px;
-      transform: none;
+      --orbit-x: 7%;
+      --orbit-y: 73%;
+      --orbit-anchor-x: 0;
+      --orbit-anchor-y: -50%;
     }
 
     .memory-graph-popover[data-active-node="robolab-rl"] {
-      top: 32px;
-      right: 32px;
-      bottom: auto;
-      left: auto;
-      transform: none;
+      --orbit-x: 94%;
+      --orbit-y: 32%;
+      --orbit-anchor-x: -100%;
+      --orbit-anchor-y: -50%;
     }
 
     .memory-graph-popover[data-active-node="franka-real"] {
-      top: 32px;
-      right: auto;
-      bottom: auto;
-      left: 32px;
-      transform: none;
+      --orbit-x: 6%;
+      --orbit-y: 32%;
+      --orbit-anchor-x: 0;
+      --orbit-anchor-y: -50%;
     }
 
     .memory-graph-popover[data-active-node="dino-rep"] {
-      top: auto;
-      right: auto;
-      bottom: 32px;
-      left: 50%;
-      transform: translateX(-50%);
+      --orbit-x: 50%;
+      --orbit-y: 96%;
+      --orbit-anchor-x: -50%;
+      --orbit-anchor-y: -100%;
     }
 
     .memory-graph-popover[data-active-node="claim-gate"] {
-      top: 32px;
-      right: auto;
-      bottom: auto;
-      left: 50%;
-      transform: translateX(-50%);
+      --orbit-x: 50%;
+      --orbit-y: 4%;
+      --orbit-anchor-x: -50%;
+      --orbit-anchor-y: 0;
     }
 
     .memory-graph-popover .memory-inspector-top {
@@ -1265,15 +1308,19 @@
     .memory-graph-popover .memory-inspector-status {
       color: rgba(71, 85, 105, 0.82);
       font-size: 0.86rem;
+      display: -webkit-box;
+      overflow: hidden;
+      -webkit-line-clamp: 3;
+      -webkit-box-orient: vertical;
     }
 
     .memory-graph-popover .memory-fact-grid {
-      grid-template-columns: 1fr;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
       margin-bottom: 12px;
     }
 
     .memory-graph-popover .memory-fact {
-      padding: 10px 11px;
+      padding: 8px 9px;
       border-color: rgba(148, 163, 184, 0.16);
       background: rgba(248, 250, 252, 0.74);
     }
@@ -1286,6 +1333,10 @@
     .memory-graph-popover .memory-fact-value {
       color: rgba(15, 23, 42, 0.88);
       font-size: 0.82rem;
+      display: -webkit-box;
+      overflow: hidden;
+      -webkit-line-clamp: 2;
+      -webkit-box-orient: vertical;
     }
 
     .memory-graph-popover .memory-skill-heading {
@@ -2163,6 +2214,7 @@
               <i class="fas fa-brain" aria-hidden="true"></i>
               Agent Knowledge Core
             </div>
+            <div class="memory-popover-orbit" aria-hidden="true"></div>
             <div class="memory-neural-field" aria-hidden="true">
               <span style="--x: 13%; --y: 20%; --s: 7px; --d: 6s; --delay: -1s;"></span>
               <span style="--x: 24%; --y: 72%; --s: 5px; --d: 7s; --delay: -3s;"></span>
