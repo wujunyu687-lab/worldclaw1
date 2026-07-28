@@ -376,6 +376,34 @@
       text-align: center;
     }
 
+    .agent-overview-figure {
+      margin: 0 0 22px;
+    }
+
+    .agent-overview-link {
+      display: block;
+      overflow: hidden;
+      border-radius: 24px;
+      border: 1px solid rgba(15, 23, 42, 0.12);
+      background: rgba(255, 255, 255, 0.92);
+      box-shadow: 0 16px 40px rgba(15, 23, 42, 0.08);
+    }
+
+    .agent-overview-link img {
+      display: block;
+      width: 100%;
+      height: auto;
+    }
+
+    .agent-overview-caption {
+      margin: 10px auto 0;
+      max-width: 980px;
+      color: var(--text-soft);
+      font-size: 0.9rem;
+      line-height: 1.6;
+      text-align: center;
+    }
+
     .agent-contrast-list {
       display: grid;
       gap: 16px;
@@ -1162,6 +1190,20 @@
           to intervene in representation geometry, loss design, gradient flow, and
           data selection.
         </p>
+        <figure class="agent-overview-figure">
+          <a class="agent-overview-link" href="assets/figures/worldclaw-agent-comparison-overview.png" target="_blank" rel="noopener">
+            <img
+              src="assets/figures/worldclaw-agent-comparison-overview.png"
+              alt="Overview diagram comparing conventional research agents with WorldClaw's evidence-constrained dual control plane."
+              loading="lazy"
+            >
+          </a>
+          <figcaption class="agent-overview-caption">
+            WorldClaw differs from execution-reflection agents by attaching every
+            action, run, receipt, and claim to an evidence lineage before a research
+            conclusion is licensed.
+          </figcaption>
+        </figure>
         <div class="agent-contrast-list">
           <article class="agent-contrast-row">
             <div class="agent-contrast-dimension">Intervention Level</div>
