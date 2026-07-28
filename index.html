@@ -459,6 +459,435 @@
       font-weight: 800;
     }
 
+    .memory-system-panel {
+      position: relative;
+      overflow: hidden;
+      padding: 30px;
+      border-radius: 34px;
+      border: 1px solid rgba(96, 165, 250, 0.2);
+      background:
+        radial-gradient(circle at 14% 12%, rgba(56, 189, 248, 0.2), transparent 28%),
+        radial-gradient(circle at 82% 22%, rgba(34, 197, 94, 0.16), transparent 26%),
+        linear-gradient(135deg, #06111f 0%, #0f1f36 48%, #16233a 100%);
+      box-shadow: 0 26px 70px rgba(15, 23, 42, 0.24);
+      color: #e5f0ff;
+    }
+
+    .memory-system-panel::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+      background-image:
+        linear-gradient(rgba(148, 163, 184, 0.06) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(148, 163, 184, 0.06) 1px, transparent 1px);
+      background-size: 34px 34px;
+      mask-image: radial-gradient(circle at center, #000 20%, transparent 78%);
+    }
+
+    .memory-system-header {
+      position: relative;
+      z-index: 1;
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) auto;
+      gap: 22px;
+      align-items: start;
+      margin-bottom: 22px;
+    }
+
+    .memory-system-kicker {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      margin-bottom: 10px;
+      color: #93c5fd;
+      font-size: 0.76rem;
+      font-weight: 900;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+    }
+
+    .memory-system-title {
+      margin: 0;
+      color: #f8fbff;
+      font-family: "Google Sans", "Noto Sans", sans-serif;
+      font-size: clamp(1.8rem, 3vw, 2.65rem);
+      font-weight: 900;
+      letter-spacing: -0.04em;
+      line-height: 1.08;
+    }
+
+    .memory-system-copy {
+      max-width: 860px;
+      margin: 12px 0 0;
+      color: rgba(226, 232, 240, 0.78);
+      font-size: 0.98rem;
+      line-height: 1.72;
+    }
+
+    .memory-system-stats {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(96px, 1fr));
+      gap: 10px;
+      min-width: 330px;
+    }
+
+    .memory-stat {
+      padding: 13px 14px;
+      border-radius: 18px;
+      border: 1px solid rgba(148, 163, 184, 0.18);
+      background: rgba(15, 23, 42, 0.46);
+      box-shadow: 0 14px 34px rgba(2, 6, 23, 0.2);
+    }
+
+    .memory-stat strong {
+      display: block;
+      color: #ffffff;
+      font-family: "Google Sans", "Noto Sans", sans-serif;
+      font-size: 1.2rem;
+      line-height: 1;
+    }
+
+    .memory-stat span {
+      display: block;
+      margin-top: 6px;
+      color: rgba(226, 232, 240, 0.7);
+      font-size: 0.74rem;
+      font-weight: 800;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
+    .memory-graph-workspace {
+      position: relative;
+      z-index: 1;
+      display: grid;
+      grid-template-columns: minmax(0, 1.35fr) minmax(340px, 0.85fr);
+      gap: 18px;
+      align-items: stretch;
+    }
+
+    .memory-map {
+      overflow: auto;
+      border-radius: 26px;
+      border: 1px solid rgba(148, 163, 184, 0.18);
+      background:
+        radial-gradient(circle at center, rgba(59, 130, 246, 0.12), transparent 42%),
+        rgba(2, 6, 23, 0.38);
+      box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.08);
+    }
+
+    .memory-map-inner {
+      position: relative;
+      min-width: 920px;
+      min-height: 620px;
+    }
+
+    .memory-link-layer {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+    }
+
+    .memory-link {
+      fill: none;
+      stroke: rgba(147, 197, 253, 0.38);
+      stroke-width: 2.2;
+      stroke-dasharray: 8 9;
+      filter: drop-shadow(0 0 7px rgba(59, 130, 246, 0.35));
+    }
+
+    .memory-link-hot {
+      stroke: rgba(74, 222, 128, 0.5);
+      stroke-dasharray: none;
+    }
+
+    .memory-node {
+      position: absolute;
+      left: var(--x);
+      top: var(--y);
+      width: 178px;
+      min-height: 104px;
+      padding: 14px;
+      border: 1px solid rgba(148, 163, 184, 0.2);
+      border-radius: 22px;
+      color: rgba(226, 232, 240, 0.86);
+      background:
+        linear-gradient(180deg, rgba(15, 23, 42, 0.94), rgba(15, 23, 42, 0.72)),
+        radial-gradient(circle at top left, rgba(37, 99, 235, 0.18), transparent 60%);
+      box-shadow: 0 16px 42px rgba(2, 6, 23, 0.26);
+      text-align: left;
+      transform: translate(-50%, -50%);
+      cursor: pointer;
+      transition: border-color 0.22s ease, box-shadow 0.22s ease, transform 0.22s ease, background 0.22s ease;
+    }
+
+    .memory-node:hover,
+    .memory-node.is-active {
+      border-color: rgba(96, 165, 250, 0.72);
+      background:
+        linear-gradient(180deg, rgba(30, 64, 175, 0.92), rgba(15, 23, 42, 0.76)),
+        radial-gradient(circle at top right, rgba(34, 197, 94, 0.28), transparent 58%);
+      box-shadow: 0 22px 50px rgba(37, 99, 235, 0.28), 0 0 0 1px rgba(96, 165, 250, 0.18);
+      transform: translate(-50%, -52%);
+    }
+
+    .memory-node-core {
+      width: 210px;
+      min-height: 122px;
+      border-color: rgba(74, 222, 128, 0.46);
+      background:
+        radial-gradient(circle at top, rgba(74, 222, 128, 0.28), transparent 62%),
+        linear-gradient(180deg, rgba(15, 23, 42, 0.96), rgba(20, 83, 45, 0.64));
+    }
+
+    .memory-node-date {
+      display: block;
+      margin-bottom: 8px;
+      color: #93c5fd;
+      font-size: 0.72rem;
+      font-weight: 900;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
+    .memory-node-title {
+      display: block;
+      color: #ffffff;
+      font-family: "Google Sans", "Noto Sans", sans-serif;
+      font-size: 0.98rem;
+      font-weight: 900;
+      line-height: 1.16;
+    }
+
+    .memory-node-meta {
+      display: block;
+      margin-top: 8px;
+      color: rgba(226, 232, 240, 0.68);
+      font-size: 0.74rem;
+      line-height: 1.35;
+    }
+
+    .memory-inspector {
+      border-radius: 26px;
+      border: 1px solid rgba(191, 219, 254, 0.2);
+      background: rgba(248, 251, 255, 0.94);
+      box-shadow: 0 18px 46px rgba(2, 6, 23, 0.18);
+      color: var(--text-strong);
+      overflow: hidden;
+    }
+
+    .memory-inspector-main {
+      padding: 22px;
+    }
+
+    .memory-inspector-top {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 14px;
+      margin-bottom: 16px;
+    }
+
+    .memory-inspector-title {
+      margin: 0;
+      font-family: "Google Sans", "Noto Sans", sans-serif;
+      font-size: 1.35rem;
+      font-weight: 900;
+      letter-spacing: -0.03em;
+      line-height: 1.15;
+      color: var(--text-strong);
+    }
+
+    .memory-inspector-date {
+      display: inline-flex;
+      align-items: center;
+      padding: 7px 10px;
+      border-radius: 999px;
+      color: #1d4ed8;
+      background: rgba(37, 99, 235, 0.1);
+      font-size: 0.76rem;
+      font-weight: 900;
+      white-space: nowrap;
+    }
+
+    .memory-inspector-status {
+      margin: 0 0 16px;
+      color: var(--text-soft);
+      font-size: 0.92rem;
+      line-height: 1.62;
+    }
+
+    .memory-fact-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 10px;
+      margin-bottom: 16px;
+    }
+
+    .memory-fact {
+      padding: 12px;
+      border-radius: 16px;
+      border: 1px solid rgba(148, 163, 184, 0.18);
+      background: #ffffff;
+    }
+
+    .memory-fact-label {
+      display: block;
+      margin-bottom: 5px;
+      color: #64748b;
+      font-size: 0.7rem;
+      font-weight: 900;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
+    .memory-fact-value {
+      color: var(--text-strong);
+      font-size: 0.86rem;
+      font-weight: 800;
+      line-height: 1.35;
+    }
+
+    .memory-skill-heading {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      margin: 18px 0 10px;
+    }
+
+    .memory-skill-heading h4 {
+      margin: 0;
+      color: var(--text-strong);
+      font-family: "Google Sans", "Noto Sans", sans-serif;
+      font-size: 0.98rem;
+      font-weight: 900;
+    }
+
+    .memory-skill-heading span {
+      color: #64748b;
+      font-size: 0.76rem;
+      font-weight: 800;
+    }
+
+    .memory-skill-list {
+      display: grid;
+      gap: 8px;
+    }
+
+    .memory-skill-card {
+      width: 100%;
+      padding: 11px 12px;
+      border-radius: 15px;
+      border: 1px solid rgba(148, 163, 184, 0.2);
+      background: rgba(248, 250, 252, 0.94);
+      color: var(--text-soft);
+      text-align: left;
+      cursor: pointer;
+      transition: border-color 0.2s ease, background 0.2s ease, transform 0.2s ease;
+    }
+
+    .memory-skill-card:hover,
+    .memory-skill-card.is-active {
+      border-color: rgba(37, 99, 235, 0.38);
+      background: rgba(239, 246, 255, 0.98);
+      transform: translateY(-1px);
+    }
+
+    .memory-skill-card strong {
+      display: block;
+      color: var(--text-strong);
+      font-size: 0.88rem;
+      line-height: 1.3;
+    }
+
+    .memory-skill-card span {
+      display: block;
+      margin-top: 4px;
+      font-size: 0.78rem;
+      line-height: 1.35;
+    }
+
+    .memory-doc-preview {
+      margin-top: 14px;
+      padding: 16px;
+      border-radius: 18px;
+      background:
+        linear-gradient(180deg, #0f172a 0%, #111827 100%);
+      color: rgba(226, 232, 240, 0.88);
+      box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.08);
+    }
+
+    .memory-doc-type {
+      color: #93c5fd;
+      font-size: 0.72rem;
+      font-weight: 900;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+    }
+
+    .memory-doc-preview h4 {
+      margin: 7px 0 6px;
+      color: #ffffff;
+      font-family: "Google Sans", "Noto Sans", sans-serif;
+      font-size: 1rem;
+      font-weight: 900;
+    }
+
+    .memory-doc-preview p {
+      margin: 0;
+      font-size: 0.84rem;
+      line-height: 1.55;
+    }
+
+    .memory-doc-preview ul {
+      margin: 10px 0 0 18px;
+      color: rgba(226, 232, 240, 0.78);
+      font-size: 0.82rem;
+      line-height: 1.48;
+    }
+
+    .memory-doc-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      margin-top: 13px;
+      color: #bfdbfe;
+      font-size: 0.82rem;
+      font-weight: 900;
+    }
+
+    .memory-timeline {
+      position: relative;
+      z-index: 1;
+      display: grid;
+      grid-template-columns: repeat(5, minmax(0, 1fr));
+      gap: 10px;
+      margin-top: 18px;
+    }
+
+    .memory-timeline button {
+      padding: 10px 12px;
+      border-radius: 999px;
+      border: 1px solid rgba(148, 163, 184, 0.18);
+      background: rgba(15, 23, 42, 0.42);
+      color: rgba(226, 232, 240, 0.78);
+      font-size: 0.78rem;
+      font-weight: 900;
+      cursor: pointer;
+      transition: background 0.2s ease, border-color 0.2s ease, color 0.2s ease;
+    }
+
+    .memory-timeline button:hover,
+    .memory-timeline button.is-active {
+      border-color: rgba(74, 222, 128, 0.45);
+      background: rgba(21, 128, 61, 0.32);
+      color: #ffffff;
+    }
+
     .skill-example-shell {
       max-width: 1120px;
       margin: 22px auto 0;
@@ -1052,6 +1481,21 @@
         text-align: left;
       }
 
+      .memory-system-header,
+      .memory-graph-workspace {
+        grid-template-columns: 1fr;
+      }
+
+      .memory-system-stats,
+      .memory-timeline {
+        grid-template-columns: 1fr;
+        min-width: 0;
+      }
+
+      .memory-fact-grid {
+        grid-template-columns: 1fr;
+      }
+
       .skill-example-header,
       .skill-example-footer {
         flex-direction: column;
@@ -1089,9 +1533,10 @@
     </div>
     <nav class="section-nav" aria-label="Page navigation">
       <a class="section-nav-link is-active" href="#overview-section" data-target="overview-section"><span class="section-nav-index">01</span><span>Overview</span></a>
-      <a class="section-nav-link" href="#pipeline-section" data-target="pipeline-section"><span class="section-nav-index">02</span><span>Pipeline</span></a>
-      <a class="section-nav-link" href="#active-learning-section" data-target="active-learning-section"><span class="section-nav-index">03</span><span>Active Learning</span></a>
-      <a class="section-nav-link" href="#evaluation-section" data-target="evaluation-section"><span class="section-nav-index">04</span><span>Evaluation</span></a>
+      <a class="section-nav-link" href="#memory-graph-section" data-target="memory-graph-section"><span class="section-nav-index">02</span><span>Memory Graph</span></a>
+      <a class="section-nav-link" href="#pipeline-section" data-target="pipeline-section"><span class="section-nav-index">03</span><span>Pipeline</span></a>
+      <a class="section-nav-link" href="#active-learning-section" data-target="active-learning-section"><span class="section-nav-index">04</span><span>Active Learning</span></a>
+      <a class="section-nav-link" href="#evaluation-section" data-target="evaluation-section"><span class="section-nav-index">05</span><span>Evaluation</span></a>
     </nav>
   </div>
 
@@ -1287,6 +1732,156 @@
               </p>
             </div>
           </article>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section page-section" id="memory-graph-section">
+    <div class="container is-max-desktop">
+      <div class="memory-system-panel">
+        <div class="memory-system-header">
+          <div>
+            <span class="memory-system-kicker">
+              <i class="fas fa-network-wired" aria-hidden="true"></i>
+              Research Memory System
+            </span>
+            <h2 class="memory-system-title">Clickable Knowledge Graph for World-Model Research</h2>
+            <p class="memory-system-copy">
+              Each node is a reusable research memory: time, target model, dataset,
+              architecture change, evidence gate, and skill document. Click a node
+              to open its knowledge base; click a skill card to inspect the concrete
+              procedure behind that memory.
+            </p>
+          </div>
+          <div class="memory-system-stats" aria-label="Memory graph summary">
+            <div class="memory-stat">
+              <strong>7</strong>
+              <span>Memory Nodes</span>
+            </div>
+            <div class="memory-stat">
+              <strong>7</strong>
+              <span>Skill Docs</span>
+            </div>
+            <div class="memory-stat">
+              <strong>3</strong>
+              <span>Model Families</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="memory-graph-workspace">
+          <div class="memory-map" aria-label="Interactive WorldClaw research memory graph">
+            <div class="memory-map-inner">
+              <svg class="memory-link-layer" viewBox="0 0 1000 650" preserveAspectRatio="none" aria-hidden="true">
+                <path class="memory-link" d="M 500 320 C 390 260, 300 220, 190 155"></path>
+                <path class="memory-link" d="M 500 320 C 500 230, 500 170, 500 110"></path>
+                <path class="memory-link" d="M 500 320 C 612 260, 710 218, 815 165"></path>
+                <path class="memory-link" d="M 500 320 C 388 382, 306 444, 205 510"></path>
+                <path class="memory-link" d="M 500 320 C 622 386, 716 448, 810 510"></path>
+                <path class="memory-link memory-link-hot" d="M 500 320 C 500 410, 500 485, 500 555"></path>
+                <path class="memory-link" d="M 205 510 C 330 595, 670 595, 810 510"></path>
+              </svg>
+
+              <button class="memory-node memory-node-core is-active" type="button" data-memory-node="core" style="--x: 50%; --y: 49%;">
+                <span class="memory-node-date">Persistent</span>
+                <span class="memory-node-title">Evidence-Licensed Memory</span>
+                <span class="memory-node-meta">Action -> receipt -> claim frontier</span>
+              </button>
+              <button class="memory-node" type="button" data-memory-node="ctrlworld-lamo" style="--x: 20%; --y: 24%;">
+                <span class="memory-node-date">2026-06-15</span>
+                <span class="memory-node-title">CtrlWorld + LaMo Fusion</span>
+                <span class="memory-node-meta">Latent motion prior / drift loss</span>
+              </button>
+              <button class="memory-node" type="button" data-memory-node="dino-rep" style="--x: 50%; --y: 18%;">
+                <span class="memory-node-date">2026-06-16</span>
+                <span class="memory-node-title">COSMOS3 DINO-REP Plan</span>
+                <span class="memory-node-meta">Depth-motion repair with REP tokens</span>
+              </button>
+              <button class="memory-node" type="button" data-memory-node="robocoin" style="--x: 80%; --y: 25%;">
+                <span class="memory-node-date">2026-07-02</span>
+                <span class="memory-node-title">RoboCOIN Transfer</span>
+                <span class="memory-node-meta">Agilex Cobot Magic adaptation</span>
+              </button>
+              <button class="memory-node" type="button" data-memory-node="robolab-rl" style="--x: 22%; --y: 78%;">
+                <span class="memory-node-date">2026-07-22</span>
+                <span class="memory-node-title">RoboLab120 Policy RL</span>
+                <span class="memory-node-meta">Reward-bound success contract</span>
+              </button>
+              <button class="memory-node" type="button" data-memory-node="franka-real" style="--x: 80%; --y: 78%;">
+                <span class="memory-node-date">2026-07-27</span>
+                <span class="memory-node-title">FRANKA Real-Robot Trials</span>
+                <span class="memory-node-meta">Stack / fold / drawer transfer</span>
+              </button>
+              <button class="memory-node" type="button" data-memory-node="claim-gate" style="--x: 50%; --y: 88%;">
+                <span class="memory-node-date">Gate</span>
+                <span class="memory-node-title">Frozen Verifier</span>
+                <span class="memory-node-meta">Evidence before conclusion</span>
+              </button>
+            </div>
+          </div>
+
+          <aside class="memory-inspector" aria-live="polite">
+            <div class="memory-inspector-main">
+              <div class="memory-inspector-top">
+                <h3 class="memory-inspector-title" id="memory-node-title">Evidence-Licensed Memory</h3>
+                <span class="memory-inspector-date" id="memory-node-date">Persistent</span>
+              </div>
+              <p class="memory-inspector-status" id="memory-node-status">
+                WorldClaw stores actions, receipts, model context, and claim boundaries
+                so later decisions are grounded in evidence rather than free-form reflection.
+              </p>
+              <div class="memory-fact-grid">
+                <div class="memory-fact">
+                  <span class="memory-fact-label">Model / Architecture</span>
+                  <div class="memory-fact-value" id="memory-node-model">Evidence control plane over world-model runs</div>
+                </div>
+                <div class="memory-fact">
+                  <span class="memory-fact-label">Dataset / Embodiment</span>
+                  <div class="memory-fact-value" id="memory-node-dataset">Run receipts, replay artifacts, metrics, and patches</div>
+                </div>
+                <div class="memory-fact">
+                  <span class="memory-fact-label">Intervention</span>
+                  <div class="memory-fact-value" id="memory-node-intervention">Claim licensing before reuse</div>
+                </div>
+                <div class="memory-fact">
+                  <span class="memory-fact-label">Evidence</span>
+                  <div class="memory-fact-value" id="memory-node-evidence">Traceable action -> artifact -> claim chain</div>
+                </div>
+              </div>
+
+              <div class="memory-skill-heading">
+                <h4>Skill / Trace Documents</h4>
+                <span>Click to inspect</span>
+              </div>
+              <div class="memory-skill-list" id="memory-skill-list"></div>
+
+              <div class="memory-doc-preview">
+                <span class="memory-doc-type" id="memory-doc-type">Skill Document</span>
+                <h4 id="memory-doc-title">WorldClaw Research Memory Graph</h4>
+                <p id="memory-doc-summary">
+                  A project-page memory graph that indexes experiments by model,
+                  dataset, intervention, and evidence gate.
+                </p>
+                <ul id="memory-doc-points">
+                  <li>Click a graph node to switch the knowledge base.</li>
+                  <li>Click a skill card to open the relevant procedure.</li>
+                </ul>
+                <a class="memory-doc-link" id="memory-doc-link" href="assets/docs/worldclaw-memory-graph.md" target="_blank" rel="noopener">
+                  <span>Open document</span>
+                  <i class="fas fa-up-right-from-square" aria-hidden="true"></i>
+                </a>
+              </div>
+            </div>
+          </aside>
+        </div>
+
+        <div class="memory-timeline" aria-label="Research memory timeline">
+          <button type="button" data-memory-node="ctrlworld-lamo">Jun 15 / LaMo</button>
+          <button type="button" data-memory-node="dino-rep">Jun 16 / REP</button>
+          <button type="button" data-memory-node="robocoin">Jul 02 / RoboCOIN</button>
+          <button type="button" data-memory-node="robolab-rl">Jul 22 / RL</button>
+          <button type="button" data-memory-node="franka-real">Jul 27 / FRANKA</button>
         </div>
       </div>
     </div>
@@ -2063,6 +2658,274 @@
   </section>
 
   <script>
+    const memoryGraphData = {
+      core: {
+        title: "Evidence-Licensed Memory",
+        date: "Persistent",
+        status: "WorldClaw stores actions, receipts, model context, and claim boundaries so later decisions are grounded in evidence rather than free-form reflection.",
+        model: "Evidence control plane over world-model runs",
+        dataset: "Run receipts, replay artifacts, metrics, and patches",
+        intervention: "Claim licensing before reuse",
+        evidence: "Traceable action -> artifact -> claim chain",
+        docs: [
+          {
+            type: "Memory Contract",
+            title: "WorldClaw Research Memory Graph",
+            href: "assets/docs/worldclaw-memory-graph.md",
+            summary: "Defines each node as a bounded research episode with time, model, dataset, intervention, and evidence gate.",
+            points: [
+              "Indexes model changes by claim scope rather than by loose chat history.",
+              "Connects experiment artifacts to reusable repair decisions.",
+              "Keeps the page-level visualization aligned with the evidence contract."
+            ]
+          },
+          {
+            type: "Claim Gate",
+            title: "Evidence Claim Gate Skill",
+            href: "assets/docs/worldclaw-claim-gate-skill.md",
+            summary: "Defines when a WorldClaw result is allowed to become a reusable research claim.",
+            points: [
+              "Separates environment success from video or VLM audit evidence.",
+              "Requires action requests, execution receipts, and verification artifacts.",
+              "Updates the claim frontier only when evidence is sufficient."
+            ]
+          }
+        ]
+      },
+      "ctrlworld-lamo": {
+        title: "CtrlWorld + LaMo Fusion",
+        date: "2026-06-15",
+        status: "A failure diagnosis found that action gradients were drowned by the visual branch, causing copy-current-frame behavior.",
+        model: "CtrlWorld SVD-UNet with action encoder",
+        dataset: "CtrlWorld action-conditioned rollout data",
+        intervention: "LaMo latent motion prior, drift loss, frozen SVD/VAE parts, hierarchical LR",
+        evidence: "Loss behavior, gradient-path diagnosis, generated LaMo skill document",
+        docs: [
+          {
+            type: "Generated Skill",
+            title: "CtrlWorld + LaMo Fusion Training Skill",
+            href: "assets/docs/Lamo_SKILL.md",
+            summary: "A concrete architecture and training recipe for adding latent motion priors to CtrlWorld.",
+            points: [
+              "Adds a motion-prior branch and drift readout in latent space.",
+              "Keeps stable SVD/VAE components frozen while training action-sensitive layers.",
+              "Uses targeted ablations to test whether motion is action-conditioned."
+            ]
+          },
+          {
+            type: "Claim Gate",
+            title: "Evidence Claim Gate Skill",
+            href: "assets/docs/worldclaw-claim-gate-skill.md",
+            summary: "Records how the LaMo intervention should be promoted only after evidence clears the claim gate.",
+            points: [
+              "Do not treat a lower scalar loss as sufficient mechanism evidence.",
+              "Require replay or latent-separation checks before widening the claim.",
+              "Keep the intervention scoped to the CtrlWorld failure mode."
+            ]
+          }
+        ]
+      },
+      "dino-rep": {
+        title: "COSMOS3 DINO-REP Plan",
+        date: "2026-06-16",
+        status: "Plan 2 used representation signals to improve geometry and motion while exposing a remaining appearance-consistency gap.",
+        model: "COSMOS3 video-to-world rollout model",
+        dataset: "Plan 2 replay set with 13024 comparison and WorldArena-style metrics",
+        intervention: "Train-test aligned DINO-REP conditioning",
+        evidence: "PSNR, SSIM, LPIPS, FID, qualitative replay, WorldArena-style scores",
+        docs: [
+          {
+            type: "Repair Skill",
+            title: "DINO-REP COSMOS3 Repair Skill",
+            href: "assets/docs/worldclaw-dino-rep-skill.md",
+            summary: "Encodes the REP-token intervention and the next-patch rule for appearance failure modes.",
+            points: [
+              "Treats depth and motion gains separately from appearance consistency.",
+              "Uses metric deltas to route the next patch rather than stopping at a score.",
+              "Targets REP injection position and appearance retention when needed."
+            ]
+          }
+        ]
+      },
+      robocoin: {
+        title: "RoboCOIN Transfer",
+        date: "2026-07-02",
+        status: "The agent selected a compatible action-conditioned video-to-world setup from dataset structure, embodiment, viewpoint, and action interface.",
+        model: "DreamDojo/Cosmos Predict2 action-conditioned video-to-world",
+        dataset: "RoboCOIN-DataManager / Agilex Cobot Magic",
+        intervention: "Dataset adapter, embodiment-aware base-model selection, no-action control replay",
+        evidence: "Green-folder, red-folder, and three-view consistency qualitative comparisons",
+        docs: [
+          {
+            type: "Transfer Skill",
+            title: "RoboCOIN Transfer Adapter Skill",
+            href: "assets/docs/worldclaw-robocoin-transfer-skill.md",
+            summary: "Documents how the transfer node maps dataset and robot metadata into a model adaptation decision.",
+            points: [
+              "Uses embodiment and camera metadata before choosing the base model.",
+              "Keeps no-action prediction as an overfitting control.",
+              "Scopes the claim to selected RoboCOIN tasks and replay evidence."
+            ]
+          }
+        ]
+      },
+      "robolab-rl": {
+        title: "RoboLab120 Policy RL",
+        date: "2026-07-22",
+        status: "The RL node uses environment-grounded terminal success and verified progress, while keeping video and VLM outputs as audit-only evidence.",
+        model: "Cosmos3-DROID policy",
+        dataset: "RoboLab120 block-stacking rollouts",
+        intervention: "Reward-bounded RL with safety and invalid-action penalties",
+        evidence: "Block-stack original-vs-RL paired rollouts and reward contract",
+        docs: [
+          {
+            type: "Reward Skill",
+            title: "RoboLab120 Policy-RL Reward Skill",
+            href: "assets/docs/worldclaw-robolab-rl-skill.md",
+            summary: "Defines the RL reward and its constraints so progress cannot fake terminal success.",
+            points: [
+              "Terminal success comes from RoboLab, not VLM scoring.",
+              "Failed trajectories are capped below successful trajectories.",
+              "Video and VLM checks remain audit-only."
+            ]
+          }
+        ]
+      },
+      "franka-real": {
+        title: "FRANKA Real-Robot Trials",
+        date: "2026-07-27",
+        status: "The real-robot node compares original COSMOS3 and improved COSMOS3 on stack, fold, and occluded drawer manipulation.",
+        model: "Improved COSMOS3 real-robot policy stack",
+        dataset: "FRANKA real-world task videos",
+        intervention: "Real-robot transfer with improved grasping, path planning, and occlusion handling",
+        evidence: "4x H.264 comparison videos for stack, tablecloth, and drawer tasks",
+        docs: [
+          {
+            type: "Real-Robot Skill",
+            title: "FRANKA Real-Robot Transfer Skill",
+            href: "assets/docs/worldclaw-franka-real-robot-skill.md",
+            summary: "Summarizes the task set, observed original failures, and improved COSMOS3 behavior.",
+            points: [
+              "Tracks stack, fold, and drawer tasks under the same real-robot section.",
+              "Uses accelerated public videos for presentation, not for changing task labels.",
+              "Links each qualitative claim to a visible comparison artifact."
+            ]
+          }
+        ]
+      },
+      "claim-gate": {
+        title: "Frozen Verifier",
+        date: "Gate",
+        status: "The verifier node prevents the memory graph from turning every observation into a broad claim.",
+        model: "Model-agnostic claim policy",
+        dataset: "Execution receipts, metrics, replays, and environment outcomes",
+        intervention: "Independent verification before claim-frontier update",
+        evidence: "Pass/fail gates and bounded claim scopes",
+        docs: [
+          {
+            type: "Claim Gate",
+            title: "Evidence Claim Gate Skill",
+            href: "assets/docs/worldclaw-claim-gate-skill.md",
+            summary: "Defines the gate logic for promoting a result into a reusable memory.",
+            points: [
+              "Record the proposed intervention and execution receipt.",
+              "Verify success with the authority appropriate for the claim.",
+              "Keep video/VLM audit evidence separate from environment success."
+            ]
+          },
+          {
+            type: "Memory Contract",
+            title: "WorldClaw Research Memory Graph",
+            href: "assets/docs/worldclaw-memory-graph.md",
+            summary: "Explains how the graph indexes evidence by model, dataset, intervention, and claim scope.",
+            points: [
+              "Prevents score-only memory from hiding mechanism failures.",
+              "Makes prior patches inspectable before selecting the next action.",
+              "Connects knowledge nodes to concrete skill documents."
+            ]
+          }
+        ]
+      }
+    };
+
+    function renderMemoryDoc(doc, activeIndex) {
+      const docType = document.getElementById("memory-doc-type");
+      const docTitle = document.getElementById("memory-doc-title");
+      const docSummary = document.getElementById("memory-doc-summary");
+      const docPoints = document.getElementById("memory-doc-points");
+      const docLink = document.getElementById("memory-doc-link");
+      if (!docType || !docTitle || !docSummary || !docPoints || !docLink || !doc) return;
+
+      docType.textContent = doc.type;
+      docTitle.textContent = doc.title;
+      docSummary.textContent = doc.summary;
+      docLink.href = doc.href;
+      docPoints.replaceChildren();
+      doc.points.forEach((point) => {
+        const item = document.createElement("li");
+        item.textContent = point;
+        docPoints.appendChild(item);
+      });
+
+      document.querySelectorAll(".memory-skill-card").forEach((card) => {
+        card.classList.toggle("is-active", Number(card.dataset.docIndex) === activeIndex);
+      });
+    }
+
+    function renderMemoryNode(nodeId) {
+      const node = memoryGraphData[nodeId];
+      if (!node) return;
+
+      const fields = {
+        "memory-node-title": node.title,
+        "memory-node-date": node.date,
+        "memory-node-status": node.status,
+        "memory-node-model": node.model,
+        "memory-node-dataset": node.dataset,
+        "memory-node-intervention": node.intervention,
+        "memory-node-evidence": node.evidence
+      };
+
+      Object.entries(fields).forEach(([id, value]) => {
+        const element = document.getElementById(id);
+        if (element) element.textContent = value;
+      });
+
+      document.querySelectorAll("[data-memory-node]").forEach((item) => {
+        item.classList.toggle("is-active", item.dataset.memoryNode === nodeId);
+      });
+
+      const skillList = document.getElementById("memory-skill-list");
+      if (!skillList) return;
+      skillList.replaceChildren();
+
+      node.docs.forEach((doc, index) => {
+        const button = document.createElement("button");
+        button.type = "button";
+        button.className = "memory-skill-card";
+        button.dataset.docIndex = String(index);
+        button.innerHTML = `<strong></strong><span></span>`;
+        button.querySelector("strong").textContent = doc.title;
+        button.querySelector("span").textContent = doc.type;
+        button.addEventListener("click", () => renderMemoryDoc(doc, index));
+        skillList.appendChild(button);
+      });
+
+      renderMemoryDoc(node.docs[0], 0);
+    }
+
+    function setupMemoryGraph() {
+      if (!document.getElementById("memory-skill-list")) return;
+
+      document.querySelectorAll("[data-memory-node]").forEach((item) => {
+        item.addEventListener("click", () => {
+          renderMemoryNode(item.dataset.memoryNode);
+        });
+      });
+
+      renderMemoryNode("core");
+    }
+
     function updateScrollProgress() {
       const progressBar = document.getElementById("scroll-progress-bar");
       if (!progressBar) return;
@@ -2110,6 +2973,7 @@
 
     document.addEventListener("DOMContentLoaded", () => {
       setupSectionNav();
+      setupMemoryGraph();
       syncPageChrome();
       window.addEventListener("scroll", syncPageChrome, { passive: true });
       window.addEventListener("resize", syncPageChrome);
