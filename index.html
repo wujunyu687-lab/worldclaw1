@@ -1299,31 +1299,30 @@
         <span class="section-heading-bar" aria-hidden="true"></span>
       </div>
       <p class="section-copy has-text-centered">
-        This figure comes from the earlier project notes. It shows the first
-        closed-loop view of WorldClaw around research, training, evaluation,
-        and memory.
+        WorldClaw runs an online decision loop that probes the model, builds local
+        evidence charts, selects candidate repairs, executes trials, and freezes
+        verification before updating the next selection.
       </p>
       <div class="feature-media">
         <div class="pipeline-figure-shell concept-figure-shell">
-          <span class="figure-eyebrow">Early System Sketch</span>
+          <span class="figure-eyebrow">Online Decision Loop</span>
           <figure class="architecture-figure">
-            <a class="architecture-link" href="assets/figures/worldclaw-concept-sketch.png" target="_blank" rel="noopener">
+            <a class="architecture-link" href="assets/figures/worldclaw-online-decision-loop-pipeline.png" target="_blank" rel="noopener">
               <img
-                src="assets/figures/worldclaw-concept-sketch.png"
-                alt="Early WorldClaw sketch showing a closed loop across Research_Bot, Train_Bot, Eval_Bot, Metamemory, and a model-side branch."
+                src="assets/figures/worldclaw-online-decision-loop-pipeline.png"
+                alt="WorldClaw online decision loop for probing a world model, selecting repairs, executing trials, verifying outcomes, and accumulating repair knowledge."
                 loading="lazy"
               >
             </a>
           </figure>
           <div class="architecture-caption">
             <div class="architecture-caption-copy">
-              <strong>Early design sketch.</strong>
-              This image predates the current repository layout. It records the
-              initial loop of `Research_Bot -&gt; Train_Bot -&gt; Eval_Bot`, with
-              `Metamemory` carrying state across iterations. The model-side blocks
-              on the right belong to the same sketch, not a direct map of today's code.
+              <strong>Pipeline overview.</strong>
+              The loop separates probing, selection, trial execution, frozen
+              verification, and accumulated repair memory, so each next action is
+              constrained by prior evidence instead of free-form reflection.
             </div>
-            <a class="architecture-action" href="assets/figures/worldclaw-concept-sketch.png" target="_blank" rel="noopener">
+            <a class="architecture-action" href="assets/figures/worldclaw-online-decision-loop-pipeline.png" target="_blank" rel="noopener">
               <span>Open full resolution</span>
               <i class="fas fa-up-right-from-square" aria-hidden="true"></i>
             </a>
