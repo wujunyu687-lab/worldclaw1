@@ -938,6 +938,8 @@
         radial-gradient(circle at 44% 48%, rgba(74, 222, 128, 0.08), transparent 31%);
       box-shadow: none;
       scrollbar-width: none;
+      perspective: 1200px;
+      perspective-origin: 50% 45%;
     }
 
     .memory-brain-map::-webkit-scrollbar {
@@ -948,6 +950,7 @@
       position: relative;
       min-width: 1180px;
       min-height: 820px;
+      transform-style: preserve-3d;
     }
 
     .memory-brain-stage::before,
@@ -1030,16 +1033,35 @@
     .memory-brain-cluster {
       inset: 5% 7% 7%;
       transform-origin: 50% 50%;
-      animation: memoryBrainSpin 64s linear infinite;
+      transform-style: preserve-3d;
+      animation: memoryBrainSpin 42s linear infinite;
+      pointer-events: none;
+      will-change: transform;
+    }
+
+    .memory-brain-cluster::before,
+    .memory-brain-cluster::after {
+      content: "";
+      position: absolute;
+      inset: 10% 13%;
+      border-radius: 50%;
+      border: 1px solid rgba(37, 99, 235, 0.13);
+      box-shadow: 0 34px 80px rgba(37, 99, 235, 0.1);
+      transform: translateZ(-90px) rotateX(64deg) rotateZ(16deg);
       pointer-events: none;
     }
 
-    .memory-brain-map:hover .memory-brain-cluster {
-      animation-play-state: paused;
+    .memory-brain-cluster::after {
+      inset: 18% 22%;
+      border-color: rgba(22, 163, 74, 0.14);
+      transform: translateZ(95px) rotateX(66deg) rotateZ(-24deg);
+      box-shadow: 0 24px 70px rgba(22, 163, 74, 0.1);
     }
 
     .memory-brain-cluster .memory-link-layer {
       inset: 0;
+      transform: translateZ(-14px);
+      transform-style: preserve-3d;
     }
 
     .memory-brain-cluster .memory-link {
@@ -1076,13 +1098,59 @@
       box-shadow: 0 20px 52px rgba(30, 64, 175, 0.12), inset 0 1px 0 rgba(255, 255, 255, 0.72);
       backdrop-filter: blur(14px);
       pointer-events: auto;
+      transform: translate3d(-50%, -50%, var(--z, 38px));
+      transform-style: preserve-3d;
+      overflow: visible;
+      will-change: transform;
+    }
+
+    .memory-front-section .memory-node::after {
+      content: "";
+      position: absolute;
+      inset: 12px;
+      z-index: -1;
+      border-radius: inherit;
+      background: rgba(37, 99, 235, 0.14);
+      filter: blur(18px);
+      transform: translate3d(0, 36px, -70px) scale(0.86);
+      opacity: 0.72;
+      pointer-events: none;
     }
 
     .memory-front-section .memory-node:hover,
     .memory-front-section .memory-node.is-active {
       border-color: rgba(14, 165, 233, 0.45);
-      transform: translate(-50%, -52%) scale(1.05);
+      transform: translate3d(-50%, -52%, calc(var(--z, 38px) + 34px)) scale(1.05);
       box-shadow: 0 28px 70px rgba(14, 165, 233, 0.18), 0 0 0 1px rgba(14, 165, 233, 0.12);
+      z-index: 5;
+    }
+
+    .memory-front-section [data-memory-node="core"] {
+      --z: 118px;
+    }
+
+    .memory-front-section [data-memory-node="ctrlworld-lamo"] {
+      --z: 38px;
+    }
+
+    .memory-front-section [data-memory-node="dino-rep"] {
+      --z: 78px;
+    }
+
+    .memory-front-section [data-memory-node="robocoin"] {
+      --z: 56px;
+    }
+
+    .memory-front-section [data-memory-node="robolab-rl"] {
+      --z: 24px;
+    }
+
+    .memory-front-section [data-memory-node="franka-real"] {
+      --z: 92px;
+    }
+
+    .memory-front-section [data-memory-node="claim-gate"] {
+      --z: 52px;
     }
 
     .memory-front-section .memory-node-core {
@@ -1096,11 +1164,9 @@
 
     .memory-node-content {
       display: block;
-      animation: memoryBrainCounterSpin 64s linear infinite;
-    }
-
-    .memory-brain-map:hover .memory-node-content {
-      animation-play-state: paused;
+      transform-style: preserve-3d;
+      animation: memoryBrainCounterSpin 42s linear infinite;
+      will-change: transform;
     }
 
     .memory-front-section .memory-node-title {
@@ -1130,6 +1196,7 @@
       box-shadow: 0 28px 80px rgba(30, 64, 175, 0.16);
       backdrop-filter: blur(18px);
       transform: translate(-50%, -50%);
+      transform-style: preserve-3d;
       transition: top 0.26s ease, right 0.26s ease, bottom 0.26s ease, left 0.26s ease, transform 0.26s ease;
     }
 
@@ -1278,13 +1345,15 @@
     }
 
     @keyframes memoryBrainSpin {
-      from { transform: rotate(0deg); }
-      to { transform: rotate(360deg); }
+      0% { transform: rotateX(58deg) rotateY(-8deg) rotateZ(0deg); }
+      50% { transform: rotateX(62deg) rotateY(8deg) rotateZ(180deg); }
+      100% { transform: rotateX(58deg) rotateY(-8deg) rotateZ(360deg); }
     }
 
     @keyframes memoryBrainCounterSpin {
-      from { transform: rotate(0deg); }
-      to { transform: rotate(-360deg); }
+      0% { transform: rotateZ(0deg) rotateY(8deg) rotateX(-58deg) translateZ(18px); }
+      50% { transform: rotateZ(-180deg) rotateY(-8deg) rotateX(-62deg) translateZ(18px); }
+      100% { transform: rotateZ(-360deg) rotateY(8deg) rotateX(-58deg) translateZ(18px); }
     }
 
     @keyframes memorySignalFlow {
