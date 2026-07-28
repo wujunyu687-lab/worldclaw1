@@ -888,6 +888,405 @@
       color: #ffffff;
     }
 
+    .memory-front-section {
+      padding-top: 1.5rem;
+      padding-bottom: 3.6rem;
+    }
+
+    .memory-front-section .container.is-max-desktop {
+      max-width: min(1540px, calc(100vw - 42px));
+    }
+
+    .memory-brain-panel {
+      padding: 0;
+      border-radius: 42px;
+      border-color: rgba(125, 211, 252, 0.26);
+      background:
+        radial-gradient(circle at 18% 22%, rgba(34, 211, 238, 0.24), transparent 28%),
+        radial-gradient(circle at 76% 18%, rgba(74, 222, 128, 0.18), transparent 30%),
+        radial-gradient(circle at 50% 72%, rgba(96, 165, 250, 0.2), transparent 36%),
+        linear-gradient(135deg, #020617 0%, #071529 42%, #101f35 100%);
+      box-shadow: 0 34px 94px rgba(15, 23, 42, 0.36);
+    }
+
+    .memory-brain-panel::before {
+      opacity: 0.72;
+      background-image:
+        linear-gradient(rgba(125, 211, 252, 0.07) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(125, 211, 252, 0.07) 1px, transparent 1px);
+      background-size: 38px 38px;
+      mask-image: radial-gradient(circle at center, #000 18%, transparent 80%);
+    }
+
+    .memory-brain-map {
+      position: relative;
+      overflow: auto;
+      min-height: 820px;
+      border: 0;
+      border-radius: 42px;
+      background:
+        radial-gradient(ellipse at center, rgba(14, 165, 233, 0.18) 0%, rgba(15, 23, 42, 0.08) 38%, transparent 72%),
+        linear-gradient(180deg, rgba(2, 6, 23, 0.08), rgba(2, 6, 23, 0.28));
+      box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.1);
+      scrollbar-width: none;
+    }
+
+    .memory-brain-map::-webkit-scrollbar {
+      display: none;
+    }
+
+    .memory-brain-stage {
+      position: relative;
+      min-width: 1180px;
+      min-height: 820px;
+    }
+
+    .memory-brain-stage::before,
+    .memory-brain-stage::after {
+      content: "";
+      position: absolute;
+      inset: 9% 12%;
+      border-radius: 48% 52% 46% 54% / 44% 47% 53% 56%;
+      border: 1px solid rgba(125, 211, 252, 0.14);
+      background:
+        radial-gradient(circle at 35% 42%, rgba(34, 211, 238, 0.13), transparent 24%),
+        radial-gradient(circle at 63% 46%, rgba(34, 197, 94, 0.1), transparent 25%);
+      filter: blur(0.2px);
+      animation: memoryBrainPulse 8s ease-in-out infinite;
+      pointer-events: none;
+    }
+
+    .memory-brain-stage::after {
+      inset: 15% 19%;
+      border-color: rgba(74, 222, 128, 0.14);
+      border-radius: 54% 46% 53% 47% / 50% 42% 58% 50%;
+      animation-duration: 10s;
+      animation-delay: -3s;
+    }
+
+    .memory-brain-label {
+      position: absolute;
+      top: 28px;
+      left: 32px;
+      z-index: 8;
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      padding: 10px 14px;
+      border-radius: 999px;
+      border: 1px solid rgba(191, 219, 254, 0.2);
+      background: rgba(15, 23, 42, 0.58);
+      color: rgba(226, 232, 240, 0.82);
+      font-size: 0.78rem;
+      font-weight: 900;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      backdrop-filter: blur(14px);
+    }
+
+    .memory-brain-label i {
+      color: #67e8f9;
+    }
+
+    .memory-neural-field,
+    .memory-brain-cluster,
+    .memory-brain-glow {
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+    }
+
+    .memory-brain-glow {
+      background:
+        radial-gradient(circle at 50% 50%, rgba(125, 211, 252, 0.2), transparent 24%),
+        radial-gradient(circle at 32% 35%, rgba(74, 222, 128, 0.12), transparent 18%),
+        radial-gradient(circle at 70% 64%, rgba(59, 130, 246, 0.13), transparent 20%);
+      animation: memoryHaloBreath 7s ease-in-out infinite;
+    }
+
+    .memory-neural-field span {
+      position: absolute;
+      left: var(--x);
+      top: var(--y);
+      width: var(--s);
+      height: var(--s);
+      border-radius: 999px;
+      background: rgba(125, 211, 252, 0.78);
+      box-shadow: 0 0 18px rgba(125, 211, 252, 0.72);
+      animation: memorySynapseFloat var(--d) ease-in-out infinite;
+      animation-delay: var(--delay);
+    }
+
+    .memory-brain-cluster {
+      inset: 5% 7% 7%;
+      transform-origin: 50% 50%;
+      animation: memoryBrainSpin 64s linear infinite;
+      pointer-events: none;
+    }
+
+    .memory-brain-map:hover .memory-brain-cluster {
+      animation-play-state: paused;
+    }
+
+    .memory-brain-cluster .memory-link-layer {
+      inset: 0;
+    }
+
+    .memory-brain-cluster .memory-link {
+      stroke: rgba(125, 211, 252, 0.4);
+      stroke-width: 2.8;
+      stroke-dasharray: 10 12;
+      stroke-dashoffset: 0;
+      filter: drop-shadow(0 0 8px rgba(34, 211, 238, 0.44));
+      animation: memorySignalFlow 7s linear infinite;
+    }
+
+    .memory-brain-cluster .memory-link-hot {
+      stroke: rgba(74, 222, 128, 0.62);
+      stroke-width: 3.2;
+      stroke-dasharray: 2 10;
+    }
+
+    .memory-brain-ring {
+      fill: none;
+      stroke: rgba(191, 219, 254, 0.12);
+      stroke-width: 1.4;
+      stroke-dasharray: 4 12;
+    }
+
+    .memory-front-section .memory-node {
+      width: 194px;
+      min-height: 118px;
+      padding: 15px;
+      border-radius: 26px;
+      border-color: rgba(125, 211, 252, 0.25);
+      background:
+        linear-gradient(180deg, rgba(15, 23, 42, 0.8), rgba(15, 23, 42, 0.54)),
+        radial-gradient(circle at top left, rgba(34, 211, 238, 0.2), transparent 62%);
+      box-shadow: 0 20px 48px rgba(2, 6, 23, 0.38), inset 0 1px 0 rgba(255, 255, 255, 0.08);
+      backdrop-filter: blur(14px);
+      pointer-events: auto;
+    }
+
+    .memory-front-section .memory-node:hover,
+    .memory-front-section .memory-node.is-active {
+      border-color: rgba(103, 232, 249, 0.8);
+      transform: translate(-50%, -52%) scale(1.05);
+      box-shadow: 0 28px 64px rgba(14, 165, 233, 0.28), 0 0 0 1px rgba(103, 232, 249, 0.18);
+    }
+
+    .memory-front-section .memory-node-core {
+      width: 242px;
+      min-height: 138px;
+      border-color: rgba(74, 222, 128, 0.56);
+      background:
+        radial-gradient(circle at 48% 0%, rgba(74, 222, 128, 0.3), transparent 58%),
+        linear-gradient(180deg, rgba(15, 23, 42, 0.84), rgba(20, 83, 45, 0.6));
+    }
+
+    .memory-node-content {
+      display: block;
+      animation: memoryBrainCounterSpin 64s linear infinite;
+    }
+
+    .memory-brain-map:hover .memory-node-content {
+      animation-play-state: paused;
+    }
+
+    .memory-front-section .memory-node-title {
+      font-size: 1.03rem;
+    }
+
+    .memory-front-section .memory-node-meta {
+      color: rgba(226, 232, 240, 0.76);
+    }
+
+    .memory-graph-popover {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      z-index: 9;
+      width: min(470px, calc(100% - 64px));
+      padding: 18px;
+      border-radius: 26px;
+      border: 1px solid rgba(191, 219, 254, 0.2);
+      background: rgba(2, 6, 23, 0.7);
+      color: rgba(226, 232, 240, 0.86);
+      box-shadow: 0 24px 70px rgba(2, 6, 23, 0.46);
+      backdrop-filter: blur(18px);
+      transform: translate(-50%, -50%);
+      transition: top 0.26s ease, right 0.26s ease, bottom 0.26s ease, left 0.26s ease, transform 0.26s ease;
+    }
+
+    .memory-graph-popover[data-active-node="ctrlworld-lamo"] {
+      top: auto;
+      right: 32px;
+      bottom: 32px;
+      left: auto;
+      transform: none;
+    }
+
+    .memory-graph-popover[data-active-node="robocoin"] {
+      top: auto;
+      right: auto;
+      bottom: 32px;
+      left: 32px;
+      transform: none;
+    }
+
+    .memory-graph-popover[data-active-node="robolab-rl"] {
+      top: 32px;
+      right: 32px;
+      bottom: auto;
+      left: auto;
+      transform: none;
+    }
+
+    .memory-graph-popover[data-active-node="franka-real"] {
+      top: 32px;
+      right: auto;
+      bottom: auto;
+      left: 32px;
+      transform: none;
+    }
+
+    .memory-graph-popover[data-active-node="dino-rep"] {
+      top: auto;
+      right: auto;
+      bottom: 32px;
+      left: 50%;
+      transform: translateX(-50%);
+    }
+
+    .memory-graph-popover[data-active-node="claim-gate"] {
+      top: 32px;
+      right: auto;
+      bottom: auto;
+      left: 50%;
+      transform: translateX(-50%);
+    }
+
+    .memory-graph-popover .memory-inspector-top {
+      margin-bottom: 12px;
+    }
+
+    .memory-graph-popover .memory-inspector-title {
+      color: #ffffff;
+      font-size: 1.22rem;
+    }
+
+    .memory-graph-popover .memory-inspector-date {
+      color: #cffafe;
+      background: rgba(14, 165, 233, 0.18);
+    }
+
+    .memory-graph-popover .memory-inspector-status {
+      color: rgba(226, 232, 240, 0.74);
+      font-size: 0.86rem;
+    }
+
+    .memory-graph-popover .memory-fact-grid {
+      grid-template-columns: 1fr;
+      margin-bottom: 12px;
+    }
+
+    .memory-graph-popover .memory-fact {
+      padding: 10px 11px;
+      border-color: rgba(148, 163, 184, 0.18);
+      background: rgba(15, 23, 42, 0.58);
+    }
+
+    .memory-graph-popover .memory-fact-label {
+      color: rgba(147, 197, 253, 0.78);
+      font-size: 0.68rem;
+    }
+
+    .memory-graph-popover .memory-fact-value {
+      color: rgba(248, 250, 252, 0.92);
+      font-size: 0.82rem;
+    }
+
+    .memory-graph-popover .memory-skill-heading {
+      margin: 12px 0 8px;
+    }
+
+    .memory-graph-popover .memory-skill-heading h4 {
+      color: #ffffff;
+    }
+
+    .memory-graph-popover .memory-skill-heading span {
+      color: rgba(226, 232, 240, 0.58);
+    }
+
+    .memory-graph-popover .memory-skill-card {
+      border-color: rgba(148, 163, 184, 0.18);
+      background: rgba(15, 23, 42, 0.66);
+      color: rgba(226, 232, 240, 0.72);
+    }
+
+    .memory-graph-popover .memory-skill-card:hover,
+    .memory-graph-popover .memory-skill-card.is-active {
+      border-color: rgba(74, 222, 128, 0.44);
+      background: rgba(20, 83, 45, 0.36);
+    }
+
+    .memory-graph-popover .memory-skill-card strong {
+      color: #ffffff;
+    }
+
+    .memory-graph-popover .memory-doc-preview {
+      margin-top: 12px;
+      padding: 14px;
+      border: 1px solid rgba(125, 211, 252, 0.14);
+      background: rgba(15, 23, 42, 0.72);
+    }
+
+    .memory-graph-popover .memory-doc-preview ul {
+      display: none;
+    }
+
+    @keyframes memoryBrainSpin {
+      from { transform: rotate(0deg); }
+      to { transform: rotate(360deg); }
+    }
+
+    @keyframes memoryBrainCounterSpin {
+      from { transform: rotate(0deg); }
+      to { transform: rotate(-360deg); }
+    }
+
+    @keyframes memorySignalFlow {
+      from { stroke-dashoffset: 0; }
+      to { stroke-dashoffset: -160; }
+    }
+
+    @keyframes memorySynapseFloat {
+      0%, 100% { opacity: 0.28; transform: translate3d(0, 0, 0) scale(0.85); }
+      50% { opacity: 0.95; transform: translate3d(10px, -16px, 0) scale(1.18); }
+    }
+
+    @keyframes memoryHaloBreath {
+      0%, 100% { opacity: 0.55; transform: scale(0.96); }
+      50% { opacity: 0.95; transform: scale(1.04); }
+    }
+
+    @keyframes memoryBrainPulse {
+      0%, 100% { opacity: 0.42; transform: scale(0.98) rotate(-2deg); }
+      50% { opacity: 0.8; transform: scale(1.03) rotate(2deg); }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .memory-brain-cluster,
+      .memory-node-content,
+      .memory-brain-glow,
+      .memory-brain-stage::before,
+      .memory-brain-stage::after,
+      .memory-neural-field span,
+      .memory-brain-cluster .memory-link {
+        animation: none !important;
+      }
+    }
+
     .skill-example-shell {
       max-width: 1120px;
       margin: 22px auto 0;
@@ -1496,6 +1895,46 @@
         grid-template-columns: 1fr;
       }
 
+      .memory-front-section .container.is-max-desktop {
+        max-width: calc(100vw - 28px);
+      }
+
+      .memory-brain-map {
+        overflow: auto;
+        min-height: 720px;
+      }
+
+      .memory-brain-stage {
+        min-width: 880px;
+        min-height: 720px;
+      }
+
+      .memory-brain-label {
+        top: 20px;
+        left: 22px;
+      }
+
+      .memory-front-section .memory-node {
+        width: 168px;
+        min-height: 104px;
+        padding: 13px;
+      }
+
+      .memory-front-section .memory-node-core {
+        width: 208px;
+        min-height: 126px;
+      }
+
+      .memory-graph-popover,
+      .memory-graph-popover[data-active-node] {
+        top: auto;
+        right: 20px;
+        bottom: 20px;
+        left: 20px;
+        width: auto;
+        transform: none;
+      }
+
       .skill-example-header,
       .skill-example-footer {
         flex-direction: column;
@@ -1522,6 +1961,39 @@
       .publication-title {
         font-size: clamp(2rem, 9vw, 2.55rem) !important;
       }
+
+      .memory-front-section {
+        padding-top: 1rem;
+      }
+
+      .memory-brain-panel,
+      .memory-brain-map {
+        border-radius: 28px;
+      }
+
+      .memory-brain-map {
+        min-height: 660px;
+      }
+
+      .memory-brain-stage {
+        min-width: 780px;
+        min-height: 660px;
+      }
+
+      .memory-graph-popover,
+      .memory-graph-popover[data-active-node] {
+        top: auto;
+        right: 16px;
+        bottom: 16px;
+        left: 16px;
+        width: auto;
+        padding: 14px;
+        transform: none;
+      }
+
+      .memory-graph-popover .memory-fact-grid {
+        display: none;
+      }
     }
   </style>
 </head>
@@ -1532,8 +2004,8 @@
       <div class="scroll-progress-bar" id="scroll-progress-bar"></div>
     </div>
     <nav class="section-nav" aria-label="Page navigation">
-      <a class="section-nav-link is-active" href="#overview-section" data-target="overview-section"><span class="section-nav-index">01</span><span>Overview</span></a>
-      <a class="section-nav-link" href="#memory-graph-section" data-target="memory-graph-section"><span class="section-nav-index">02</span><span>Memory Graph</span></a>
+      <a class="section-nav-link is-active" href="#memory-graph-section" data-target="memory-graph-section"><span class="section-nav-index">01</span><span>Memory Graph</span></a>
+      <a class="section-nav-link" href="#overview-section" data-target="overview-section"><span class="section-nav-index">02</span><span>Overview</span></a>
       <a class="section-nav-link" href="#pipeline-section" data-target="pipeline-section"><span class="section-nav-index">03</span><span>Pipeline</span></a>
       <a class="section-nav-link" href="#active-learning-section" data-target="active-learning-section"><span class="section-nav-index">04</span><span>Active Learning</span></a>
       <a class="section-nav-link" href="#evaluation-section" data-target="evaluation-section"><span class="section-nav-index">05</span><span>Evaluation</span></a>
@@ -1569,11 +2041,158 @@
             </div>
 
             <div class="has-text-centered">
-              <a class="hero-scroll-cue" href="#overview-section" aria-label="Scroll to overview">
+              <a class="hero-scroll-cue" href="#memory-graph-section" aria-label="Scroll to memory graph">
                 <span>Scroll</span>
                 <span class="hero-scroll-arrow" aria-hidden="true"></span>
               </a>
             </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section page-section memory-front-section" id="memory-graph-section">
+    <div class="container is-max-desktop">
+      <div class="memory-system-panel memory-brain-panel">
+        <div class="memory-map memory-brain-map" aria-label="Animated clickable WorldClaw research memory graph">
+          <div class="memory-map-inner memory-brain-stage">
+            <div class="memory-brain-glow" aria-hidden="true"></div>
+            <div class="memory-brain-label">
+              <i class="fas fa-brain" aria-hidden="true"></i>
+              Agent Knowledge Core
+            </div>
+            <div class="memory-neural-field" aria-hidden="true">
+              <span style="--x: 13%; --y: 20%; --s: 7px; --d: 6s; --delay: -1s;"></span>
+              <span style="--x: 24%; --y: 72%; --s: 5px; --d: 7s; --delay: -3s;"></span>
+              <span style="--x: 32%; --y: 31%; --s: 9px; --d: 8s; --delay: -4s;"></span>
+              <span style="--x: 45%; --y: 14%; --s: 6px; --d: 6.5s; --delay: -2s;"></span>
+              <span style="--x: 56%; --y: 67%; --s: 8px; --d: 7.5s; --delay: -5s;"></span>
+              <span style="--x: 68%; --y: 27%; --s: 5px; --d: 6.8s; --delay: -2.5s;"></span>
+              <span style="--x: 78%; --y: 75%; --s: 8px; --d: 8.2s; --delay: -6s;"></span>
+              <span style="--x: 86%; --y: 38%; --s: 6px; --d: 7.2s; --delay: -3.5s;"></span>
+              <span style="--x: 18%; --y: 49%; --s: 4px; --d: 6.2s; --delay: -1.8s;"></span>
+              <span style="--x: 39%; --y: 84%; --s: 5px; --d: 7.8s; --delay: -5.2s;"></span>
+              <span style="--x: 62%; --y: 45%; --s: 7px; --d: 6.9s; --delay: -4.2s;"></span>
+              <span style="--x: 91%; --y: 62%; --s: 5px; --d: 8.5s; --delay: -6.3s;"></span>
+            </div>
+
+            <div class="memory-brain-cluster">
+              <svg class="memory-link-layer" viewBox="0 0 1000 740" preserveAspectRatio="none" aria-hidden="true">
+                <ellipse class="memory-brain-ring" cx="500" cy="370" rx="345" ry="245"></ellipse>
+                <ellipse class="memory-brain-ring" cx="500" cy="370" rx="250" ry="325" transform="rotate(90 500 370)"></ellipse>
+                <path class="memory-link" d="M 500 370 C 390 270, 304 210, 190 155"></path>
+                <path class="memory-link" d="M 500 370 C 500 250, 500 170, 500 104"></path>
+                <path class="memory-link" d="M 500 370 C 612 270, 710 222, 815 165"></path>
+                <path class="memory-link" d="M 500 370 C 380 438, 308 515, 205 590"></path>
+                <path class="memory-link" d="M 500 370 C 626 448, 718 520, 810 590"></path>
+                <path class="memory-link memory-link-hot" d="M 500 370 C 500 482, 500 590, 500 680"></path>
+                <path class="memory-link" d="M 190 155 C 350 58, 660 54, 815 165"></path>
+                <path class="memory-link" d="M 205 590 C 342 700, 662 700, 810 590"></path>
+                <path class="memory-link memory-link-hot" d="M 190 155 C 262 342, 312 472, 205 590"></path>
+                <path class="memory-link" d="M 815 165 C 732 340, 704 470, 810 590"></path>
+              </svg>
+
+              <button class="memory-node memory-node-core is-active" type="button" data-memory-node="core" style="--x: 50%; --y: 50%;">
+                <span class="memory-node-content">
+                  <span class="memory-node-date">Persistent</span>
+                  <span class="memory-node-title">Evidence-Licensed Memory</span>
+                  <span class="memory-node-meta">Action -> receipt -> claim frontier</span>
+                </span>
+              </button>
+              <button class="memory-node" type="button" data-memory-node="ctrlworld-lamo" style="--x: 19%; --y: 21%;">
+                <span class="memory-node-content">
+                  <span class="memory-node-date">2026-06-15</span>
+                  <span class="memory-node-title">CtrlWorld + LaMo Fusion</span>
+                  <span class="memory-node-meta">Latent motion prior / drift loss</span>
+                </span>
+              </button>
+              <button class="memory-node" type="button" data-memory-node="dino-rep" style="--x: 50%; --y: 14%;">
+                <span class="memory-node-content">
+                  <span class="memory-node-date">2026-06-16</span>
+                  <span class="memory-node-title">COSMOS3 DINO-REP Plan</span>
+                  <span class="memory-node-meta">Depth-motion repair with REP tokens</span>
+                </span>
+              </button>
+              <button class="memory-node" type="button" data-memory-node="robocoin" style="--x: 81%; --y: 22%;">
+                <span class="memory-node-content">
+                  <span class="memory-node-date">2026-07-02</span>
+                  <span class="memory-node-title">RoboCOIN Transfer</span>
+                  <span class="memory-node-meta">Agilex Cobot Magic adaptation</span>
+                </span>
+              </button>
+              <button class="memory-node" type="button" data-memory-node="robolab-rl" style="--x: 21%; --y: 80%;">
+                <span class="memory-node-content">
+                  <span class="memory-node-date">2026-07-22</span>
+                  <span class="memory-node-title">RoboLab120 Policy RL</span>
+                  <span class="memory-node-meta">Reward-bound success contract</span>
+                </span>
+              </button>
+              <button class="memory-node" type="button" data-memory-node="franka-real" style="--x: 81%; --y: 80%;">
+                <span class="memory-node-content">
+                  <span class="memory-node-date">2026-07-27</span>
+                  <span class="memory-node-title">FRANKA Real-Robot Trials</span>
+                  <span class="memory-node-meta">Stack / fold / drawer transfer</span>
+                </span>
+              </button>
+              <button class="memory-node" type="button" data-memory-node="claim-gate" style="--x: 50%; --y: 92%;">
+                <span class="memory-node-content">
+                  <span class="memory-node-date">Gate</span>
+                  <span class="memory-node-title">Frozen Verifier</span>
+                  <span class="memory-node-meta">Evidence before conclusion</span>
+                </span>
+              </button>
+            </div>
+
+            <aside class="memory-graph-popover" data-active-node="core" aria-live="polite">
+              <div class="memory-inspector-top">
+                <h3 class="memory-inspector-title" id="memory-node-title">Evidence-Licensed Memory</h3>
+                <span class="memory-inspector-date" id="memory-node-date">Persistent</span>
+              </div>
+              <p class="memory-inspector-status" id="memory-node-status">
+                WorldClaw stores actions, receipts, model context, and claim boundaries
+                so later decisions are grounded in evidence rather than free-form reflection.
+              </p>
+              <div class="memory-fact-grid">
+                <div class="memory-fact">
+                  <span class="memory-fact-label">Model / Architecture</span>
+                  <div class="memory-fact-value" id="memory-node-model">Evidence control plane over world-model runs</div>
+                </div>
+                <div class="memory-fact">
+                  <span class="memory-fact-label">Dataset / Embodiment</span>
+                  <div class="memory-fact-value" id="memory-node-dataset">Run receipts, replay artifacts, metrics, and patches</div>
+                </div>
+                <div class="memory-fact">
+                  <span class="memory-fact-label">Intervention</span>
+                  <div class="memory-fact-value" id="memory-node-intervention">Claim licensing before reuse</div>
+                </div>
+                <div class="memory-fact">
+                  <span class="memory-fact-label">Evidence</span>
+                  <div class="memory-fact-value" id="memory-node-evidence">Traceable action -> artifact -> claim chain</div>
+                </div>
+              </div>
+              <div class="memory-skill-heading">
+                <h4>Skill Documents</h4>
+                <span>Click to inspect</span>
+              </div>
+              <div class="memory-skill-list" id="memory-skill-list"></div>
+              <div class="memory-doc-preview">
+                <span class="memory-doc-type" id="memory-doc-type">Skill Document</span>
+                <h4 id="memory-doc-title">WorldClaw Research Memory Graph</h4>
+                <p id="memory-doc-summary">
+                  A project-page memory graph that indexes experiments by model,
+                  dataset, intervention, and evidence gate.
+                </p>
+                <ul id="memory-doc-points">
+                  <li>Click a graph node to switch the knowledge base.</li>
+                  <li>Click a skill card to open the relevant procedure.</li>
+                </ul>
+                <a class="memory-doc-link" id="memory-doc-link" href="assets/docs/worldclaw-memory-graph.md" target="_blank" rel="noopener">
+                  <span>Open document</span>
+                  <i class="fas fa-up-right-from-square" aria-hidden="true"></i>
+                </a>
+              </div>
+            </aside>
           </div>
         </div>
       </div>
@@ -1732,156 +2351,6 @@
               </p>
             </div>
           </article>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <section class="section page-section" id="memory-graph-section">
-    <div class="container is-max-desktop">
-      <div class="memory-system-panel">
-        <div class="memory-system-header">
-          <div>
-            <span class="memory-system-kicker">
-              <i class="fas fa-network-wired" aria-hidden="true"></i>
-              Research Memory System
-            </span>
-            <h2 class="memory-system-title">Clickable Knowledge Graph for World-Model Research</h2>
-            <p class="memory-system-copy">
-              Each node is a reusable research memory: time, target model, dataset,
-              architecture change, evidence gate, and skill document. Click a node
-              to open its knowledge base; click a skill card to inspect the concrete
-              procedure behind that memory.
-            </p>
-          </div>
-          <div class="memory-system-stats" aria-label="Memory graph summary">
-            <div class="memory-stat">
-              <strong>7</strong>
-              <span>Memory Nodes</span>
-            </div>
-            <div class="memory-stat">
-              <strong>7</strong>
-              <span>Skill Docs</span>
-            </div>
-            <div class="memory-stat">
-              <strong>3</strong>
-              <span>Model Families</span>
-            </div>
-          </div>
-        </div>
-
-        <div class="memory-graph-workspace">
-          <div class="memory-map" aria-label="Interactive WorldClaw research memory graph">
-            <div class="memory-map-inner">
-              <svg class="memory-link-layer" viewBox="0 0 1000 650" preserveAspectRatio="none" aria-hidden="true">
-                <path class="memory-link" d="M 500 320 C 390 260, 300 220, 190 155"></path>
-                <path class="memory-link" d="M 500 320 C 500 230, 500 170, 500 110"></path>
-                <path class="memory-link" d="M 500 320 C 612 260, 710 218, 815 165"></path>
-                <path class="memory-link" d="M 500 320 C 388 382, 306 444, 205 510"></path>
-                <path class="memory-link" d="M 500 320 C 622 386, 716 448, 810 510"></path>
-                <path class="memory-link memory-link-hot" d="M 500 320 C 500 410, 500 485, 500 555"></path>
-                <path class="memory-link" d="M 205 510 C 330 595, 670 595, 810 510"></path>
-              </svg>
-
-              <button class="memory-node memory-node-core is-active" type="button" data-memory-node="core" style="--x: 50%; --y: 49%;">
-                <span class="memory-node-date">Persistent</span>
-                <span class="memory-node-title">Evidence-Licensed Memory</span>
-                <span class="memory-node-meta">Action -> receipt -> claim frontier</span>
-              </button>
-              <button class="memory-node" type="button" data-memory-node="ctrlworld-lamo" style="--x: 20%; --y: 24%;">
-                <span class="memory-node-date">2026-06-15</span>
-                <span class="memory-node-title">CtrlWorld + LaMo Fusion</span>
-                <span class="memory-node-meta">Latent motion prior / drift loss</span>
-              </button>
-              <button class="memory-node" type="button" data-memory-node="dino-rep" style="--x: 50%; --y: 18%;">
-                <span class="memory-node-date">2026-06-16</span>
-                <span class="memory-node-title">COSMOS3 DINO-REP Plan</span>
-                <span class="memory-node-meta">Depth-motion repair with REP tokens</span>
-              </button>
-              <button class="memory-node" type="button" data-memory-node="robocoin" style="--x: 80%; --y: 25%;">
-                <span class="memory-node-date">2026-07-02</span>
-                <span class="memory-node-title">RoboCOIN Transfer</span>
-                <span class="memory-node-meta">Agilex Cobot Magic adaptation</span>
-              </button>
-              <button class="memory-node" type="button" data-memory-node="robolab-rl" style="--x: 22%; --y: 78%;">
-                <span class="memory-node-date">2026-07-22</span>
-                <span class="memory-node-title">RoboLab120 Policy RL</span>
-                <span class="memory-node-meta">Reward-bound success contract</span>
-              </button>
-              <button class="memory-node" type="button" data-memory-node="franka-real" style="--x: 80%; --y: 78%;">
-                <span class="memory-node-date">2026-07-27</span>
-                <span class="memory-node-title">FRANKA Real-Robot Trials</span>
-                <span class="memory-node-meta">Stack / fold / drawer transfer</span>
-              </button>
-              <button class="memory-node" type="button" data-memory-node="claim-gate" style="--x: 50%; --y: 88%;">
-                <span class="memory-node-date">Gate</span>
-                <span class="memory-node-title">Frozen Verifier</span>
-                <span class="memory-node-meta">Evidence before conclusion</span>
-              </button>
-            </div>
-          </div>
-
-          <aside class="memory-inspector" aria-live="polite">
-            <div class="memory-inspector-main">
-              <div class="memory-inspector-top">
-                <h3 class="memory-inspector-title" id="memory-node-title">Evidence-Licensed Memory</h3>
-                <span class="memory-inspector-date" id="memory-node-date">Persistent</span>
-              </div>
-              <p class="memory-inspector-status" id="memory-node-status">
-                WorldClaw stores actions, receipts, model context, and claim boundaries
-                so later decisions are grounded in evidence rather than free-form reflection.
-              </p>
-              <div class="memory-fact-grid">
-                <div class="memory-fact">
-                  <span class="memory-fact-label">Model / Architecture</span>
-                  <div class="memory-fact-value" id="memory-node-model">Evidence control plane over world-model runs</div>
-                </div>
-                <div class="memory-fact">
-                  <span class="memory-fact-label">Dataset / Embodiment</span>
-                  <div class="memory-fact-value" id="memory-node-dataset">Run receipts, replay artifacts, metrics, and patches</div>
-                </div>
-                <div class="memory-fact">
-                  <span class="memory-fact-label">Intervention</span>
-                  <div class="memory-fact-value" id="memory-node-intervention">Claim licensing before reuse</div>
-                </div>
-                <div class="memory-fact">
-                  <span class="memory-fact-label">Evidence</span>
-                  <div class="memory-fact-value" id="memory-node-evidence">Traceable action -> artifact -> claim chain</div>
-                </div>
-              </div>
-
-              <div class="memory-skill-heading">
-                <h4>Skill / Trace Documents</h4>
-                <span>Click to inspect</span>
-              </div>
-              <div class="memory-skill-list" id="memory-skill-list"></div>
-
-              <div class="memory-doc-preview">
-                <span class="memory-doc-type" id="memory-doc-type">Skill Document</span>
-                <h4 id="memory-doc-title">WorldClaw Research Memory Graph</h4>
-                <p id="memory-doc-summary">
-                  A project-page memory graph that indexes experiments by model,
-                  dataset, intervention, and evidence gate.
-                </p>
-                <ul id="memory-doc-points">
-                  <li>Click a graph node to switch the knowledge base.</li>
-                  <li>Click a skill card to open the relevant procedure.</li>
-                </ul>
-                <a class="memory-doc-link" id="memory-doc-link" href="assets/docs/worldclaw-memory-graph.md" target="_blank" rel="noopener">
-                  <span>Open document</span>
-                  <i class="fas fa-up-right-from-square" aria-hidden="true"></i>
-                </a>
-              </div>
-            </div>
-          </aside>
-        </div>
-
-        <div class="memory-timeline" aria-label="Research memory timeline">
-          <button type="button" data-memory-node="ctrlworld-lamo">Jun 15 / LaMo</button>
-          <button type="button" data-memory-node="dino-rep">Jun 16 / REP</button>
-          <button type="button" data-memory-node="robocoin">Jul 02 / RoboCOIN</button>
-          <button type="button" data-memory-node="robolab-rl">Jul 22 / RL</button>
-          <button type="button" data-memory-node="franka-real">Jul 27 / FRANKA</button>
         </div>
       </div>
     </div>
@@ -2894,6 +3363,9 @@
       document.querySelectorAll("[data-memory-node]").forEach((item) => {
         item.classList.toggle("is-active", item.dataset.memoryNode === nodeId);
       });
+
+      const popover = document.querySelector(".memory-graph-popover");
+      if (popover) popover.dataset.activeNode = nodeId;
 
       const skillList = document.getElementById("memory-skill-list");
       if (!skillList) return;
