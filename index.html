@@ -889,33 +889,42 @@
     }
 
     .memory-front-section {
+      position: relative;
+      overflow: hidden;
       padding-top: 1.5rem;
       padding-bottom: 3.6rem;
     }
 
+    .memory-front-section::before {
+      content: "";
+      position: absolute;
+      inset: -170px -12vw -80px;
+      pointer-events: none;
+      background:
+        radial-gradient(circle at 18% 22%, rgba(14, 165, 233, 0.14), transparent 31%),
+        radial-gradient(circle at 82% 18%, rgba(34, 197, 94, 0.12), transparent 29%),
+        radial-gradient(ellipse at 50% 54%, rgba(96, 165, 250, 0.13), transparent 48%);
+      filter: blur(2px);
+    }
+
     .memory-front-section .container.is-max-desktop {
+      position: relative;
+      z-index: 1;
       max-width: min(1540px, calc(100vw - 42px));
     }
 
     .memory-brain-panel {
+      overflow: visible;
       padding: 0;
-      border-radius: 42px;
-      border-color: rgba(125, 211, 252, 0.26);
-      background:
-        radial-gradient(circle at 18% 22%, rgba(34, 211, 238, 0.24), transparent 28%),
-        radial-gradient(circle at 76% 18%, rgba(74, 222, 128, 0.18), transparent 30%),
-        radial-gradient(circle at 50% 72%, rgba(96, 165, 250, 0.2), transparent 36%),
-        linear-gradient(135deg, #020617 0%, #071529 42%, #101f35 100%);
-      box-shadow: 0 34px 94px rgba(15, 23, 42, 0.36);
+      border: 0;
+      border-radius: 0;
+      background: transparent;
+      box-shadow: none;
+      color: var(--text-strong);
     }
 
     .memory-brain-panel::before {
-      opacity: 0.72;
-      background-image:
-        linear-gradient(rgba(125, 211, 252, 0.07) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(125, 211, 252, 0.07) 1px, transparent 1px);
-      background-size: 38px 38px;
-      mask-image: radial-gradient(circle at center, #000 18%, transparent 80%);
+      display: none;
     }
 
     .memory-brain-map {
@@ -923,11 +932,11 @@
       overflow: auto;
       min-height: 820px;
       border: 0;
-      border-radius: 42px;
+      border-radius: 0;
       background:
-        radial-gradient(ellipse at center, rgba(14, 165, 233, 0.18) 0%, rgba(15, 23, 42, 0.08) 38%, transparent 72%),
-        linear-gradient(180deg, rgba(2, 6, 23, 0.08), rgba(2, 6, 23, 0.28));
-      box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.1);
+        radial-gradient(ellipse at center, rgba(14, 165, 233, 0.11) 0%, rgba(191, 219, 254, 0.06) 37%, transparent 72%),
+        radial-gradient(circle at 44% 48%, rgba(74, 222, 128, 0.08), transparent 31%);
+      box-shadow: none;
       scrollbar-width: none;
     }
 
@@ -947,10 +956,10 @@
       position: absolute;
       inset: 9% 12%;
       border-radius: 48% 52% 46% 54% / 44% 47% 53% 56%;
-      border: 1px solid rgba(125, 211, 252, 0.14);
+      border: 1px solid rgba(37, 99, 235, 0.12);
       background:
-        radial-gradient(circle at 35% 42%, rgba(34, 211, 238, 0.13), transparent 24%),
-        radial-gradient(circle at 63% 46%, rgba(34, 197, 94, 0.1), transparent 25%);
+        radial-gradient(circle at 35% 42%, rgba(14, 165, 233, 0.1), transparent 24%),
+        radial-gradient(circle at 63% 46%, rgba(34, 197, 94, 0.08), transparent 25%);
       filter: blur(0.2px);
       animation: memoryBrainPulse 8s ease-in-out infinite;
       pointer-events: none;
@@ -958,7 +967,7 @@
 
     .memory-brain-stage::after {
       inset: 15% 19%;
-      border-color: rgba(74, 222, 128, 0.14);
+      border-color: rgba(22, 163, 74, 0.12);
       border-radius: 54% 46% 53% 47% / 50% 42% 58% 50%;
       animation-duration: 10s;
       animation-delay: -3s;
@@ -974,18 +983,19 @@
       gap: 10px;
       padding: 10px 14px;
       border-radius: 999px;
-      border: 1px solid rgba(191, 219, 254, 0.2);
-      background: rgba(15, 23, 42, 0.58);
-      color: rgba(226, 232, 240, 0.82);
+      border: 1px solid rgba(37, 99, 235, 0.14);
+      background: rgba(255, 255, 255, 0.72);
+      color: rgba(30, 41, 59, 0.76);
       font-size: 0.78rem;
       font-weight: 900;
       letter-spacing: 0.12em;
       text-transform: uppercase;
       backdrop-filter: blur(14px);
+      box-shadow: 0 16px 36px rgba(30, 64, 175, 0.08);
     }
 
     .memory-brain-label i {
-      color: #67e8f9;
+      color: #0284c7;
     }
 
     .memory-neural-field,
@@ -998,9 +1008,9 @@
 
     .memory-brain-glow {
       background:
-        radial-gradient(circle at 50% 50%, rgba(125, 211, 252, 0.2), transparent 24%),
+        radial-gradient(circle at 50% 50%, rgba(125, 211, 252, 0.18), transparent 24%),
         radial-gradient(circle at 32% 35%, rgba(74, 222, 128, 0.12), transparent 18%),
-        radial-gradient(circle at 70% 64%, rgba(59, 130, 246, 0.13), transparent 20%);
+        radial-gradient(circle at 70% 64%, rgba(59, 130, 246, 0.1), transparent 20%);
       animation: memoryHaloBreath 7s ease-in-out infinite;
     }
 
@@ -1011,8 +1021,8 @@
       width: var(--s);
       height: var(--s);
       border-radius: 999px;
-      background: rgba(125, 211, 252, 0.78);
-      box-shadow: 0 0 18px rgba(125, 211, 252, 0.72);
+      background: rgba(14, 165, 233, 0.58);
+      box-shadow: 0 0 20px rgba(14, 165, 233, 0.35);
       animation: memorySynapseFloat var(--d) ease-in-out infinite;
       animation-delay: var(--delay);
     }
@@ -1033,23 +1043,23 @@
     }
 
     .memory-brain-cluster .memory-link {
-      stroke: rgba(125, 211, 252, 0.4);
+      stroke: rgba(37, 99, 235, 0.26);
       stroke-width: 2.8;
       stroke-dasharray: 10 12;
       stroke-dashoffset: 0;
-      filter: drop-shadow(0 0 8px rgba(34, 211, 238, 0.44));
+      filter: drop-shadow(0 0 8px rgba(59, 130, 246, 0.18));
       animation: memorySignalFlow 7s linear infinite;
     }
 
     .memory-brain-cluster .memory-link-hot {
-      stroke: rgba(74, 222, 128, 0.62);
+      stroke: rgba(22, 163, 74, 0.42);
       stroke-width: 3.2;
       stroke-dasharray: 2 10;
     }
 
     .memory-brain-ring {
       fill: none;
-      stroke: rgba(191, 219, 254, 0.12);
+      stroke: rgba(37, 99, 235, 0.1);
       stroke-width: 1.4;
       stroke-dasharray: 4 12;
     }
@@ -1059,29 +1069,29 @@
       min-height: 118px;
       padding: 15px;
       border-radius: 26px;
-      border-color: rgba(125, 211, 252, 0.25);
+      border-color: rgba(37, 99, 235, 0.14);
       background:
-        linear-gradient(180deg, rgba(15, 23, 42, 0.8), rgba(15, 23, 42, 0.54)),
-        radial-gradient(circle at top left, rgba(34, 211, 238, 0.2), transparent 62%);
-      box-shadow: 0 20px 48px rgba(2, 6, 23, 0.38), inset 0 1px 0 rgba(255, 255, 255, 0.08);
+        linear-gradient(180deg, rgba(255, 255, 255, 0.86), rgba(255, 255, 255, 0.62)),
+        radial-gradient(circle at top left, rgba(14, 165, 233, 0.12), transparent 62%);
+      box-shadow: 0 20px 52px rgba(30, 64, 175, 0.12), inset 0 1px 0 rgba(255, 255, 255, 0.72);
       backdrop-filter: blur(14px);
       pointer-events: auto;
     }
 
     .memory-front-section .memory-node:hover,
     .memory-front-section .memory-node.is-active {
-      border-color: rgba(103, 232, 249, 0.8);
+      border-color: rgba(14, 165, 233, 0.45);
       transform: translate(-50%, -52%) scale(1.05);
-      box-shadow: 0 28px 64px rgba(14, 165, 233, 0.28), 0 0 0 1px rgba(103, 232, 249, 0.18);
+      box-shadow: 0 28px 70px rgba(14, 165, 233, 0.18), 0 0 0 1px rgba(14, 165, 233, 0.12);
     }
 
     .memory-front-section .memory-node-core {
       width: 242px;
       min-height: 138px;
-      border-color: rgba(74, 222, 128, 0.56);
+      border-color: rgba(22, 163, 74, 0.22);
       background:
-        radial-gradient(circle at 48% 0%, rgba(74, 222, 128, 0.3), transparent 58%),
-        linear-gradient(180deg, rgba(15, 23, 42, 0.84), rgba(20, 83, 45, 0.6));
+        radial-gradient(circle at 48% 0%, rgba(74, 222, 128, 0.16), transparent 58%),
+        linear-gradient(180deg, rgba(255, 255, 255, 0.9), rgba(240, 253, 244, 0.72));
     }
 
     .memory-node-content {
@@ -1094,11 +1104,16 @@
     }
 
     .memory-front-section .memory-node-title {
+      color: var(--text-strong);
       font-size: 1.03rem;
     }
 
+    .memory-front-section .memory-node-date {
+      color: #2563eb;
+    }
+
     .memory-front-section .memory-node-meta {
-      color: rgba(226, 232, 240, 0.76);
+      color: rgba(71, 85, 105, 0.78);
     }
 
     .memory-graph-popover {
@@ -1109,10 +1124,10 @@
       width: min(470px, calc(100% - 64px));
       padding: 18px;
       border-radius: 26px;
-      border: 1px solid rgba(191, 219, 254, 0.2);
-      background: rgba(2, 6, 23, 0.7);
-      color: rgba(226, 232, 240, 0.86);
-      box-shadow: 0 24px 70px rgba(2, 6, 23, 0.46);
+      border: 1px solid rgba(37, 99, 235, 0.12);
+      background: rgba(255, 255, 255, 0.78);
+      color: var(--text-strong);
+      box-shadow: 0 28px 80px rgba(30, 64, 175, 0.16);
       backdrop-filter: blur(18px);
       transform: translate(-50%, -50%);
       transition: top 0.26s ease, right 0.26s ease, bottom 0.26s ease, left 0.26s ease, transform 0.26s ease;
@@ -1171,17 +1186,17 @@
     }
 
     .memory-graph-popover .memory-inspector-title {
-      color: #ffffff;
+      color: var(--text-strong);
       font-size: 1.22rem;
     }
 
     .memory-graph-popover .memory-inspector-date {
-      color: #cffafe;
-      background: rgba(14, 165, 233, 0.18);
+      color: #0369a1;
+      background: rgba(14, 165, 233, 0.1);
     }
 
     .memory-graph-popover .memory-inspector-status {
-      color: rgba(226, 232, 240, 0.74);
+      color: rgba(71, 85, 105, 0.82);
       font-size: 0.86rem;
     }
 
@@ -1192,17 +1207,17 @@
 
     .memory-graph-popover .memory-fact {
       padding: 10px 11px;
-      border-color: rgba(148, 163, 184, 0.18);
-      background: rgba(15, 23, 42, 0.58);
+      border-color: rgba(148, 163, 184, 0.16);
+      background: rgba(248, 250, 252, 0.74);
     }
 
     .memory-graph-popover .memory-fact-label {
-      color: rgba(147, 197, 253, 0.78);
+      color: rgba(37, 99, 235, 0.76);
       font-size: 0.68rem;
     }
 
     .memory-graph-popover .memory-fact-value {
-      color: rgba(248, 250, 252, 0.92);
+      color: rgba(15, 23, 42, 0.88);
       font-size: 0.82rem;
     }
 
@@ -1211,34 +1226,51 @@
     }
 
     .memory-graph-popover .memory-skill-heading h4 {
-      color: #ffffff;
+      color: var(--text-strong);
     }
 
     .memory-graph-popover .memory-skill-heading span {
-      color: rgba(226, 232, 240, 0.58);
+      color: rgba(100, 116, 139, 0.82);
     }
 
     .memory-graph-popover .memory-skill-card {
       border-color: rgba(148, 163, 184, 0.18);
-      background: rgba(15, 23, 42, 0.66);
-      color: rgba(226, 232, 240, 0.72);
+      background: rgba(255, 255, 255, 0.7);
+      color: rgba(71, 85, 105, 0.86);
     }
 
     .memory-graph-popover .memory-skill-card:hover,
     .memory-graph-popover .memory-skill-card.is-active {
-      border-color: rgba(74, 222, 128, 0.44);
-      background: rgba(20, 83, 45, 0.36);
+      border-color: rgba(22, 163, 74, 0.24);
+      background: rgba(240, 253, 244, 0.82);
     }
 
     .memory-graph-popover .memory-skill-card strong {
-      color: #ffffff;
+      color: var(--text-strong);
     }
 
     .memory-graph-popover .memory-doc-preview {
       margin-top: 12px;
       padding: 14px;
-      border: 1px solid rgba(125, 211, 252, 0.14);
-      background: rgba(15, 23, 42, 0.72);
+      border: 1px solid rgba(37, 99, 235, 0.1);
+      background: linear-gradient(180deg, rgba(239, 246, 255, 0.88), rgba(255, 255, 255, 0.72));
+      color: rgba(71, 85, 105, 0.88);
+    }
+
+    .memory-graph-popover .memory-doc-type {
+      color: #2563eb;
+    }
+
+    .memory-graph-popover .memory-doc-preview h4 {
+      color: var(--text-strong);
+    }
+
+    .memory-graph-popover .memory-doc-preview p {
+      color: rgba(71, 85, 105, 0.88);
+    }
+
+    .memory-graph-popover .memory-doc-link {
+      color: #1d4ed8;
     }
 
     .memory-graph-popover .memory-doc-preview ul {
