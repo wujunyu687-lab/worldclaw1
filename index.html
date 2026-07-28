@@ -1185,6 +1185,7 @@
     .memory-sphere-shell {
       --sphere-size: 650px;
       --sphere-radius: 310px;
+      --sphere-core-size: calc(var(--sphere-size) - 136px);
       position: absolute;
       left: 50%;
       top: 51%;
@@ -1215,11 +1216,16 @@
       animation: memorySphereSpin 30s linear infinite;
       will-change: transform;
       pointer-events: none;
+      z-index: 2;
     }
 
     .memory-sphere-core {
       position: absolute;
-      inset: 68px;
+      left: 50%;
+      top: 50%;
+      width: var(--sphere-core-size);
+      height: var(--sphere-core-size);
+      z-index: 1;
       border-radius: 50%;
       background:
         radial-gradient(circle at 33% 28%, rgba(255, 255, 255, 0.95), rgba(255, 255, 255, 0.25) 20%, transparent 34%),
@@ -1230,7 +1236,8 @@
         inset 0 0 70px rgba(14, 165, 233, 0.16),
         inset -28px -20px 70px rgba(37, 99, 235, 0.12),
         0 0 86px rgba(14, 165, 233, 0.2);
-      transform: translateZ(-28px);
+      transform: translate(-50%, -50%) translateZ(-28px);
+      animation: memorySphereCoreBreathe 6s ease-in-out infinite;
       pointer-events: none;
     }
 
@@ -1260,16 +1267,16 @@
       pointer-events: none;
     }
 
-    .memory-sphere-ring:nth-of-type(2) {
+    .memory-sphere .memory-sphere-ring:nth-of-type(1) {
       transform: rotateX(68deg);
     }
 
-    .memory-sphere-ring:nth-of-type(3) {
+    .memory-sphere .memory-sphere-ring:nth-of-type(2) {
       transform: rotateY(68deg);
       border-color: rgba(14, 165, 233, 0.18);
     }
 
-    .memory-sphere-ring:nth-of-type(4) {
+    .memory-sphere .memory-sphere-ring:nth-of-type(3) {
       transform: rotateX(34deg) rotateY(52deg);
       border-color: rgba(34, 197, 94, 0.16);
     }
@@ -1462,6 +1469,23 @@
       100% { transform: rotateZ(0deg) rotateY(-360deg) rotateX(12deg) translateZ(18px); }
     }
 
+    @keyframes memorySphereCoreBreathe {
+      0%, 100% {
+        opacity: 0.92;
+        box-shadow:
+          inset 0 0 70px rgba(14, 165, 233, 0.16),
+          inset -28px -20px 70px rgba(37, 99, 235, 0.12),
+          0 0 86px rgba(14, 165, 233, 0.2);
+      }
+      50% {
+        opacity: 1;
+        box-shadow:
+          inset 0 0 82px rgba(14, 165, 233, 0.22),
+          inset -28px -20px 76px rgba(37, 99, 235, 0.16),
+          0 0 110px rgba(14, 165, 233, 0.28);
+      }
+    }
+
     @keyframes memorySignalFlow {
       from { stroke-dashoffset: 0; }
       to { stroke-dashoffset: -160; }
@@ -1492,6 +1516,7 @@
       .memory-brain-cluster,
       .memory-node-content,
       .memory-sphere,
+      .memory-sphere-core,
       .memory-sphere-node-content,
       .memory-brain-glow,
       .memory-brain-stage::before,
@@ -2322,8 +2347,8 @@
 
             <div class="memory-sphere-shell">
               <div class="memory-sphere-shadow" aria-hidden="true"></div>
+              <div class="memory-sphere-core" aria-hidden="true"></div>
               <div class="memory-sphere" aria-label="Rotating neural memory sphere">
-                <div class="memory-sphere-core" aria-hidden="true"></div>
                 <div class="memory-sphere-ring" aria-hidden="true"></div>
                 <div class="memory-sphere-ring" aria-hidden="true"></div>
                 <div class="memory-sphere-ring" aria-hidden="true"></div>
